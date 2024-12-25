@@ -13,6 +13,7 @@
 		B8E00C422D18FA0B00BD0C0E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8E00C412D18FA0B00BD0C0E /* Preview Assets.xcassets */; };
 		B8E00C4A2D18FAA500BD0C0E /* MatrixOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C492D18FAA400BD0C0E /* MatrixOperations.swift */; };
 		B8E00C502D1B8BF200BD0C0E /* MainScreenView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C4F2D1B8BF200BD0C0E /* MainScreenView1.swift */; };
+		B8E00C542D1BF71000BD0C0E /* MainScreenView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C532D1BF71000BD0C0E /* MainScreenView2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		B8E00C412D18FA0B00BD0C0E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B8E00C492D18FAA400BD0C0E /* MatrixOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixOperations.swift; sourceTree = "<group>"; };
 		B8E00C4F2D1B8BF200BD0C0E /* MainScreenView1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView1.swift; sourceTree = "<group>"; };
+		B8E00C532D1BF71000BD0C0E /* MainScreenView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				B8E00C3A2D18FA0300BD0C0E /* MatrixCalculatorV1App.swift */,
 				B8E00C3C2D18FA0300BD0C0E /* ContentView.swift */,
 				B8E00C4F2D1B8BF200BD0C0E /* MainScreenView1.swift */,
+				B8E00C532D1BF71000BD0C0E /* MainScreenView2.swift */,
 				B8E00C3E2D18FA0B00BD0C0E /* Assets.xcassets */,
 				B8E00C402D18FA0B00BD0C0E /* Preview Content */,
 			);
@@ -143,6 +146,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8E00C542D1BF71000BD0C0E /* MainScreenView2.swift in Sources */,
 				B8E00C3D2D18FA0300BD0C0E /* ContentView.swift in Sources */,
 				B8E00C502D1B8BF200BD0C0E /* MainScreenView1.swift in Sources */,
 				B8E00C3B2D18FA0300BD0C0E /* MatrixCalculatorV1App.swift in Sources */,
