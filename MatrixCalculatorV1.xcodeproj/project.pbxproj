@@ -12,11 +12,6 @@
 		B8E00C3F2D18FA0B00BD0C0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8E00C3E2D18FA0B00BD0C0E /* Assets.xcassets */; };
 		B8E00C422D18FA0B00BD0C0E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8E00C412D18FA0B00BD0C0E /* Preview Assets.xcassets */; };
 		B8E00C4A2D18FAA500BD0C0E /* MatrixOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C492D18FAA400BD0C0E /* MatrixOperations.swift */; };
-		B8E00C502D1B8BF200BD0C0E /* MainScreenView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C4F2D1B8BF200BD0C0E /* MainScreenView1.swift */; };
-		B8E00C542D1BF71000BD0C0E /* MainScreenView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C532D1BF71000BD0C0E /* MainScreenView2.swift */; };
-		B8E00C562D1BFB2200BD0C0E /* MainScreenView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C552D1BFB2200BD0C0E /* MainScreenView3.swift */; };
-		B8E00C582D1D0B6E00BD0C0E /* PlaygroundView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C572D1D0B6E00BD0C0E /* PlaygroundView1.swift */; };
-		B8E00C5A2D1D2FC900BD0C0E /* MainScreenView4.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C592D1D2FC900BD0C0E /* MainScreenView4.swift */; };
 		B8E00C5C2D1D359D00BD0C0E /* MainScreenView5.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C5B2D1D359D00BD0C0E /* MainScreenView5.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,11 +22,6 @@
 		B8E00C3E2D18FA0B00BD0C0E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B8E00C412D18FA0B00BD0C0E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B8E00C492D18FAA400BD0C0E /* MatrixOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixOperations.swift; sourceTree = "<group>"; };
-		B8E00C4F2D1B8BF200BD0C0E /* MainScreenView1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView1.swift; sourceTree = "<group>"; };
-		B8E00C532D1BF71000BD0C0E /* MainScreenView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView2.swift; sourceTree = "<group>"; };
-		B8E00C552D1BFB2200BD0C0E /* MainScreenView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView3.swift; sourceTree = "<group>"; };
-		B8E00C572D1D0B6E00BD0C0E /* PlaygroundView1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaygroundView1.swift; sourceTree = "<group>"; };
-		B8E00C592D1D2FC900BD0C0E /* MainScreenView4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView4.swift; sourceTree = "<group>"; };
 		B8E00C5B2D1D359D00BD0C0E /* MainScreenView5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView5.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,12 +58,7 @@
 			children = (
 				B8E00C3A2D18FA0300BD0C0E /* MatrixCalculatorV1App.swift */,
 				B8E00C3C2D18FA0300BD0C0E /* ContentView.swift */,
-				B8E00C4F2D1B8BF200BD0C0E /* MainScreenView1.swift */,
-				B8E00C552D1BFB2200BD0C0E /* MainScreenView3.swift */,
-				B8E00C572D1D0B6E00BD0C0E /* PlaygroundView1.swift */,
-				B8E00C592D1D2FC900BD0C0E /* MainScreenView4.swift */,
 				B8E00C5B2D1D359D00BD0C0E /* MainScreenView5.swift */,
-				B8E00C532D1BF71000BD0C0E /* MainScreenView2.swift */,
 				B8E00C3E2D18FA0B00BD0C0E /* Assets.xcassets */,
 				B8E00C402D18FA0B00BD0C0E /* Preview Content */,
 			);
@@ -159,13 +144,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8E00C5C2D1D359D00BD0C0E /* MainScreenView5.swift in Sources */,
-				B8E00C542D1BF71000BD0C0E /* MainScreenView2.swift in Sources */,
 				B8E00C3D2D18FA0300BD0C0E /* ContentView.swift in Sources */,
-				B8E00C502D1B8BF200BD0C0E /* MainScreenView1.swift in Sources */,
-				B8E00C562D1BFB2200BD0C0E /* MainScreenView3.swift in Sources */,
-				B8E00C5A2D1D2FC900BD0C0E /* MainScreenView4.swift in Sources */,
 				B8E00C3B2D18FA0300BD0C0E /* MatrixCalculatorV1App.swift in Sources */,
-				B8E00C582D1D0B6E00BD0C0E /* PlaygroundView1.swift in Sources */,
 				B8E00C4A2D18FAA500BD0C0E /* MatrixOperations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

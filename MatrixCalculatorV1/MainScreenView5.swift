@@ -8,9 +8,21 @@
 import SwiftUI
 
 struct MainScreenView5: View {
+    
+    let screenWidth = UIScreen.main.bounds.width
+    let screenHeight = UIScreen.main.bounds.height
+    
     var body: some View {
         ZStack {
-            Color.black.opacity(0.25)
+
+
+            Image("grid2")
+                .resizable()
+                .scaledToFill()
+                .frame(width: screenWidth, height: screenHeight)
+                .ignoresSafeArea()
+                .opacity(0.2)
+                            
             VStack {
                 Text("Menu")
                     .frame(maxWidth: .infinity)
@@ -23,9 +35,6 @@ struct MainScreenView5: View {
                             .foregroundStyle(.white)
                             .bold()
                     }
-                    
-
-                
                 VStack {
                     Button {
                         
@@ -58,10 +67,12 @@ struct MainScreenView5: View {
             .background(
                 RoundedRectangle(cornerRadius: 15)
                     .foregroundStyle(.gray.opacity(0.5))
-                    .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                    .shadow(radius: 10)
             )
             .padding()
             
+
+                
         }
         .ignoresSafeArea(.all)
         
