@@ -84,6 +84,9 @@ struct MainScreenView5: View {
 }
 
 struct ExampleButton6: ButtonStyle {
+    
+    var buttonOpacity = 0.4
+    
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             
@@ -92,7 +95,7 @@ struct ExampleButton6: ButtonStyle {
             .frame(maxWidth: .infinity)
             .background(
                 RoundedRectangle(cornerRadius: 10)
-                    .foregroundStyle(.black.opacity(0.6))
+                    .foregroundStyle(.black.opacity(buttonOpacity))
             )
             .font(.title.bold())
             
