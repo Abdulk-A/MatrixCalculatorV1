@@ -69,7 +69,7 @@ struct OperationsView: View {
                     Button {
                         
                     } label: {
-                        Text("Determinent")
+                        Text("Determinant")
                     }
                     .buttonStyle(ExampleButton6())
                     

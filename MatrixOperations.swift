@@ -27,6 +27,12 @@ struct Matrix {
         
         self.matrix = Array(repeating: Array(repeating: 0, count: row), count: row)
     }
+    
+    init(myMatrix: [[Double]]) {
+        self.matrix = myMatrix
+        self.numRow = myMatrix.count
+        self.numCol = myMatrix[0].count
+    }
 }
 
 

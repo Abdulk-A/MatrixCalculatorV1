@@ -14,6 +14,7 @@
 		B8E00C4A2D18FAA500BD0C0E /* MatrixOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C492D18FAA400BD0C0E /* MatrixOperations.swift */; };
 		B8E00C5C2D1D359D00BD0C0E /* MainScreenView5.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C5B2D1D359D00BD0C0E /* MainScreenView5.swift */; };
 		B8E00C622D1E297500BD0C0E /* OperationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C612D1E297400BD0C0E /* OperationsView.swift */; };
+		B8E00C642D1F41F000BD0C0E /* SingleMatrixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C632D1F41F000BD0C0E /* SingleMatrixView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		B8E00C492D18FAA400BD0C0E /* MatrixOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixOperations.swift; sourceTree = "<group>"; };
 		B8E00C5B2D1D359D00BD0C0E /* MainScreenView5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView5.swift; sourceTree = "<group>"; };
 		B8E00C612D1E297400BD0C0E /* OperationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationsView.swift; sourceTree = "<group>"; };
+		B8E00C632D1F41F000BD0C0E /* SingleMatrixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleMatrixView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				B8E00C3C2D18FA0300BD0C0E /* ContentView.swift */,
 				B8E00C5B2D1D359D00BD0C0E /* MainScreenView5.swift */,
 				B8E00C612D1E297400BD0C0E /* OperationsView.swift */,
+				B8E00C632D1F41F000BD0C0E /* SingleMatrixView.swift */,
 				B8E00C3E2D18FA0B00BD0C0E /* Assets.xcassets */,
 				B8E00C402D18FA0B00BD0C0E /* Preview Content */,
 			);
@@ -147,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8E00C5C2D1D359D00BD0C0E /* MainScreenView5.swift in Sources */,
+				B8E00C642D1F41F000BD0C0E /* SingleMatrixView.swift in Sources */,
 				B8E00C3D2D18FA0300BD0C0E /* ContentView.swift in Sources */,
 				B8E00C3B2D18FA0300BD0C0E /* MatrixCalculatorV1App.swift in Sources */,
 				B8E00C622D1E297500BD0C0E /* OperationsView.swift in Sources */,
