@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B85FB3932D33B41F0098F6E2 /* SingleMatrixView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85FB3922D33B41F0098F6E2 /* SingleMatrixView2.swift */; };
+		B85FB3952D350E1F0098F6E2 /* SingleMatrixView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85FB3942D350E1F0098F6E2 /* SingleMatrixView3.swift */; };
 		B8E00C3B2D18FA0300BD0C0E /* MatrixCalculatorV1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C3A2D18FA0300BD0C0E /* MatrixCalculatorV1App.swift */; };
 		B8E00C3D2D18FA0300BD0C0E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C3C2D18FA0300BD0C0E /* ContentView.swift */; };
 		B8E00C3F2D18FA0B00BD0C0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8E00C3E2D18FA0B00BD0C0E /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		B85FB3922D33B41F0098F6E2 /* SingleMatrixView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleMatrixView2.swift; sourceTree = "<group>"; };
+		B85FB3942D350E1F0098F6E2 /* SingleMatrixView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleMatrixView3.swift; sourceTree = "<group>"; };
 		B8E00C372D18FA0300BD0C0E /* MatrixCalculatorV1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MatrixCalculatorV1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8E00C3A2D18FA0300BD0C0E /* MatrixCalculatorV1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixCalculatorV1App.swift; sourceTree = "<group>"; };
 		B8E00C3C2D18FA0300BD0C0E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 				B8E00C612D1E297400BD0C0E /* OperationsView.swift */,
 				B8E00C632D1F41F000BD0C0E /* SingleMatrixView.swift */,
 				B85FB3922D33B41F0098F6E2 /* SingleMatrixView2.swift */,
+				B85FB3942D350E1F0098F6E2 /* SingleMatrixView3.swift */,
 				B8E00C3E2D18FA0B00BD0C0E /* Assets.xcassets */,
 				B8E00C402D18FA0B00BD0C0E /* Preview Content */,
 			);
@@ -159,6 +162,7 @@
 				B8E00C622D1E297500BD0C0E /* OperationsView.swift in Sources */,
 				B85FB3932D33B41F0098F6E2 /* SingleMatrixView2.swift in Sources */,
 				B8E00C4A2D18FAA500BD0C0E /* MatrixOperations.swift in Sources */,
+				B85FB3952D350E1F0098F6E2 /* SingleMatrixView3.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
