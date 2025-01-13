@@ -15,7 +15,7 @@ struct OperationsView: View {
     var body: some View {
         ZStack {
             
-            Image("grid2")
+            Image("grid3")
                 .resizable()
                 .scaledToFill()
                 .frame(width: screenWidth, height: screenHeight)

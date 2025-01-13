@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SingleMatrixView: View {
     
+    
+    
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
     
@@ -31,6 +33,8 @@ struct SingleMatrixView: View {
     
     @State private var num = 0
     @State private var textFields = Array(repeating: "", count: 100)
+    
+    @FocusState private var isTextFieldFocused: Bool
     
     
     var body: some View {
@@ -83,6 +87,22 @@ struct SingleMatrixView: View {
                     .padding()
                     .background(.black.opacity(0.8))
                     .clipShape(.rect(cornerRadius: 5))
+                    
+                    HStack {
+                        Text("Columns: \(numCols)")
+            
+                        Spacer()
+                        
+                        Stepper("", value: $numCols, in: 1...10)
+                            .labelsHidden() // Hides the default label
+                            .background(.white.opacity(0.8)) // Change background color
+                            .clipShape(.rect(cornerRadius: 7))
+                            
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(.black.opacity(0.8))
+                    .clipShape(.rect(cornerRadius: 5))
   
                 }
                 .padding()
@@ -92,10 +112,6 @@ struct SingleMatrixView: View {
                 .font(.title2)
                     
                 Spacer()
-                
-                
-                
-                
                 
                 VStack(spacing: 10){
                     ForEach(0..<numRows, id: \.self) { row in
@@ -109,13 +125,16 @@ struct SingleMatrixView: View {
                                     .foregroundStyle(.white)
                                     .background(.black.opacity(0.65))
                                     .clipShape(.rect(cornerRadius: 5))
-                                    
+                                    .focused($isTextFieldFocused)
                             }
                             
                         }
                         
                     }
                 }
+                .padding(.bottom, isTextFieldFocused ? 110 : 0)
+                .animation(.easeInOut, value: isTextFieldFocused)
+                
                 
                 Spacer()
             }
