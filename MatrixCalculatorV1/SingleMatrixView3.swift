@@ -36,8 +36,13 @@ struct SingleMatrixView3: View {
     @State private var numRows: Double = 1
     @State private var numCols: Double = 1
     
+    @State private var isKeyboardShowing: Bool = false
+    
     
     @State private var num = 0
+    
+    @State private var tempRow = 1
+    @State private var tempCol = 1
     
     var body: some View {
         ZStack {
@@ -49,56 +54,59 @@ struct SingleMatrixView3: View {
                 .opacity(0.08)
             
             VStack(spacing: 0) {
-                HStack(spacing: 0) {
+                
+                if !isKeyboardShowing {
+                    HStack(spacing: 0) {
 
-                    Spacer()
-                    
-                    HStack {
+                        Spacer()
                         
-                        Image(systemName: "arrow.uturn.left")
-                            .padding(.leading)
-                            .font(.title3)
-                            .bold()
+                        HStack {
                             
-                            
-            
-                        HStack(spacing: 0) {
-                            TextField("", value: $num, formatter: NumberFormatter())
-                                .frame(height: topBottomSegment / 3)
-                                
+                            Image(systemName: "arrow.uturn.left")
                                 .padding(.leading)
-                                
-                                .padding(.trailing)
-                                .background(.black.opacity(0.03))
-                                
-
-                            Image(systemName: "chevron.down")
-                                
-                                
+                                .font(.title3)
                                 .bold()
-                                .padding(.horizontal)
+                                
+                                
+                
+                            HStack(spacing: 0) {
+                                TextField("", value: $num, formatter: NumberFormatter())
+                                    .frame(height: topBottomSegment / 3)
+                                    
+                                    .padding(.leading)
+                                    
+                                    .padding(.trailing)
+                                    .background(.black.opacity(0.03))
+                                    
+
+                                Image(systemName: "chevron.down")
+                                    
+                                    
+                                    .bold()
+                                    .padding(.horizontal)
+                                    
+                            }
+                            .background(.regularMaterial.opacity(0.6))
+                            .foregroundStyle(.black)
+                            .font(.title3)
+                            
+                            Image(systemName: "arrow.uturn.right")
+                                .padding(.trailing)
+                                .font(.title3)
+                                .bold()
+                                
                                 
                         }
-                        .background(.regularMaterial.opacity(0.6))
-                        .foregroundStyle(.black)
-                        .font(.title3)
                         
-                        Image(systemName: "arrow.uturn.right")
-                            .padding(.trailing)
-                            .font(.title3)
-                            .bold()
-                            
-                            
+                        .background(.black.opacity(0.65))
+                        .clipShape(.rect(cornerRadius: 15))
+                        .padding(.trailing)
+                        .foregroundStyle(.white)
+                        
                     }
-                    
-                    .background(.black.opacity(0.65))
-                    .clipShape(.rect(cornerRadius: 15))
-                    .padding(.trailing)
-                    .foregroundStyle(.white)
-                    
+                    .padding(.top)
+                    .frame(width: screenWidth, height: topBottomSegment)
                 }
-                .padding(.top)
-                .frame(width: screenWidth, height: topBottomSegment)
                 
                 
                 VStack {
@@ -116,12 +124,37 @@ struct SingleMatrixView3: View {
                                         .foregroundStyle(.white)
                                         .background(.black.opacity(0.65))
                                         .clipShape(.rect(cornerRadius: 5))
-                                        .focused($isTextFieldFocused)
-                                        
                                 }
                                 
                             }
                             
+                        }
+                    }
+                    .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification), perform: { _ in
+                        withAnimation {
+                            isKeyboardShowing = true
+                        }
+                    })
+                    .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification), perform: { _ in
+                        withAnimation {
+                            isKeyboardShowing = false
+                        }
+                    })
+                    .toolbar {
+                        if isKeyboardShowing {
+                            ToolbarItem(placement: .keyboard) {
+                                HStack(spacing: 8) {
+                                    HStack(spacing: 0) {
+                                        Text("Row \(tempRow)")
+                                        Stepper("", value: $tempRow, in: 1...10)
+                                    }
+                                    
+                                    HStack(spacing: 0) {
+                                        Text("Col \(tempCol)")
+                                        Stepper("", value: $tempCol, in: 1...10)
+                                    }
+                                }
+                            }
                         }
                     }
                     
@@ -129,20 +162,22 @@ struct SingleMatrixView3: View {
                 .frame(width: screenWidth, height: midSegment)
                 
                 
-                VStack {
-                    HStack {
-                        Text("R")
-                        Slider(value: $numRows, in: 1...10, step: 1)
-                        Text("\(Int(numRows))")
+                if !isKeyboardShowing {
+                    VStack {
+                        HStack {
+                            Text("R")
+                            Slider(value: $numRows, in: 1...10, step: 1)
+                            Text("\(Int(numRows))")
+                        }
+                        HStack {
+                            Text("C")
+                            Slider(value: $numCols, in: 1...10, step: 1)
+                            Text("\(Int(numCols))")
+                        }
                     }
-                    HStack {
-                        Text("C")
-                        Slider(value: $numCols, in: 1...10, step: 1)
-                        Text("\(Int(numCols))")
-                    }
+                    .padding()
+                    .frame(width: screenWidth, height: topBottomSegment)
                 }
-                .padding()
-                .frame(width: screenWidth, height: topBottomSegment)
                 
             }
             .frame(width: screenWidth, height: screenHeight)

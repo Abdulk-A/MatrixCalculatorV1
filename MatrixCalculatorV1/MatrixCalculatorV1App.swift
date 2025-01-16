@@ -12,7 +12,8 @@ struct MatrixCalculatorV1App: App {
     var body: some Scene {
         WindowGroup {
 //            ContentView()
-            SingleMatrixView()
+//            SingleMatrixView()
+            SingleMatrixView3()
         }
     }
 }
