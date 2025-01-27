@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+struct Car {
+    var speed: Double
+}
+
 struct SingleMatrixView3: View {
     
     @FocusState private var isTextFieldFocused: Bool
@@ -21,8 +25,8 @@ struct SingleMatrixView3: View {
         return screenHeight / (denom * 3)
     }
     
-    var screenWidth = UIScreen.main.bounds.width
-    var screenHeight = UIScreen.main.bounds.height
+    let screenWidth = UIScreen.main.bounds.width
+    let screenHeight = UIScreen.main.bounds.height
     
     var topBottomSegment: Double {
         screenHeight / 6.0
@@ -36,13 +40,15 @@ struct SingleMatrixView3: View {
     @State private var numRows: Double = 1
     @State private var numCols: Double = 1
     
+    @State private var tempRow = 0
+    @State private var tempCol = 0
+    
     @State private var isKeyboardShowing: Bool = false
     
     
     @State private var num = 0
     
-    @State private var tempRow = 1
-    @State private var tempCol = 1
+    @State private var matrix: [[Double]] = Array(repeating: Array(repeating: 0, count: 1), count: 1)
     
     var body: some View {
         ZStack {
@@ -110,20 +116,28 @@ struct SingleMatrixView3: View {
                 
                 
                 VStack {
+
                     
                     VStack(spacing: 10){
-                        ForEach(0..<Int(numRows), id: \.self) { row in
+                        ForEach(0..<matrix.count, id: \.self) { row in
                             HStack(spacing: 10) {
-                                ForEach(0..<Int(numCols), id: \.self) { col in
+                                ForEach(0..<matrix[row].count, id: \.self) { col in
                                     
-                                    TextField("", value: $num, formatter: NumberFormatter())
+                                    TextField("", value: $matrix[row][col], formatter: NumberFormatter())
                                         .keyboardType(.numberPad)
                                         .multilineTextAlignment(.center)
                                         .frame(width: boxWidth, height: boxHeight)
                                         
                                         .foregroundStyle(.white)
-                                        .background(.black.opacity(0.65))
+//                                        .background(.black.opacity(0.65))
+                                        .background(row == tempRow && col == tempCol ? .red.opacity(0.8) : .black.opacity(0.70))
                                         .clipShape(.rect(cornerRadius: 5))
+                                        .onTapGesture {
+                                            withAnimation {
+                                                tempRow = row
+                                                tempCol = col
+                                            }
+                                        }
                                 }
                                 
                             }
@@ -167,11 +181,37 @@ struct SingleMatrixView3: View {
                         HStack {
                             Text("R")
                             Slider(value: $numRows, in: 1...10, step: 1)
+                                .onChange(of: numRows) {
+                                    
+                                    let rows = Int(numRows)
+                                    
+                                    if rows > matrix.count {
+                                        // Add new rows
+                                        for _ in matrix.count..<rows {
+                                            matrix.append(Array(repeating: 0, count: Int(numCols)))
+                                        }
+                                    } else if rows < matrix.count {
+                                        // Remove extra rows
+                                        matrix.removeLast(matrix.count - rows)
+                                    }
+                                }
                             Text("\(Int(numRows))")
                         }
                         HStack {
                             Text("C")
                             Slider(value: $numCols, in: 1...10, step: 1)
+                                .onChange(of: numCols) {
+                                    
+                                    let columns = Int(numCols)
+                                    
+                                    for i in 0..<matrix.count {
+                                        if columns > matrix[i].count {
+                                            matrix[i].append(contentsOf: Array(repeating: 0, count: columns - matrix[i].count))
+                                        } else if columns < matrix[i].count {
+                                            matrix[i].removeLast(matrix[i].count - columns)
+                                        }
+                                    }
+                                }
                             Text("\(Int(numCols))")
                         }
                     }
