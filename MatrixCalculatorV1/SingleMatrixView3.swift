@@ -43,6 +43,7 @@ struct SingleMatrixView3: View {
     @State private var tempRow = 0
     @State private var tempCol = 0
     
+
     @State private var isKeyboardShowing: Bool = false
     
     
@@ -193,6 +194,12 @@ struct SingleMatrixView3: View {
                                     } else if rows < matrix.count {
                                         // Remove extra rows
                                         matrix.removeLast(matrix.count - rows)
+                                        
+                                        if tempRow >= rows {
+                                            withAnimation {
+                                                tempRow = matrix.count - 1
+                                            }
+                                        }
                                     }
                                 }
                             Text("\(Int(numRows))")
@@ -209,6 +216,13 @@ struct SingleMatrixView3: View {
                                             matrix[i].append(contentsOf: Array(repeating: 0, count: columns - matrix[i].count))
                                         } else if columns < matrix[i].count {
                                             matrix[i].removeLast(matrix[i].count - columns)
+                                            
+                                            if tempCol >= columns {
+                                                withAnimation {
+                                                    tempCol = matrix[0].count - 1
+                                                }
+                                            }
+                                            
                                         }
                                     }
                                 }
