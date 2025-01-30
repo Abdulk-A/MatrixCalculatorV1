@@ -62,59 +62,61 @@ struct SingleMatrixView3: View {
             
             VStack(spacing: 0) {
                 
-                if !isKeyboardShowing {
-                    HStack(spacing: 0) {
-
-                        Spacer()
-                        
-                        HStack {
-                            
-                            Image(systemName: "arrow.uturn.left")
-                                .padding(.leading)
-                                .font(.title3)
-                                .bold()
-                                
-                                
-                
-                            HStack(spacing: 0) {
-                                TextField("", value: $num, formatter: NumberFormatter())
-                                    .frame(height: topBottomSegment / 3)
-                                    
-                                    .padding(.leading)
-                                    
-                                    .padding(.trailing)
-                                    .background(.black.opacity(0.03))
-                                    
-
-                                Image(systemName: "chevron.down")
-                                    
-                                    
-                                    .bold()
-                                    .padding(.horizontal)
-                                    
-                            }
-                            .background(.regularMaterial.opacity(0.6))
-                            .foregroundStyle(.black)
-                            .font(.title3)
-                            
-                            Image(systemName: "arrow.uturn.right")
-                                .padding(.trailing)
-                                .font(.title3)
-                                .bold()
-                                
-                                
-                        }
-                        
-                        .background(.black.opacity(0.65))
-                        .clipShape(.rect(cornerRadius: 15))
-                        .padding(.trailing)
-                        .foregroundStyle(.white)
-                        
-                    }
-                    .padding(.top)
-                    .frame(width: screenWidth, height: topBottomSegment)
-                }
-                
+                Spacer()
+//
+//                if !isKeyboardShowing {
+//                    HStack(spacing: 0) {
+//
+//                        Spacer()
+//                        
+//                        HStack {
+//                            
+//                            Image(systemName: "arrow.uturn.left")
+//                                .padding(.leading)
+//                                .font(.title3)
+//                                .bold()
+//                                
+//                                
+//                
+//                            HStack(spacing: 0) {
+//                                TextField("", value: $num, formatter: NumberFormatter())
+//                                    .frame(height: topBottomSegment / 3)
+//                                    
+//                                    .padding(.leading)
+//                                    
+//                                    .padding(.trailing)
+//                                    .background(.black.opacity(0.03))
+//                                    
+//
+//                                Image(systemName: "chevron.down")
+//                                    
+//                                    
+//                                    .bold()
+//                                    .padding(.horizontal)
+//                                    
+//                            }
+//                            .background(.regularMaterial.opacity(0.6))
+//                            .foregroundStyle(.black)
+//                            .font(.title3)
+//                            
+//                            Image(systemName: "arrow.uturn.right")
+//                                .padding(.trailing)
+//                                .font(.title3)
+//                                .bold()
+//                                
+//                                
+//                        }
+//                        
+//                        .background(.black.opacity(0.65))
+//                        .clipShape(.rect(cornerRadius: 15))
+//                        .padding(.trailing)
+//                        .foregroundStyle(.white)
+//                        
+//                    }
+//                    .padding(.top)
+//                    .frame(width: screenWidth, height: topBottomSegment)
+//                }
+//                
                 
                 VStack {
 

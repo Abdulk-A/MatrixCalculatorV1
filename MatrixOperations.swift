@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Matrix {
 
@@ -46,6 +47,19 @@ extension Matrix {
             precondition(row < numRow && col < numCol, "row or column not within dimensions")
             matrix[row][col] = newValue
         }
+    }
+    
+    func binding(row: Int, col: Int, value: Binding<Matrix>) -> Binding<Double> {
+        Binding<Double>(
+            get: {
+                value.wrappedValue[row, col]
+            },
+            set: { newValue in
+                var updatedMatrix = value.wrappedValue
+                updatedMatrix[row, col] = newValue
+                value.wrappedValue = updatedMatrix
+            }
+        )
     }
     
     subscript(row: Int) -> [Double] {

@@ -9,11 +9,18 @@ import SwiftUI
 
 struct ResultView: View {
     
-    let numRows: Int
-    let numCols: Int
+    @Binding var result: [[Double]]
     
-    let screenWidth = UIScreen.main.bounds.width
-    let screenHeight = UIScreen.main.bounds.height
+    var numRows: Int {
+        result.count
+    }
+    var numCols: Int {
+        result[0].count
+    }
+    
+    let screenWidth: Double
+    let screenHeight: Double
+    
     
     var boxWidth: Double {
         let denom: Double = numCols > 7 ? Double(numCols) : 7
@@ -26,40 +33,30 @@ struct ResultView: View {
     }
     
     var body: some View {
-        ZStack {
-            Image("grid3")
-                .resizable()
-                .scaledToFill()
-                .frame(width: screenWidth, height: screenHeight)
-                .ignoresSafeArea()
-                .opacity(0.08)
-            
-            VStack {
-                VStack(spacing: 10){
-                    ForEach(0..<Int(numRows), id: \.self) { row in
-                        HStack(spacing: 10) {
-                            ForEach(0..<Int(numCols), id: \.self) { col in
-                                
-                                Text("0")
-                                    .keyboardType(.numberPad)
-                                    .multilineTextAlignment(.center)
-                                    .frame(width: boxWidth, height: boxHeight)
-                                    
-                                    .foregroundStyle(.white)
-                                    .background(.black.opacity(0.65))
-                                    .clipShape(.rect(cornerRadius: 5))
-                            }
+        VStack {
+            VStack(spacing: 10){
+                ForEach(0..<numRows, id: \.self) { row in
+                    HStack(spacing: 10) {
+                        ForEach(0..<numCols, id: \.self) { col in
                             
+                            Text("\(result[row][col].formatted())")
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.center)
+                                .frame(width: boxWidth, height: boxHeight)
+                                
+                                .foregroundStyle(.white)
+                                .background(.black.opacity(0.65))
+                                .clipShape(.rect(cornerRadius: 5))
                         }
                         
                     }
+                    
                 }
             }
         }
-        .ignoresSafeArea()
     }
 }
 
 #Preview {
-    ResultView(numRows: 10, numCols: 10)
+    ResultView(result: .constant([[0]]), screenWidth: UIScreen.main.bounds.width, screenHeight: UIScreen.main.bounds.height)
 }

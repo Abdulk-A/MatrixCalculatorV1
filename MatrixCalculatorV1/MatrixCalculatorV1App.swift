@@ -13,7 +13,10 @@ struct MatrixCalculatorV1App: App {
         WindowGroup {
 //            ContentView()
 //            SingleMatrixView()
-            SingleMatrixView3()
+//            SingleMatrixView3()
+//            TextRecognitionPracticeView()
+//            LiveTextRecognitionView()
+            OperationsView()
         }
     }
 }
