@@ -7,10 +7,13 @@
 
 import SwiftUI
 
-struct AddView2: View {
+struct AddSubtractView: View {
+    
+    
     
     let screenWidth: Double
     let screenHeight: Double
+    let isAdd: Bool
     
     @State private var matrixA: [[Double]] = [[0]]
     @State private var matrixB: [[Double]] = [[0]]
@@ -46,7 +49,7 @@ struct AddView2: View {
                         Text("Matrix A")
                             .bold()
                         Spacer()
-                        NavigationLink(destination: MultipleMatrixView(screenWidth: screenWidth, screenHeight: screenHeight, numRows: $numRows, numCols: $numCols, matrixA: $matrixA, matrixB: $matrixB, result: $result, onCalculate: add)) {
+                        NavigationLink(destination: MultipleMatrixView(screenWidth: screenWidth, screenHeight: screenHeight, numRows: $numRows, numCols: $numCols, matrixA: $matrixA, matrixB: $matrixB, result: $result, onCalculate: isAdd ? add : subtract)) {
                             HStack {
                                 Text("\(matrixA.count) X \(matrixA[0].count)")
                                 Image(systemName: "square.and.pencil")
@@ -63,7 +66,7 @@ struct AddView2: View {
                             .bold()
                         Spacer()
                         
-                        NavigationLink(destination: MultipleMatrixView(screenWidth: screenWidth, screenHeight: screenHeight, numRows: $numRows, numCols: $numCols, matrixA: $matrixB, matrixB: $matrixA, result: $result, onCalculate: add)) {
+                        NavigationLink(destination: MultipleMatrixView(screenWidth: screenWidth, screenHeight: screenHeight, numRows: $numRows, numCols: $numCols, matrixA: $matrixB, matrixB: $matrixA, result: $result, onCalculate: isAdd ? add : subtract)) {
                             HStack {
                                 Text("\(matrixB.count) X \(matrixB[0].count)")
                                 Image(systemName: "square.and.pencil")
@@ -99,8 +102,17 @@ struct AddView2: View {
             }
         }
     }
+    
+    func subtract(matrix1: inout [[Double]], matrix2: inout [[Double]], matrix3: inout [[Double]]) {
+                
+        for i in 0..<matrix1.count {
+            for j in 0..<matrix1[0].count {
+                matrix3[i][j] = matrix1[i][j] - matrix2[i][j]
+            }
+        }
+    }
 }
 
 #Preview {
-    AddView2(screenWidth: UIScreen.main.bounds.width, screenHeight: UIScreen.main.bounds.height)
+    AddSubtractView(screenWidth: UIScreen.main.bounds.width, screenHeight: UIScreen.main.bounds.height, isAdd: true)
 }

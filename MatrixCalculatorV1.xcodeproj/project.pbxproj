@@ -14,7 +14,7 @@
 		B887D0522D48AC8A00053122 /* TextRecognitionPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B887D0512D48AC8A00053122 /* TextRecognitionPracticeView.swift */; };
 		B89CEC162D49DF2E00A16C79 /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89CEC152D49DF2E00A16C79 /* AddView.swift */; };
 		B89CEC182D49E65500A16C79 /* MultipleMatrixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89CEC172D49E65500A16C79 /* MultipleMatrixView.swift */; };
-		B89CEC1A2D4A0A2200A16C79 /* AddView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89CEC192D4A0A2200A16C79 /* AddView2.swift */; };
+		B89CEC1A2D4A0A2200A16C79 /* AddSubtractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89CEC192D4A0A2200A16C79 /* AddSubtractView.swift */; };
 		B8E00C3B2D18FA0300BD0C0E /* MatrixCalculatorV1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C3A2D18FA0300BD0C0E /* MatrixCalculatorV1App.swift */; };
 		B8E00C3D2D18FA0300BD0C0E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C3C2D18FA0300BD0C0E /* ContentView.swift */; };
 		B8E00C3F2D18FA0B00BD0C0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8E00C3E2D18FA0B00BD0C0E /* Assets.xcassets */; };
@@ -35,7 +35,7 @@
 		B887D0572D48C48100053122 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B89CEC152D49DF2E00A16C79 /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
 		B89CEC172D49E65500A16C79 /* MultipleMatrixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleMatrixView.swift; sourceTree = "<group>"; };
-		B89CEC192D4A0A2200A16C79 /* AddView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView2.swift; sourceTree = "<group>"; };
+		B89CEC192D4A0A2200A16C79 /* AddSubtractView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSubtractView.swift; sourceTree = "<group>"; };
 		B8E00C372D18FA0300BD0C0E /* MatrixCalculatorV1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MatrixCalculatorV1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8E00C3A2D18FA0300BD0C0E /* MatrixCalculatorV1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixCalculatorV1App.swift; sourceTree = "<group>"; };
 		B8E00C3C2D18FA0300BD0C0E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -93,7 +93,7 @@
 				B812F1002D420C12009C4534 /* SingleMatrixView4.swift */,
 				B80131ED2D38F5C700D893F1 /* ResultView.swift */,
 				B89CEC152D49DF2E00A16C79 /* AddView.swift */,
-				B89CEC192D4A0A2200A16C79 /* AddView2.swift */,
+				B89CEC192D4A0A2200A16C79 /* AddSubtractView.swift */,
 				B8E00C3E2D18FA0B00BD0C0E /* Assets.xcassets */,
 				B8E00C402D18FA0B00BD0C0E /* Preview Content */,
 			);
@@ -186,7 +186,7 @@
 				B89CEC182D49E65500A16C79 /* MultipleMatrixView.swift in Sources */,
 				B887D0522D48AC8A00053122 /* TextRecognitionPracticeView.swift in Sources */,
 				B8E00C3D2D18FA0300BD0C0E /* ContentView.swift in Sources */,
-				B89CEC1A2D4A0A2200A16C79 /* AddView2.swift in Sources */,
+				B89CEC1A2D4A0A2200A16C79 /* AddSubtractView.swift in Sources */,
 				B8E00C3B2D18FA0300BD0C0E /* MatrixCalculatorV1App.swift in Sources */,
 				B8E00C622D1E297500BD0C0E /* OperationsView.swift in Sources */,
 				B8F6844A2D462AEB007DCD6F /* ArrayPractice.swift in Sources */,

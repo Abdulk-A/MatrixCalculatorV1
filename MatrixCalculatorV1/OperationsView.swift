@@ -43,20 +43,17 @@ struct OperationsView: View {
                             .padding(.bottom, 20)
                         
                         
-                        NavigationLink(destination: AddView2(screenWidth: screenWidth, screenHeight: screenHeight)) {
+                        NavigationLink(destination: AddSubtractView(screenWidth: screenWidth, screenHeight: screenHeight, isAdd: true)) {
                             
                             Text("Add")
                                 .myTextStyle()
                         }
                         
-
-                        
-                        Button {
+                        NavigationLink(destination: AddSubtractView(screenWidth: screenWidth, screenHeight: screenHeight, isAdd: false)) {
                             
-                        } label: {
                             Text("Subtract")
+                                .myTextStyle()
                         }
-                        .buttonStyle(ExampleButton6())
                         
                         Button {
                             

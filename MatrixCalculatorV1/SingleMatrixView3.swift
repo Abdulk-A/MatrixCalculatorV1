@@ -233,6 +233,8 @@ struct SingleMatrixView3: View {
                     }
                     .padding()
                     .frame(width: screenWidth, height: topBottomSegment)
+                } else {
+                    Spacer()
                 }
                 
             }

@@ -134,7 +134,6 @@ struct MultipleMatrixView: View {
                                     addRow(for: &matrixB, rows: rows, cols: columns)
                                     addRow(for: &result, rows: rows, cols: columns)
                                     
-//                                    onCalculate(&matrixA, &matrixB, &result)
                                 }
                             Text("\(Int(numRows))")
                         }
@@ -150,22 +149,18 @@ struct MultipleMatrixView: View {
                                     addColumn(for: &matrixB, cols: columns, rows: rows)
                                     addColumn(for: &result, cols: columns, rows: rows)
                                     
-//                                    onCalculate(&matrixA, &matrixB, &result)
                                 }
                             Text("\(Int(numCols))")
                         }
                     }
                     .padding()
                     .frame(width: screenWidth, height: topBottomSegment)
+                } else {
+                    Spacer()
                 }
                 
             }
             .frame(width: screenWidth, height: screenHeight)
-            
-            if isKeyboardShowing {
-                Spacer()
-            }
-            
         }
         .ignoresSafeArea()
         .gesture(TapGesture().onEnded{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)})
