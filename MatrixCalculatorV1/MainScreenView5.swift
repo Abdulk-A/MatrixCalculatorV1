@@ -13,69 +13,67 @@ struct MainScreenView5: View {
     let screenHeight = UIScreen.main.bounds.height
     
     var body: some View {
-        ZStack {
-
-
-            Image("grid2")
-                .resizable()
-                .scaledToFill()
-                .frame(width: screenWidth, height: screenHeight)
-                .ignoresSafeArea()
-                .opacity(0.2)
-                            
-            VStack {
-                Text("Menu")
-                    .frame(maxWidth: .infinity)
-                    .font(.largeTitle)
-                    .foregroundStyle(.white)
-                    .blur(radius: 8)
-                    .overlay{
-                        Text("Menu")
-                            .font(.largeTitle)
-                            .foregroundStyle(.white)
-                            .bold()
-                    }
+        NavigationStack {
+            ZStack {
+                Image("grid2")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: screenWidth, height: screenHeight)
+                    .ignoresSafeArea()
+                    .opacity(0.2)
+                                
                 VStack {
-                    Button {
+                    Text("Menu")
+                        .frame(maxWidth: .infinity)
+                        .font(.largeTitle)
+                        .foregroundStyle(.white)
+                        .blur(radius: 8)
+                        .overlay{
+                            Text("Menu")
+                                .font(.largeTitle)
+                                .foregroundStyle(.white)
+                                .bold()
+                        }
+                    VStack {
                         
-                    } label: {
-                        Text("Calculator")
-                    }
-                    .buttonStyle(ExampleButton6())
-                    
-                    
-                    Button {
+                        NavigationLink(destination: OperationsView()) {
+                            
+                            Text("Calculator")
+                                .myTextStyle()
+                        }
                         
-                    } label: {
-                        Text("Practice")
-                    }
-                    .buttonStyle(ExampleButton6())
-                    
-                    
-                    Button {
+                        Button {
+                            
+                        } label: {
+                            Text("Practice")
+                        }
+                        .buttonStyle(ExampleButton6())
                         
-                    } label: {
-                        Text("Feedback")
-                    }
-                    .buttonStyle(ExampleButton6())
+                        
+                        Button {
+                            
+                        } label: {
+                            Text("Feedback")
+                        }
+                        .buttonStyle(ExampleButton6())
 
+                    }
+                    .padding()
                 }
+                .frame(maxWidth: 500)
+                .padding(.vertical)
+                .background(
+                    RoundedRectangle(cornerRadius: 15)
+                        .foregroundStyle(.gray.opacity(0.5))
+                        .shadow(radius: 10)
+                )
                 .padding()
-            }
-            .frame(maxWidth: 500)
-            .padding(.vertical)
-            .background(
-                RoundedRectangle(cornerRadius: 15)
-                    .foregroundStyle(.gray.opacity(0.5))
-                    .shadow(radius: 10)
-            )
-            .padding()
-            
-
                 
+
+                    
+            }
+            .ignoresSafeArea(.all)
         }
-        .ignoresSafeArea(.all)
-        
     }
 }
 

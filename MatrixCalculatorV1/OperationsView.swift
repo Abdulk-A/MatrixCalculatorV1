@@ -15,8 +15,11 @@ struct OperationsView: View {
     @State private var MatrixA: [[Double]] = [[0]]
     @State private var MatrixB: [[Double]] = [[0]]
     
+    var lenFromTop: Double {
+        return screenHeight / 14.0
+    }
+    
     var body: some View {
-        NavigationStack {
             ZStack {
                 
                 Image("grid3")
@@ -43,24 +46,23 @@ struct OperationsView: View {
                             .padding(.bottom, 20)
                         
                         
-                        NavigationLink(destination: AddSubtractView(screenWidth: screenWidth, screenHeight: screenHeight, isAdd: true)) {
+                        NavigationLink(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .add)) {
                             
                             Text("Add")
                                 .myTextStyle()
                         }
                         
-                        NavigationLink(destination: AddSubtractView(screenWidth: screenWidth, screenHeight: screenHeight, isAdd: false)) {
+                        NavigationLink(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .subtract)) {
                             
                             Text("Subtract")
                                 .myTextStyle()
                         }
                         
-                        Button {
+                        NavigationLink(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .multiply)) {
                             
-                        } label: {
                             Text("Multiply")
+                                .myTextStyle()
                         }
-                        .buttonStyle(ExampleButton6())
                         
                         Button {
                             
@@ -133,7 +135,7 @@ struct OperationsView: View {
                             .shadow(radius: 10)
                     )
                     .padding()
-                    .padding(.top, 20)
+                    .padding(.top, lenFromTop)
                 }
                 .padding()
 
@@ -142,7 +144,6 @@ struct OperationsView: View {
             }
             .ignoresSafeArea()
         }
-    }
 }
 
 struct customTextStyle: ViewModifier {

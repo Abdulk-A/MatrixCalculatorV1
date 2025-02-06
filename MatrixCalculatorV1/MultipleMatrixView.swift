@@ -30,14 +30,15 @@ struct MultipleMatrixView: View {
     var midSegment: Double {
         screenHeight - (topBottomSegment * 2)
     }
-    
 
-
-//    @State private var numRows: Double = 1
-//    @State private var numCols: Double = 1
-//    
     @Binding var numRows: Double
     @Binding var numCols: Double
+    
+    @Binding var numRowsB: Double
+    @Binding var numColsB: Double
+    
+    
+
     
     @State private var tempRow = 0
     @State private var tempCol = 0
@@ -45,10 +46,13 @@ struct MultipleMatrixView: View {
 
     @State private var isKeyboardShowing: Bool = false
     
-    @Binding var matrixA: [[Double]]
-    @Binding var matrixB: [[Double]]
+    @Binding var matrix1: [[Double]]
+    @Binding var matrix2: [[Double]]
     @Binding var result: [[Double]]
     
+    let isMatrixA: Bool
+    
+    let operationType: MatrixOperation
     let onCalculate: (inout [[Double]], inout [[Double]], inout [[Double]]) -> Void
     
     var body: some View {
@@ -66,10 +70,10 @@ struct MultipleMatrixView: View {
                 
                 VStack {
                     VStack(spacing: 10){
-                        ForEach(0..<matrixA.count, id: \.self) { row in
+                        ForEach(0..<matrix1.count, id: \.self) { row in
                             HStack(spacing: 10) {
-                                ForEach(0..<matrixA[row].count, id: \.self) { col in
-                                    TextField("", value: $matrixA[row][col], formatter: NumberFormatter())
+                                ForEach(0..<matrix1[row].count, id: \.self) { col in
+                                    TextField("", value: $matrix1[row][col], formatter: NumberFormatter())
                                         .keyboardType(.numberPad)
                                         .multilineTextAlignment(.center)
                                         .frame(width: boxWidth, height: boxHeight)
@@ -97,25 +101,7 @@ struct MultipleMatrixView: View {
                         withAnimation {
                             isKeyboardShowing = false
                         }
-                    })
-                    .toolbar {
-                        if isKeyboardShowing {
-                            ToolbarItem(placement: .keyboard) {
-                                HStack(spacing: 8) {
-                                    HStack(spacing: 0) {
-                                        Text("Row \(tempRow)")
-                                        Stepper("", value: $tempRow, in: 1...10)
-                                    }
-                                    
-                                    HStack(spacing: 0) {
-                                        Text("Col \(tempCol)")
-                                        Stepper("", value: $tempCol, in: 1...10)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
+                    })                    
                 }
                 .frame(width: screenWidth, height: midSegment)
                 
@@ -127,13 +113,27 @@ struct MultipleMatrixView: View {
                             Slider(value: $numRows, in: 1...10, step: 1)
                                 .onChange(of: numRows) {
                                     
-                                    let rows = Int(numRows)
-                                    let columns = Int(numCols)
+                                    addRow(for: &matrix1, rows: numRowsInt, cols: numColsInt)
                                     
-                                    addRow(for: &matrixA, rows: rows, cols: columns)
-                                    addRow(for: &matrixB, rows: rows, cols: columns)
-                                    addRow(for: &result, rows: rows, cols: columns)
-                                    
+                                    if operationType == .add || operationType == .subtract {
+                                        
+                                        numRowsB = numRows
+                                        
+                                        
+                                        addRow(for: &matrix2, rows: numRowsInt, cols: numColsInt)
+                                        addRow(for: &result, rows: numRowsInt, cols: numColsInt)
+                                    }
+                                    else if operationType == .multiply && isMatrixA {
+                                        addRow(for: &matrix1, rows: numRowsInt, cols: numColsInt)
+                                        addRow(for: &result, rows: numRowsInt, cols: numColsBInt)
+                                    }
+                                    else if operationType == .multiply && !isMatrixA {
+                                        
+                                        numColsB = numRows
+                                        
+                                        addRow(for: &matrix1, rows: numRowsInt, cols: numColsInt)
+                                        addColumn(for: &matrix2, cols: numRowsInt, rows: numRowsBInt)
+                                    }
                                 }
                             Text("\(Int(numRows))")
                         }
@@ -141,13 +141,28 @@ struct MultipleMatrixView: View {
                             Text("C")
                             Slider(value: $numCols, in: 1...10, step: 1)
                                 .onChange(of: numCols) {
+
                                     
-                                    let rows = Int(numRows)
-                                    let columns = Int(numCols)
-                                    
-                                    addColumn(for: &matrixA, cols: columns, rows: rows)
-                                    addColumn(for: &matrixB, cols: columns, rows: rows)
-                                    addColumn(for: &result, cols: columns, rows: rows)
+                                    if operationType == .add || operationType == .subtract {
+                                        
+                                        numColsB = numCols
+                                        
+                                        addColumn(for: &matrix1, cols: numColsInt, rows: numRowsInt)
+                                        addColumn(for: &matrix2, cols: numColsInt, rows: numRowsInt)
+                                        addColumn(for: &result, cols: numColsInt, rows: numRowsInt)
+                                    }
+                                    else if operationType == .multiply && isMatrixA {
+                                        
+                                        numRowsB = numCols
+                                        addColumn(for: &matrix1, cols: numColsInt, rows: numRowsInt)
+                                        addRow(for: &matrix2, rows: numColsInt, cols: numColsBInt)
+                                        addRow(for: &result, rows: numRowsInt, cols: numColsBInt)
+                                    }
+                                    else if operationType == .multiply && !isMatrixA {
+                                        
+                                        addColumn(for: &matrix1, cols: numColsInt, rows: numRowsInt)
+                                        addColumn(for: &result, cols: numColsInt, rows: numRowsBInt)
+                                    }
                                     
                                 }
                             Text("\(Int(numCols))")
@@ -164,8 +179,12 @@ struct MultipleMatrixView: View {
         }
         .ignoresSafeArea()
         .gesture(TapGesture().onEnded{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)})
-        .onChange(of: matrixA) { oldVal, newVal in
-            onCalculate(&matrixA, &matrixB, &result)
+        .onChange(of: matrix1) { oldVal, newVal in
+            if isMatrixA {
+                onCalculate(&matrix1, &matrix2, &result)
+            } else {
+                onCalculate(&matrix2, &matrix1, &result)
+            }
         }
     }
     
@@ -181,7 +200,7 @@ struct MultipleMatrixView: View {
             myMatrix.removeLast(myMatrix.count - rows)
 
             
-            if tempRow >= rows {
+            if tempRow >= myMatrix.count {
                 withAnimation {
                     tempRow = myMatrix.count - 1
                 }
@@ -196,7 +215,7 @@ struct MultipleMatrixView: View {
             } else if cols < myMatrix[i].count {
                 myMatrix[i].removeLast(myMatrix[i].count - cols)
                 
-                if tempCol >= cols {
+                if tempCol >= myMatrix[0].count {
                     withAnimation {
                         tempCol = myMatrix[0].count - 1
                     }
@@ -206,8 +225,25 @@ struct MultipleMatrixView: View {
         }
     }
     
+    var numRowsInt: Int {
+        return Int(numRows)
+    }
+    
+    var numColsInt: Int {
+        return Int(numCols)
+    }
+    
+    var numRowsBInt: Int {
+        return Int(numRowsB)
+    }
+    
+    var numColsBInt: Int {
+        return Int(numColsB)
+    }
+    
 }
 
+
 #Preview {
-    MultipleMatrixView(screenWidth: UIScreen.main.bounds.width, screenHeight: UIScreen.main.bounds.height, numRows: .constant(1), numCols: .constant(1), matrixA: .constant([[0]]), matrixB: .constant([[0]]), result: .constant([[0]]), onCalculate: {_,_,_ in })
+    MultipleMatrixView(screenWidth: UIScreen.main.bounds.width, screenHeight: UIScreen.main.bounds.height, numRows: .constant(1), numCols: .constant(1), numRowsB: .constant(1), numColsB: .constant(1), matrix1: .constant([[0.0]]), matrix2: .constant([[0.0]]), result: .constant([[0.0]]), isMatrixA: true, operationType: .add, onCalculate: {_,_,_ in })
 }
