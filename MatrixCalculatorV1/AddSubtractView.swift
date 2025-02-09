@@ -40,7 +40,7 @@ struct AddSubtractView: View {
             return add
         case .subtract:
             return subtract
-        case .multiply:
+        default:
             return multiply
         }
     }
@@ -148,10 +148,4 @@ struct AddSubtractView: View {
 
 #Preview {
     AddSubtractView(sW: UIScreen.main.bounds.width, sH: UIScreen.main.bounds.height, operationType: .add)
-}
-
-enum MatrixOperation {
-    case add
-    case subtract
-    case multiply
 }

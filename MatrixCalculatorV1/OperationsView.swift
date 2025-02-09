@@ -66,18 +66,17 @@ struct OperationsView: View {
                                 .myTextStyle()
                         }
                         
-                        NavigationLink(destination: TransposeView(sW: screenWidth, sH: screenHeight)) {
+                        NavigationLink(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .transpose)) {
                             
                             Text("Transpose")
                                 .myTextStyle()
                         }
                         
-                        Button {
+                        NavigationLink(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .determinant)) {
                             
-                        } label: {
                             Text("Determinant")
+                                .myTextStyle()
                         }
-                        .buttonStyle(ExampleButton6())
                         
                         Button {
                             
@@ -187,6 +186,14 @@ struct customTextStyle: ViewModifier {
 
         
     }
+}
+
+enum MatrixOperation: String {
+    case add
+    case subtract
+    case multiply
+    case transpose = "Transpose"
+    case determinant = "Determinant"
 }
 
 extension View {

@@ -52,6 +52,8 @@ struct SingleMatrixView3: View {
     @Binding var numRows: Double
     @Binding var numCols: Double
     
+    let operationType: MatrixOperation
+    
     var body: some View {
         ZStack {
             Image("grid3")
@@ -114,23 +116,12 @@ struct SingleMatrixView3: View {
                             Text("R")
                             Slider(value: $numRows, in: 1...10, step: 1)
                                 .onChange(of: numRows) {
-                                    
-                                    let rows = Int(numRows)
-                                    
-                                    if rows > matrix.count {
-                                        // Add new rows
-                                        for _ in matrix.count..<rows {
-                                            matrix.append(Array(repeating: 0, count: Int(numCols)))
-                                        }
-                                    } else if rows < matrix.count {
-                                        // Remove extra rows
-                                        matrix.removeLast(matrix.count - rows)
+                                    if operationType == .transpose {
+                                        addRow()
+                                    } else {
+                                        numCols = numRows
+                                        addRow()
                                         
-                                        if tempRow >= rows {
-                                            withAnimation {
-                                                tempRow = matrix.count - 1
-                                            }
-                                        }
                                     }
                                 }
                             Text("\(Int(numRows))")
@@ -139,22 +130,11 @@ struct SingleMatrixView3: View {
                             Text("C")
                             Slider(value: $numCols, in: 1...10, step: 1)
                                 .onChange(of: numCols) {
-                                    
-                                    let columns = Int(numCols)
-                                    
-                                    for i in 0..<matrix.count {
-                                        if columns > matrix[i].count {
-                                            matrix[i].append(contentsOf: Array(repeating: 0, count: columns - matrix[i].count))
-                                        } else if columns < matrix[i].count {
-                                            matrix[i].removeLast(matrix[i].count - columns)
-                                            
-                                            if tempCol >= columns {
-                                                withAnimation {
-                                                    tempCol = matrix[0].count - 1
-                                                }
-                                            }
-                                            
-                                        }
+                                    if operationType == .transpose {
+                                        addColumn()
+                                    } else if operationType == .determinant {
+                                        numRows = numCols
+                                        addColumn()
                                     }
                                 }
                             Text("\(Int(numCols))")
@@ -173,8 +153,51 @@ struct SingleMatrixView3: View {
         .ignoresSafeArea()
         .gesture(TapGesture().onEnded{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)})
     }
+    
+    var rows: Int {
+        Int(numRows)
+    }
+    
+    var cols: Int {
+        Int(numCols)
+    }
+    
+    func addRow() {
+        if rows > matrix.count {
+            for _ in matrix.count..<rows {
+                matrix.append(Array(repeating: 0, count: cols))
+            }
+        } else if rows < matrix.count {
+
+            matrix.removeLast(matrix.count - rows)
+
+            
+            if tempRow >= matrix.count {
+                withAnimation {
+                    tempRow = matrix.count - 1
+                }
+            }
+        }
+    }
+    
+    func addColumn() {
+        for i in 0..<matrix.count {
+            if cols > matrix[i].count {
+                matrix[i].append(contentsOf: Array(repeating: 0, count: cols - matrix[i].count))
+            } else if cols < matrix[i].count {
+                matrix[i].removeLast(matrix[i].count - cols)
+                
+                if tempCol >= matrix[0].count {
+                    withAnimation {
+                        tempCol = matrix[0].count - 1
+                    }
+                }
+                
+            }
+        }
+    }
 }
 
 #Preview {
-    SingleMatrixView3(sW: UIScreen.main.bounds.width, sH: UIScreen.main.bounds.height, matrix: .constant([[0.0]]), numRows: .constant(1), numCols: .constant(1))
+    SingleMatrixView3(sW: UIScreen.main.bounds.width, sH: UIScreen.main.bounds.height, matrix: .constant([[0.0]]), numRows: .constant(1), numCols: .constant(1), operationType: .transpose)
 }
