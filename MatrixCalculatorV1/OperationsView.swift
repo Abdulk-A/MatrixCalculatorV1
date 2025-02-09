@@ -15,6 +15,8 @@ struct OperationsView: View {
     @State private var MatrixA: [[Double]] = [[0]]
     @State private var MatrixB: [[Double]] = [[0]]
     
+    @Environment(\.dismiss) var dismiss
+    
     var lenFromTop: Double {
         return screenHeight / 14.0
     }
@@ -32,18 +34,18 @@ struct OperationsView: View {
                 
                 ScrollView {
                     VStack {
-                        Text("Calculator")
-                            .frame(maxWidth: .infinity)
-                            .font(.largeTitle)
-                            .foregroundStyle(.black.opacity(0.80))
-                            .blur(radius: 8)
-                            .overlay{
-                                Text("Calculator")
-                                    .font(.largeTitle)
-                                    .foregroundStyle(.white)
-                                    .bold()
-                            }
-                            .padding(.bottom, 20)
+//                        Text("Calculator")
+//                            .frame(maxWidth: .infinity)
+//                            .font(.largeTitle)
+//                            .foregroundStyle(.black.opacity(0.80))
+//                            .blur(radius: 8)
+//                            .overlay{
+//                                Text("Calculator")
+//                                    .font(.largeTitle)
+//                                    .foregroundStyle(.white)
+//                                    .bold()
+//                            }
+//                            .padding(.bottom, 20)
                         
                         
                         NavigationLink(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .add)) {
@@ -64,12 +66,11 @@ struct OperationsView: View {
                                 .myTextStyle()
                         }
                         
-                        Button {
+                        NavigationLink(destination: TransposeView(sW: screenWidth, sH: screenHeight)) {
                             
-                        } label: {
                             Text("Transpose")
+                                .myTextStyle()
                         }
-                        .buttonStyle(ExampleButton6())
                         
                         Button {
                             
@@ -135,14 +136,33 @@ struct OperationsView: View {
                             .shadow(radius: 10)
                     )
                     .padding()
-                    .padding(.top, lenFromTop)
+                    .padding(.top, lenFromTop * 1.5)
                 }
                 .padding()
-
-                
+                .scrollIndicators(.hidden)
                 
             }
+            .navigationTitle("Calculator")
             .ignoresSafeArea()
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "chevron.left")
+                            .font(.title2)
+                            .foregroundStyle(.black.opacity(0.6))
+                    }
+                }
+                
+                ToolbarItem(placement: .principal) {
+                    Text("Calculator")
+                        .font(.largeTitle)
+                        .foregroundStyle(.black.opacity(0.6))
+                        .shadow(radius: 5)
+                }
+            }
         }
 }
 

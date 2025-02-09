@@ -51,9 +51,12 @@ struct MultipleMatrixView: View {
     @Binding var result: [[Double]]
     
     let isMatrixA: Bool
+    let tempColor: Color
     
     let operationType: MatrixOperation
     let onCalculate: (inout [[Double]], inout [[Double]], inout [[Double]]) -> Void
+    
+    
     
     var body: some View {
         ZStack {
@@ -78,7 +81,7 @@ struct MultipleMatrixView: View {
                                         .multilineTextAlignment(.center)
                                         .frame(width: boxWidth, height: boxHeight)
                                         .foregroundStyle(.white)
-                                        .background(row == tempRow && col == tempCol ? .red.opacity(0.8) : .black.opacity(0.70))
+                                        .background(row == tempRow && col == tempCol ? tempColor : .black.opacity(0.70))
                                         .clipShape(.rect(cornerRadius: 5))
                                         .onTapGesture {
                                             withAnimation {
@@ -240,10 +243,9 @@ struct MultipleMatrixView: View {
     var numColsBInt: Int {
         return Int(numColsB)
     }
-    
 }
 
 
 #Preview {
-    MultipleMatrixView(screenWidth: UIScreen.main.bounds.width, screenHeight: UIScreen.main.bounds.height, numRows: .constant(1), numCols: .constant(1), numRowsB: .constant(1), numColsB: .constant(1), matrix1: .constant([[0.0]]), matrix2: .constant([[0.0]]), result: .constant([[0.0]]), isMatrixA: true, operationType: .add, onCalculate: {_,_,_ in })
+    MultipleMatrixView(screenWidth: UIScreen.main.bounds.width, screenHeight: UIScreen.main.bounds.height, numRows: .constant(1), numCols: .constant(1), numRowsB: .constant(1), numColsB: .constant(1), matrix1: .constant([[0.0]]), matrix2: .constant([[0.0]]), result: .constant([[0.0]]), isMatrixA: true, tempColor: .red, operationType: .add, onCalculate: {_,_,_ in })
 }

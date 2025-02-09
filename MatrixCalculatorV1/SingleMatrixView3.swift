@@ -13,32 +13,29 @@ struct Car {
 
 struct SingleMatrixView3: View {
     
-    @FocusState private var isTextFieldFocused: Bool
-    
     var boxWidth: Double {
         let denom: Double = numCols > 7 ? Double(numCols) : 7
-        return screenWidth / (denom * 1.6)
+        return sW / (denom * 1.6)
     }
     
     var boxHeight: Double {
         let denom: Double = numRows > 7 ? Double(numRows) : 7
-        return screenHeight / (denom * 3)
+        return sH / (denom * 3)
     }
     
-    let screenWidth = UIScreen.main.bounds.width
-    let screenHeight = UIScreen.main.bounds.height
+    let sW: Double
+    let sH: Double
     
     var topBottomSegment: Double {
-        screenHeight / 6.0
+        sH / 6.0
     }
     
     var midSegment: Double {
-        screenHeight - (topBottomSegment * 2)
+        sH - (topBottomSegment * 2)
     }
     
     
-    @State private var numRows: Double = 1
-    @State private var numCols: Double = 1
+
     
     @State private var tempRow = 0
     @State private var tempCol = 0
@@ -49,75 +46,25 @@ struct SingleMatrixView3: View {
     
     @State private var num = 0
     
-    @State private var matrix: [[Double]] = Array(repeating: Array(repeating: 0, count: 1), count: 1)
+    
+    
+    @Binding var matrix: [[Double]]
+    @Binding var numRows: Double
+    @Binding var numCols: Double
     
     var body: some View {
         ZStack {
             Image("grid3")
                 .resizable()
                 .scaledToFill()
-                .frame(width: screenWidth, height: screenHeight)
+                .frame(width: sW, height: sH)
                 .ignoresSafeArea()
                 .opacity(0.08)
             
             VStack(spacing: 0) {
                 
                 Spacer()
-//
-//                if !isKeyboardShowing {
-//                    HStack(spacing: 0) {
-//
-//                        Spacer()
-//                        
-//                        HStack {
-//                            
-//                            Image(systemName: "arrow.uturn.left")
-//                                .padding(.leading)
-//                                .font(.title3)
-//                                .bold()
-//                                
-//                                
-//                
-//                            HStack(spacing: 0) {
-//                                TextField("", value: $num, formatter: NumberFormatter())
-//                                    .frame(height: topBottomSegment / 3)
-//                                    
-//                                    .padding(.leading)
-//                                    
-//                                    .padding(.trailing)
-//                                    .background(.black.opacity(0.03))
-//                                    
-//
-//                                Image(systemName: "chevron.down")
-//                                    
-//                                    
-//                                    .bold()
-//                                    .padding(.horizontal)
-//                                    
-//                            }
-//                            .background(.regularMaterial.opacity(0.6))
-//                            .foregroundStyle(.black)
-//                            .font(.title3)
-//                            
-//                            Image(systemName: "arrow.uturn.right")
-//                                .padding(.trailing)
-//                                .font(.title3)
-//                                .bold()
-//                                
-//                                
-//                        }
-//                        
-//                        .background(.black.opacity(0.65))
-//                        .clipShape(.rect(cornerRadius: 15))
-//                        .padding(.trailing)
-//                        .foregroundStyle(.white)
-//                        
-//                    }
-//                    .padding(.top)
-//                    .frame(width: screenWidth, height: topBottomSegment)
-//                }
-//                
-                
+                      
                 VStack {
 
                     
@@ -157,26 +104,8 @@ struct SingleMatrixView3: View {
                             isKeyboardShowing = false
                         }
                     })
-                    .toolbar {
-                        if isKeyboardShowing {
-                            ToolbarItem(placement: .keyboard) {
-                                HStack(spacing: 8) {
-                                    HStack(spacing: 0) {
-                                        Text("Row \(tempRow)")
-                                        Stepper("", value: $tempRow, in: 1...10)
-                                    }
-                                    
-                                    HStack(spacing: 0) {
-                                        Text("Col \(tempCol)")
-                                        Stepper("", value: $tempCol, in: 1...10)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
                 }
-                .frame(width: screenWidth, height: midSegment)
+                .frame(width: sW, height: midSegment)
                 
                 
                 if !isKeyboardShowing {
@@ -232,13 +161,13 @@ struct SingleMatrixView3: View {
                         }
                     }
                     .padding()
-                    .frame(width: screenWidth, height: topBottomSegment)
+                    .frame(width: sW, height: topBottomSegment)
                 } else {
                     Spacer()
                 }
                 
             }
-            .frame(width: screenWidth, height: screenHeight)
+            .frame(width: sW, height: sH)
             
         }
         .ignoresSafeArea()
@@ -247,5 +176,5 @@ struct SingleMatrixView3: View {
 }
 
 #Preview {
-    SingleMatrixView3()
+    SingleMatrixView3(sW: UIScreen.main.bounds.width, sH: UIScreen.main.bounds.height, matrix: .constant([[0.0]]), numRows: .constant(1), numCols: .constant(1))
 }

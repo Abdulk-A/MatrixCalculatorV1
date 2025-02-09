@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B80131EE2D38F5C700D893F1 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80131ED2D38F5C700D893F1 /* ResultView.swift */; };
 		B812F1012D420C12009C4534 /* SingleMatrixView4.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812F1002D420C12009C4534 /* SingleMatrixView4.swift */; };
+		B8456F982D57F8FA003E4100 /* TransposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8456F972D57F8FA003E4100 /* TransposeView.swift */; };
 		B85FB3952D350E1F0098F6E2 /* SingleMatrixView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85FB3942D350E1F0098F6E2 /* SingleMatrixView3.swift */; };
 		B887D0522D48AC8A00053122 /* TextRecognitionPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B887D0512D48AC8A00053122 /* TextRecognitionPracticeView.swift */; };
 		B89CEC162D49DF2E00A16C79 /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89CEC152D49DF2E00A16C79 /* AddView.swift */; };
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		B80131ED2D38F5C700D893F1 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
 		B812F1002D420C12009C4534 /* SingleMatrixView4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleMatrixView4.swift; sourceTree = "<group>"; };
+		B8456F972D57F8FA003E4100 /* TransposeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransposeView.swift; sourceTree = "<group>"; };
 		B85FB3942D350E1F0098F6E2 /* SingleMatrixView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleMatrixView3.swift; sourceTree = "<group>"; };
 		B887D0512D48AC8A00053122 /* TextRecognitionPracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognitionPracticeView.swift; sourceTree = "<group>"; };
 		B887D0572D48C48100053122 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				B80131ED2D38F5C700D893F1 /* ResultView.swift */,
 				B89CEC152D49DF2E00A16C79 /* AddView.swift */,
 				B89CEC192D4A0A2200A16C79 /* AddSubtractView.swift */,
+				B8456F972D57F8FA003E4100 /* TransposeView.swift */,
 				B8E00C3E2D18FA0B00BD0C0E /* Assets.xcassets */,
 				B8E00C402D18FA0B00BD0C0E /* Preview Content */,
 			);
@@ -172,6 +175,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8456F982D57F8FA003E4100 /* TransposeView.swift in Sources */,
 				B89CEC162D49DF2E00A16C79 /* AddView.swift in Sources */,
 				B812F1012D420C12009C4534 /* SingleMatrixView4.swift in Sources */,
 				B8E00C5C2D1D359D00BD0C0E /* MainScreenView5.swift in Sources */,

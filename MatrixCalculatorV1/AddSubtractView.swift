@@ -70,7 +70,7 @@ struct AddSubtractView: View {
                         
 
                         
-                        NavigationLink(destination: MultipleMatrixView(screenWidth: sW, screenHeight: sH, numRows: $numRows, numCols: $numCols, numRowsB: $numRowsB, numColsB: $numColsB, matrix1: $matrixA, matrix2: $matrixB, result: $result, isMatrixA: true, operationType: operationType, onCalculate: operationFunction)){
+                        NavigationLink(destination: MultipleMatrixView(screenWidth: sW, screenHeight: sH, numRows: $numRows, numCols: $numCols, numRowsB: $numRowsB, numColsB: $numColsB, matrix1: $matrixA, matrix2: $matrixB, result: $result, isMatrixA: true, tempColor: .red.opacity(0.8), operationType: operationType, onCalculate: operationFunction)){
                             HStack {
                                 Text("\(matrixA.count) X \(matrixA[0].count)")
                                 Image(systemName: "square.and.pencil")
@@ -87,7 +87,7 @@ struct AddSubtractView: View {
                             .bold()
                         Spacer()
                         
-                        NavigationLink(destination: MultipleMatrixView(screenWidth: sW, screenHeight: sH, numRows: $numRowsB, numCols: $numColsB, numRowsB: $numRows, numColsB: $numCols, matrix1: $matrixB, matrix2: $matrixA, result: $result, isMatrixA: false, operationType: operationType, onCalculate: operationFunction)) {
+                        NavigationLink(destination: MultipleMatrixView(screenWidth: sW, screenHeight: sH, numRows: $numRowsB, numCols: $numColsB, numRowsB: $numRows, numColsB: $numCols, matrix1: $matrixB, matrix2: $matrixA, result: $result, isMatrixA: false, tempColor: .blue.opacity(0.85), operationType: operationType, onCalculate: operationFunction)) {
                             HStack {
                                 Text("\(matrixB.count) X \(matrixB[0].count)")
                                 Image(systemName: "square.and.pencil")
@@ -142,6 +142,8 @@ struct AddSubtractView: View {
             }
         }
     }
+    
+
 }
 
 #Preview {
