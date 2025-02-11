@@ -20,6 +20,8 @@ struct TransposeView: View {
     @State private var deter: Double = 0.0 //determinant
     
     @State private var isShowPopup = false
+    @State private var isShowPopupInverse = false
+    
     
     @Environment(\.dismiss) var dismiss
     
@@ -45,6 +47,10 @@ struct TransposeView: View {
                                 withAnimation {
                                     isShowPopup.toggle()
                                 }
+                            } else if operationType == .inverse {
+                                withAnimation {
+                                    isShowPopupInverse.toggle()
+                                }
                             }
                         }
                         .foregroundStyle(.white)
@@ -52,6 +58,27 @@ struct TransposeView: View {
                         .clipShape(.rect(cornerRadius: 10))
                     }
                 }
+                .sheet(isPresented: $isShowPopupInverse, content: {
+                    if let invMat = inverse() {
+                        ResultView(result: invMat, screenWidth: sW, screenHeight: sH / 1.3)
+                    } else {
+                        VStack {
+                            Text("Inverse cannot be found for this matrix")
+                                .padding()
+                                .font(.title2)
+                            Button("OK") {
+                                withAnimation {
+                                    isShowPopupInverse.toggle()
+                                }
+                            }
+                            .padding()
+                            .foregroundStyle(.white)
+                            .background(.black)
+                            .clipShape(.rect(cornerRadius: 10))
+                            .font(.title3)
+                        }
+                    }
+                })
             if isShowPopup {
                 DeterminantResult(res: determinent(), showPopUp: $isShowPopup, sW: sW / 1.5, sH: sH / 3.5)
 //                    .frame(width: sW / 1.1, height: sH / 2)
@@ -143,6 +170,62 @@ struct TransposeView: View {
         
         return abs(det / total) < 1e-10 ? 0 : det / total
     }
+    
+    //placeholder inverse from chatgpt, since it takes a lot of code
+    //and want to see how it will look
+    //will replace with accelerator
+    func inverse() -> [[Double]]? {
+
+
+        var augmentedMatrix = matrix
+        var identity = (0..<rows).map { i in
+            (0..<rows).map { j in i == j ? 1.0 : 0.0 }
+        }
+
+        
+        for i in 0..<rows {
+            augmentedMatrix[i].append(contentsOf: identity[i])
+        }
+
+        for i in 0..<rows {
+            
+            var maxRow = i
+            for j in i+1..<rows {
+                if abs(augmentedMatrix[j][i]) > abs(augmentedMatrix[maxRow][i]) {
+                    maxRow = j
+                }
+            }
+            
+            if i != maxRow {
+                augmentedMatrix.swapAt(i, maxRow)
+            }
+
+            let pivot = augmentedMatrix[i][i]
+            if abs(pivot) < 1e-10 { return nil }
+
+            
+            for j in 0..<2*rows {
+                augmentedMatrix[i][j] /= pivot
+            }
+
+            
+            for j in 0..<rows {
+                if i != j {
+                    let factor = augmentedMatrix[j][i]
+                    for k in 0..<2*rows {
+                        augmentedMatrix[j][k] -= factor * augmentedMatrix[i][k]
+                    }
+                }
+            }
+        }
+
+        let inverseMatrix = (0..<rows).map { i in
+            Array(augmentedMatrix[i][rows..<2*rows])
+        }
+
+        return inverseMatrix
+    }
+
 }
 
 struct DeterminantResult: View {

@@ -78,12 +78,11 @@ struct OperationsView: View {
                                 .myTextStyle()
                         }
                         
-                        Button {
+                        NavigationLink(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .inverse)) {
                             
-                        } label: {
                             Text("Inverse")
+                                .myTextStyle()
                         }
-                        .buttonStyle(ExampleButton6())
                         
                         Button {
                             
@@ -194,6 +193,7 @@ enum MatrixOperation: String {
     case multiply
     case transpose = "Transpose"
     case determinant = "Determinant"
+    case inverse
 }
 
 extension View {

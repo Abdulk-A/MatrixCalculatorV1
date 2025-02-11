@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ResultView: View {
     
-    @Binding var result: [[Double]]
+    var result: [[Double]]
     
     var numRows: Int {
         result.count
@@ -32,31 +32,71 @@ struct ResultView: View {
         return screenHeight / (denom * 3)
     }
     
+    var flatMatrix: [Double] {
+        result.flatMap{ $0 }
+    }
+    
+    @State private var showList = false
+    
     var body: some View {
         VStack {
-            VStack(spacing: 10){
-                ForEach(0..<numRows, id: \.self) { row in
-                    HStack(spacing: 10) {
+            
+            Button(showList ? "Matrix" :  "List") {
+                withAnimation {
+                    showList.toggle()
+                }
+            }
+            .padding(.vertical, 8)
+            .padding(.horizontal, 20)
+            .foregroundStyle(.white)
+            .background(.black)
+            .clipShape(.rect(cornerRadius: 10))
+            .font(.title3)
+            .padding(.top)
+            
+            Spacer()
+            
+            if showList {
+                List {
+                    ForEach(0..<numRows, id: \.self) { row in
                         ForEach(0..<numCols, id: \.self) { col in
-                            
-                            Text("\(result[row][col].formatted())")
-                                .keyboardType(.numberPad)
-                                .multilineTextAlignment(.center)
-                                .frame(width: boxWidth, height: boxHeight)
+                            HStack {
+                                Text("Row \(row + 1) Column \( col + 1)")
+                                Spacer()
+                                Text("\(flatMatrix[row * numCols + col].formatted())")
+                            }
+                            .font(.headline)
+                        }
+                    }
+                }
+            } else {
+                VStack(spacing: 10){
+                    ForEach(0..<numRows, id: \.self) { row in
+                        HStack(spacing: 10) {
+                            ForEach(0..<numCols, id: \.self) { col in
                                 
-                                .foregroundStyle(.white)
-                                .background(.black.opacity(0.65))
-                                .clipShape(.rect(cornerRadius: 5))
+                                Text("\(result[row][col].formatted())")
+                                    .keyboardType(.numberPad)
+                                    .multilineTextAlignment(.center)
+                                    .frame(width: boxWidth, height: boxHeight)
+                                    
+                                    .foregroundStyle(.white)
+                                    .background(.black.opacity(0.65))
+                                    .clipShape(.rect(cornerRadius: 5))
+                            }
+                            
                         }
                         
                     }
-                    
                 }
             }
+            Spacer()
+            
+
         }
     }
 }
 
 #Preview {
-    ResultView(result: .constant([[0]]), screenWidth: UIScreen.main.bounds.width, screenHeight: UIScreen.main.bounds.height)
+    ResultView(result: [[0]], screenWidth: UIScreen.main.bounds.width, screenHeight: UIScreen.main.bounds.height)
 }

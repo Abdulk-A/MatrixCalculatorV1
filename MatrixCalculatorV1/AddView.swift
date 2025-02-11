@@ -34,7 +34,7 @@ struct AddView: View {
                 
                 Spacer()
                 
-                ResultView(result: $result, screenWidth: screenWidth, screenHeight: screenHeight)
+                ResultView(result: result, screenWidth: screenWidth, screenHeight: screenHeight)
                 
                 Spacer()
                 
