@@ -60,7 +60,7 @@ struct TransposeView: View {
                 }
                 .sheet(isPresented: $isShowPopupInverse, content: {
                     if let invMat = inverse() {
-                        ResultView(result: invMat, screenWidth: sW, screenHeight: sH / 1.3)
+                        ResultView(result: invMat, screenWidth: sW, screenHeight: sH / 1.3, operationType: .inverse)
                     } else {
                         VStack {
                             Text("Inverse cannot be found for this matrix")
@@ -178,7 +178,7 @@ struct TransposeView: View {
 
 
         var augmentedMatrix = matrix
-        var identity = (0..<rows).map { i in
+        let identity = (0..<rows).map { i in
             (0..<rows).map { j in i == j ? 1.0 : 0.0 }
         }
 
@@ -240,10 +240,9 @@ struct DeterminantResult: View {
         VStack {
             
             HStack {
-                Text("Determinant = ")
-                    .foregroundStyle(.white)
+                Text("Determinant =")
                 Text("\(res.formatted())")
-                    .foregroundStyle(.red)
+                    .bold()
             }
             .font(.title2)
             Button {
@@ -253,15 +252,21 @@ struct DeterminantResult: View {
             } label: {
                 Text("OK")
                     .padding()
-                    .background(.white)
+                    .foregroundStyle(.white)
+                    .background(.black)
                     .clipShape(.rect(cornerRadius: 10))
                     .font(.title3)
             }
         }
         .frame(width: sW, height: sH)
         .padding()
-        .background(.black)
-        .clipShape(.rect(cornerRadius: 10))
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(.black, lineWidth: 4)
+        )
+        .padding()
+        .background(.white)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 }
 

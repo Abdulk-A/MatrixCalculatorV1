@@ -58,7 +58,7 @@ struct AddSubtractView: View {
                 
                 Spacer()
                 
-                ResultView(result: result, screenWidth: sW, screenHeight: sH)
+                ResultView(result: result, screenWidth: sW, screenHeight: sH, operationType: operationType)
                 
                 Spacer()
                 

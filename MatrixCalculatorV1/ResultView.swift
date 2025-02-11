@@ -20,6 +20,7 @@ struct ResultView: View {
     
     let screenWidth: Double
     let screenHeight: Double
+    let operationType: MatrixOperation
     
     
     var boxWidth: Double {
@@ -41,18 +42,20 @@ struct ResultView: View {
     var body: some View {
         VStack {
             
-            Button(showList ? "Matrix" :  "List") {
-                withAnimation {
-                    showList.toggle()
+            if operationType == .inverse {
+                Button(showList ? "Matrix" :  "List") {
+                    withAnimation {
+                        showList.toggle()
+                    }
                 }
+                .padding(.vertical, 8)
+                .padding(.horizontal, 20)
+                .foregroundStyle(.white)
+                .background(.black)
+                .clipShape(.rect(cornerRadius: 10))
+                .font(.title3)
+                .padding(.top)
             }
-            .padding(.vertical, 8)
-            .padding(.horizontal, 20)
-            .foregroundStyle(.white)
-            .background(.black)
-            .clipShape(.rect(cornerRadius: 10))
-            .font(.title3)
-            .padding(.top)
             
             Spacer()
             
@@ -98,5 +101,5 @@ struct ResultView: View {
 }
 
 #Preview {
-    ResultView(result: [[0]], screenWidth: UIScreen.main.bounds.width, screenHeight: UIScreen.main.bounds.height)
+    ResultView(result: [[0]], screenWidth: UIScreen.main.bounds.width, screenHeight: UIScreen.main.bounds.height, operationType: .add)
 }

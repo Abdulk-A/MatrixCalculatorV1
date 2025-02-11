@@ -16,7 +16,8 @@ struct MatrixCalculatorV1App: App {
 //            SingleMatrixView3()
 //            TextRecognitionPracticeView()
 //            LiveTextRecognitionView()
-            OperationsView()
+//            OperationsView()
+            MainScreenView5()
         }
     }
 }

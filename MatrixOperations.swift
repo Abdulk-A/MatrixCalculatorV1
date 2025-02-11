@@ -168,7 +168,7 @@ extension Matrix {
         
         var result = A
         
-        for i in 1..<pow {
+        for _ in 1..<pow {
             result *= A
         }
         
@@ -246,7 +246,7 @@ extension Matrix {
             if (j != i) {
                 
                 for k in 0..<n {
-                    var temp_num = U_matrix[j,k]
+                    let temp_num = U_matrix[j,k]
                     U_matrix[j,k] = U_matrix[i,k]
                     U_matrix[i,k] = temp_num
                 }
