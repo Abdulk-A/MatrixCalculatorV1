@@ -118,7 +118,7 @@ struct SingleMatrixView3: View {
                                 .onChange(of: numRows) {
                                     if operationType == .transpose {
                                         addRow()
-                                    } else if operationType == .determinant || operationType == .inverse {
+                                    } else if operationType == .determinant || operationType == .inverse || operationType == .power {
                                         numCols = numRows
                                         addRow()
                                         
@@ -132,7 +132,7 @@ struct SingleMatrixView3: View {
                                 .onChange(of: numCols) {
                                     if operationType == .transpose {
                                         addColumn()
-                                    } else if operationType == .determinant || operationType == .inverse {
+                                    } else if operationType == .determinant || operationType == .inverse || operationType == .power{
                                         numRows = numCols
                                         addColumn()
                                     }

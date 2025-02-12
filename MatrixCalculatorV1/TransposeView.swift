@@ -14,6 +14,7 @@ struct TransposeView: View {
     let sW: Double
     let sH: Double
     let operationType: MatrixOperation
+    @State private var power = 2
     
     @State private var numRows: Double = 1
     @State private var numCols: Double = 1
@@ -24,6 +25,13 @@ struct TransposeView: View {
     
     
     @Environment(\.dismiss) var dismiss
+    
+    var topButtonTitle: String {
+        if operationType == .power {
+            return "Power \(power)"
+        }
+        return operationType.rawValue
+    }
     
     var body: some View {
         ZStack {
@@ -40,7 +48,7 @@ struct TransposeView: View {
                     }
                     
                     ToolbarItem(placement: .principal) {
-                        Button(operationType.rawValue) {
+                        Button(topButtonTitle) {
                             if operationType == .transpose  {
                                 transposeMatrix()
                             } else if operationType == .determinant {
@@ -51,11 +59,28 @@ struct TransposeView: View {
                                 withAnimation {
                                     isShowPopupInverse.toggle()
                                 }
+                            } else if operationType == .power {
+                                let originalMatrix = matrix
+                                
+                                withAnimation {
+                                    for i in 0..<(power-1) {
+                                        multiply(matrix2: originalMatrix)
+                                    }
+                                }
+                                
                             }
                         }
                         .foregroundStyle(.white)
                         .background(.black.opacity(0.65))
                         .clipShape(.rect(cornerRadius: 10))
+                    }
+                    
+                    if operationType == .power {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            HStack {
+                                Stepper("", value: $power, in: 1...100)
+                            }
+                        }
                     }
                 }
                 .sheet(isPresented: $isShowPopupInverse, content: {
@@ -81,7 +106,6 @@ struct TransposeView: View {
                 })
             if isShowPopup {
                 DeterminantResult(res: determinent(), showPopUp: $isShowPopup, sW: sW / 1.5, sH: sH / 3.5)
-//                    .frame(width: sW / 1.1, height: sH / 2)
                     .clipShape(.rect(cornerRadius: 15))
             }
         }
@@ -224,6 +248,23 @@ struct TransposeView: View {
         }
 
         return inverseMatrix
+    }
+    
+    func multiply(matrix2: [[Double]]) {
+        
+        
+        var matrix3 = Array(repeating: Array(repeating: 0.0, count: cols), count: rows)
+        
+        for i in 0..<rows {
+            for j in 0..<cols {
+                matrix3[i][j] = 0
+                for k in 0..<cols {
+                    matrix3[i][j] += (matrix[i][k] * matrix2[k][j])
+                }
+            }
+        }
+        
+        matrix = matrix3
     }
 
 }

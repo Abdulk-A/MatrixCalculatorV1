@@ -91,12 +91,11 @@ struct OperationsView: View {
                         }
                         .buttonStyle(ExampleButton6())
                         
-                        Button {
+                        NavigationLink(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .power)) {
                             
-                        } label: {
                             Text("Power")
+                                .myTextStyle()
                         }
-                        .buttonStyle(ExampleButton6())
                         
                         Button {
                             
@@ -194,6 +193,7 @@ enum MatrixOperation: String {
     case transpose = "Transpose"
     case determinant = "Determinant"
     case inverse
+    case power
 }
 
 extension View {
