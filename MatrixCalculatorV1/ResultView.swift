@@ -60,18 +60,60 @@ struct ResultView: View {
             Spacer()
             
             if showList {
-                List {
-                    ForEach(0..<numRows, id: \.self) { row in
-                        ForEach(0..<numCols, id: \.self) { col in
-                            HStack {
-                                Text("Row \(row + 1) Column \( col + 1)")
-                                Spacer()
-                                Text("\(flatMatrix[row * numCols + col].formatted())")
+                
+
+
+                ScrollView {
+                    VStack {
+                        GeometryReader { proxy in
+                            VStack(alignment: .leading) {
+                                
+                                // Table Header
+                                HStack(spacing: 0) {
+                                    Text("Row")
+                                        .frame(width: proxy.size.width * 0.25)
+                                    Text("Column")
+                                        .frame(width: proxy.size.width * 0.25)
+                                        .foregroundStyle(.red.opacity(0.65))
+                                    Spacer()
+                                    Text("Value")
+                                        .frame(width: proxy.size.width * 0.25)
+                                }
+                                .padding(.bottom)
+                                .font(.title3)
+                                .bold()
+
+                                LazyVStack(alignment: .leading) {
+                                    ForEach(0..<numRows, id: \.self) { row in
+                                        ForEach(0..<numCols, id: \.self) { col in
+                                            HStack {
+                                                Text("\(row + 1)")
+                                                    .frame(width: proxy.size.width * 0.25)
+                                                Text("\(col + 1)")
+                                                    .frame(width: proxy.size.width * 0.25)
+                                                    .foregroundStyle(.red.opacity(0.65))
+                                                Spacer()
+                                                Text("\(flatMatrix[row * numCols + col].formatted())")
+                                                    .frame(width: proxy.size.width * 0.25)
+                                            }
+                                            .padding(.bottom, 2)
+                                            .font(.headline)
+                                            .border(width: 3, edges: [.bottom], color: .black)
+                                            .padding(.bottom, 4)
+                                        }
+                                    }
+                                }
                             }
-                            .font(.headline)
+                            .padding()
                         }
+
                     }
                 }
+                .multilineTextAlignment(.center)
+                .scrollIndicators(.hidden)
+                .padding()
+
+                
             } else {
                 VStack(spacing: 10){
                     ForEach(0..<numRows, id: \.self) { row in
@@ -102,4 +144,27 @@ struct ResultView: View {
 
 #Preview {
     ResultView(result: [[0]], screenWidth: UIScreen.main.bounds.width, screenHeight: UIScreen.main.bounds.height, operationType: .add)
+}
+
+
+extension View {
+    func border(width: CGFloat, edges: [Edge], color: Color) -> some View {
+        overlay(EdgeBorder(width: width, edges: edges).foregroundColor(color))
+    }
+}
+
+struct EdgeBorder: Shape {
+    var width: CGFloat
+    var edges: [Edge]
+
+    func path(in rect: CGRect) -> Path {
+        edges.map { edge -> Path in
+            switch edge {
+            case .top: return Path(.init(x: rect.minX, y: rect.minY, width: rect.width, height: width))
+            case .bottom: return Path(.init(x: rect.minX, y: rect.maxY - width, width: rect.width, height: width))
+            case .leading: return Path(.init(x: rect.minX, y: rect.minY, width: width, height: rect.height))
+            case .trailing: return Path(.init(x: rect.maxX - width, y: rect.minY, width: width, height: rect.height))
+            }
+        }.reduce(into: Path()) { $0.addPath($1) }
+    }
 }
