@@ -22,145 +22,134 @@ struct OperationsView: View {
     }
     
     var body: some View {
-            ZStack {
-                
-                Image("grid3")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: screenWidth, height: screenHeight)
-                    .ignoresSafeArea()
-                    .opacity(0.2)
-                
-                
-                ScrollView {
-                    VStack {
-//                        Text("Calculator")
-//                            .frame(maxWidth: .infinity)
-//                            .font(.largeTitle)
-//                            .foregroundStyle(.black.opacity(0.80))
-//                            .blur(radius: 8)
-//                            .overlay{
-//                                Text("Calculator")
-//                                    .font(.largeTitle)
-//                                    .foregroundStyle(.white)
-//                                    .bold()
-//                            }
-//                            .padding(.bottom, 20)
-                        
-                        
-                        NavigationLink(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .add)) {
-                            
-                            Text("Add")
-                                .myTextStyle()
+        ZStack {
+            
+            Image("grid3")
+                .resizable()
+                .scaledToFill()
+                .frame(width: screenWidth, height: screenHeight)
+                .ignoresSafeArea()
+                .opacity(0.2)
+            
+            
+            ScrollView {
+                VStack {
+                    
+                    Text("Calculator")
+                        .frame(maxWidth: .infinity)
+                        .font(.largeTitle)
+                        .foregroundStyle(.white)
+                        .blur(radius: 8)
+                        .overlay{
+                            Text("Calculator")
+                                .font(.largeTitle)
+                                .foregroundStyle(.white)
+                                .bold()
                         }
+                        .padding(.bottom, 20)
+                    
+                    NavigationLink(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .add)) {
                         
-                        NavigationLink(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .subtract)) {
-                            
-                            Text("Subtract")
-                                .myTextStyle()
-                        }
-                        
-                        NavigationLink(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .multiply)) {
-                            
-                            Text("Multiply")
-                                .myTextStyle()
-                        }
-                        
-                        NavigationLink(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .transpose)) {
-                            
-                            Text("Transpose")
-                                .myTextStyle()
-                        }
-                        
-                        NavigationLink(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .determinant)) {
-                            
-                            Text("Determinant")
-                                .myTextStyle()
-                        }
-                        
-                        NavigationLink(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .inverse)) {
-                            
-                            Text("Inverse")
-                                .myTextStyle()
-                        }
-                        
-                        Button {
-                            
-                        } label: {
-                            Text("Rank")
-                        }
-                        .buttonStyle(ExampleButton6())
-                        
-                        NavigationLink(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .power)) {
-                            
-                            Text("Power")
-                                .myTextStyle()
-                        }
-                        
-                        Button {
-                            
-                        } label: {
-                            Text("Trace")
-                        }
-                        .buttonStyle(ExampleButton6())
-                        
-                        Button {
-                            
-                        } label: {
-                            Text("LU Decomposition")
-                        }
-                        .buttonStyle(ExampleButton6())
-                        
-                        Button {
-                            
-                        } label: {
-                            Text("QR Decomposition")
-                        }
-                        .buttonStyle(ExampleButton6())
-                        
-                        Button {
-                            
-                        } label: {
-                            Text("SLE")
-                        }
-                        .buttonStyle(ExampleButton6())
+                        Text("Add")
+                            .myTextStyle()
                     }
-                    .frame(maxWidth: 500)
-                    .padding()
-                    .background(
-                        RoundedRectangle(cornerRadius: 15)
-                            .foregroundStyle(.gray.opacity(0.5))
-                            .shadow(radius: 10)
-                    )
-                    .padding()
-                    .padding(.top, lenFromTop * 1.5)
-                }
-                .padding()
-                .scrollIndicators(.hidden)
-                
-            }
-            .navigationTitle("Calculator")
-            .ignoresSafeArea()
-            .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
+                    
+                    NavigationLink(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .subtract)) {
+                        
+                        Text("Subtract")
+                            .myTextStyle()
+                    }
+                    
+                    NavigationLink(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .multiply)) {
+                        
+                        Text("Multiply")
+                            .myTextStyle()
+                    }
+                    
+                    NavigationLink(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .transpose)) {
+                        
+                        Text("Transpose")
+                            .myTextStyle()
+                    }
+                    
+                    NavigationLink(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .determinant)) {
+                        
+                        Text("Determinant")
+                            .myTextStyle()
+                    }
+                    
+                    NavigationLink(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .inverse)) {
+                        
+                        Text("Inverse")
+                            .myTextStyle()
+                    }
+                    
+                    Button {
+                        
+                    } label: {
+                        Text("Rank")
+                    }
+                    .buttonStyle(ExampleButton6())
+                    
+                    NavigationLink(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .power)) {
+                        
+                        Text("Power")
+                            .myTextStyle()
+                    }
+                    
+                    Button {
+                        
+                    } label: {
+                        Text("Trace")
+                    }
+                    .buttonStyle(ExampleButton6())
+                    
+                    Button {
+                        
+                    } label: {
+                        Text("LU Decomposition")
+                    }
+                    .buttonStyle(ExampleButton6())
+                    
+                    Button {
+                        
+                    } label: {
+                        Text("QR Decomposition")
+                    }
+                    .buttonStyle(ExampleButton6())
+                    
+                    Button {
+                        
+                    } label: {
+                        Text("SLE")
+                    }
+                    .buttonStyle(ExampleButton6())
+                    
                     Button {
                         dismiss()
                     } label: {
-                        Image(systemName: "chevron.left")
-                            .font(.title2)
-                            .foregroundStyle(.black.opacity(0.6))
+                        Text("Back")
+                            .foregroundStyle(.orange)
                     }
+                    .buttonStyle(ExampleButton6())
                 }
-                
-                ToolbarItem(placement: .principal) {
-                    Text("Calculator")
-                        .font(.largeTitle)
-                        .foregroundStyle(.black.opacity(0.6))
-                        .shadow(radius: 5)
-                }
+                .frame(maxWidth: 500)
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 15)
+                        .foregroundStyle(.gray.opacity(0.5))
+                        .shadow(radius: 10)
+                )
+                .padding()
+                .padding(.top, lenFromTop)
             }
+            .padding()
+            .scrollIndicators(.hidden)
+            
         }
+        .ignoresSafeArea()
+        .navigationBarBackButtonHidden(true)
+    }
 }
 
 struct customTextStyle: ViewModifier {
