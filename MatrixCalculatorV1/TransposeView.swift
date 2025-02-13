@@ -5,6 +5,7 @@
 //  Created by Abdullah Abdulkareem on 2/8/25.
 //
 
+import Accelerate
 import SwiftUI
 
 struct TransposeView: View {
@@ -23,8 +24,16 @@ struct TransposeView: View {
     @State private var isShowPopup = false
     @State private var isShowPopupInverse = false
     
+    @State private var invArr: [Double]? = nil
     
     @Environment(\.dismiss) var dismiss
+    
+    var rows: Int {
+        Int(numRows)
+    }
+    var cols: Int {
+        Int(numCols)
+    }
     
     var topButtonTitle: String {
         if operationType == .power {
@@ -38,7 +47,6 @@ struct TransposeView: View {
             SingleMatrixView3(sW: sW, sH: sH, matrix: $matrix, numRows: $numRows, numCols: $numCols, operationType: operationType)
                 .navigationBarBackButtonHidden(true)
                 .toolbar {
-                    
                     ToolbarItem(placement: .topBarLeading) {
                         Button {
                             dismiss()
@@ -56,14 +64,14 @@ struct TransposeView: View {
                                     isShowPopup.toggle()
                                 }
                             } else if operationType == .inverse {
-                                withAnimation {
-                                    isShowPopupInverse.toggle()
+                                Task {
+                                    await invArr = invert()
                                 }
                             } else if operationType == .power {
                                 let originalMatrix = matrix
                                 
                                 withAnimation {
-                                    for i in 0..<(power-1) {
+                                    for _ in 0..<(power-1) {
                                         multiply(matrix2: originalMatrix)
                                     }
                                 }
@@ -84,7 +92,13 @@ struct TransposeView: View {
                     }
                 }
                 .sheet(isPresented: $isShowPopupInverse, content: {
-                    if let invMat = inverse() {
+                    
+                    
+                    
+                    if let invArr {
+                        
+                        let invMat = arrToMatrix(arr: invArr)
+                        
                         ResultView(result: invMat, screenWidth: sW, screenHeight: sH / 1.3, operationType: .inverse)
                     } else {
                         VStack {
@@ -111,12 +125,7 @@ struct TransposeView: View {
         }
     }
     
-    var rows: Int {
-        Int(numRows)
-    }
-    var cols: Int {
-        Int(numCols)
-    }
+
     
     func transposeMatrix() {
         var tempMat = Array(repeating: Array(repeating: 0.0, count: rows), count: cols)
@@ -267,6 +276,48 @@ struct TransposeView: View {
         matrix = matrix3
     }
 
+    func invert() async -> [Double]? {
+        
+        var flatMatrix = matrix.flatMap { $0 }
+    
+        
+        
+        var inversionSucceeded = true
+        
+        flatMatrix.withUnsafeMutableBufferPointer { ptr in
+            var ipiv = [__CLPK_integer](repeating: 0, count: rows * rows)
+            var lwork = __CLPK_integer(rows * rows)
+            var work = [CDouble](repeating: 0, count: Int(lwork))
+            var error: __CLPK_integer = 0
+            var nc = __CLPK_integer(cols)
+            var m = nc
+            var n = nc
+            dgetrf_(&m, &n, ptr.baseAddress, &nc, &ipiv, &error)
+            dgetri_(&m, ptr.baseAddress, &nc, &ipiv, &work, &lwork, &error)
+            
+            if error != 0 {
+                inversionSucceeded = false
+            }
+        }
+
+        
+        isShowPopupInverse.toggle()
+        return inversionSucceeded ? flatMatrix : nil
+    }
+    
+    //we have rows and cols already
+    //from state
+    func arrToMatrix(arr: [Double]) -> [[Double]] {
+        var result = Array(repeating: Array(repeating: 0.0, count: cols), count: rows)
+        
+        for i in 0..<rows {
+            for j in 0..<cols {
+                result[i][j] = arr[i * cols + j]
+            }
+        }
+        
+        return result
+    }
 }
 
 struct DeterminantResult: View {

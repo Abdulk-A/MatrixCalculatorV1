@@ -34,9 +34,6 @@ struct SingleMatrixView3: View {
         sH - (topBottomSegment * 2)
     }
     
-    
-
-    
     @State private var tempRow = 0
     @State private var tempCol = 0
     
@@ -116,13 +113,7 @@ struct SingleMatrixView3: View {
                             Text("R")
                             Slider(value: $numRows, in: 1...10, step: 1)
                                 .onChange(of: numRows) {
-                                    if operationType == .transpose {
-                                        addRow()
-                                    } else if operationType == .determinant || operationType == .inverse || operationType == .power {
-                                        numCols = numRows
-                                        addRow()
-                                        
-                                    }
+                                    resizeMatrix()
                                 }
                             Text("\(Int(numRows))")
                         }
@@ -130,12 +121,7 @@ struct SingleMatrixView3: View {
                             Text("C")
                             Slider(value: $numCols, in: 1...10, step: 1)
                                 .onChange(of: numCols) {
-                                    if operationType == .transpose {
-                                        addColumn()
-                                    } else if operationType == .determinant || operationType == .inverse || operationType == .power{
-                                        numRows = numCols
-                                        addColumn()
-                                    }
+                                    resizeMatrix()
                                 }
                             Text("\(Int(numCols))")
                         }
@@ -160,6 +146,17 @@ struct SingleMatrixView3: View {
     
     var cols: Int {
         Int(numCols)
+    }
+    
+    func resizeMatrix() {
+        if operationType == .transpose {
+            addRow()
+            addColumn()
+        } else if operationType == .determinant || operationType == .inverse || operationType == .power {
+            numCols = numRows
+            addRow()
+            addColumn()
+        }
     }
     
     func addRow() {

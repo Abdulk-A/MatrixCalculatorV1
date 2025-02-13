@@ -107,5 +107,3 @@ struct ExampleButton6: ButtonStyle {
             
     }
 }
-
-
