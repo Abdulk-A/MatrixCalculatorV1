@@ -149,7 +149,7 @@ struct SingleMatrixView3: View {
     }
     
     func resizeMatrix() {
-        if operationType == .transpose {
+        if operationType == .transpose || operationType == .rank {
             addRow()
             addColumn()
         } else if operationType == .determinant || operationType == .inverse || operationType == .power {

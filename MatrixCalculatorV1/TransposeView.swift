@@ -59,7 +59,7 @@ struct TransposeView: View {
                         Button(topButtonTitle) {
                             if operationType == .transpose  {
                                 transposeMatrix()
-                            } else if operationType == .determinant {
+                            } else if operationType == .determinant || operationType == .rank{
                                 withAnimation {
                                     isShowPopup.toggle()
                                 }
@@ -118,10 +118,14 @@ struct TransposeView: View {
                         }
                     }
                 })
-            if isShowPopup {
-                DeterminantResult(res: determinent(), showPopUp: $isShowPopup, sW: sW / 1.5, sH: sH / 3.5)
+            if isShowPopup && operationType == .determinant {
+                DeterminantResult(res: determinent(), showPopUp: $isShowPopup, sW: sW / 1.5, sH: sH / 3.5, title: "Determinant")
                     .clipShape(.rect(cornerRadius: 15))
+            } else if isShowPopup && operationType == .rank {
+                let tempMat = rowEchelonForm()
+                DeterminantResult(res: Double(countNonZeroRows(rowReducedMatrix: tempMat)), showPopUp: $isShowPopup, sW: sW / 1.5, sH: sH / 3.5, title: "Rank")
             }
+            
         }
     }
     
@@ -318,6 +322,67 @@ struct TransposeView: View {
         
         return result
     }
+    
+    //rosetta code -credit
+    func rowEchelonForm() -> [[Double]] {
+        
+        var m = matrix
+        
+        var lead = 0
+        for r in 0..<rows {
+            if (cols <= lead) { break }
+            var i = r
+            while (m[i][lead] == 0) {
+                i += 1
+                if (i == rows) {
+                    i = r
+                    lead += 1
+                    if (cols == lead) {
+                        lead -= 1
+                        break
+                    }
+                }
+            }
+            for j in 0..<cols {
+                let temp = m[r][j]
+                m[r][j] = m[i][j]
+                m[i][j] = temp
+            }
+            let div = m[r][lead]
+            if (div != 0) {
+                for j in 0..<cols {
+                    m[r][j] /= div
+                }
+            }
+            for j in 0..<rows {
+                if (j != r) {
+                    let sub = m[j][lead]
+                    for k in 0..<cols {
+                        m[j][k] -= (sub * m[r][k])
+                    }
+                }
+            }
+            lead += 1
+        }
+        
+        return m
+    }
+    
+    func countNonZeroRows(rowReducedMatrix: [[Double]]) -> Int {
+        
+        var res = 0;
+        
+        for i in 0..<rows {
+            for j in 0..<cols {
+                if rowReducedMatrix[i][j] != 0 {
+                    res += 1
+                    break
+                }
+            }
+        }
+        
+        return res
+    }
 }
 
 struct DeterminantResult: View {
@@ -328,11 +393,13 @@ struct DeterminantResult: View {
     let sW: Double
     let sH: Double
     
+    let title: String
+    
     var body: some View {
         VStack {
             
             HStack {
-                Text("Determinant =")
+                Text("\(title) =")
                 Text("\(res.formatted())")
                     .bold()
             }
