@@ -48,72 +48,27 @@ struct OperationsView: View {
                         }
                         .padding(.bottom, 20)
                     
-                    NavigationLink(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .add)) {
-                        
-                        Text("Add")
-                            .myTextStyle()
-                    }
+                    OperationNavView(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .add), label: "Add")
                     
-                    NavigationLink(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .subtract)) {
-                        
-                        Text("Subtract")
-                            .myTextStyle()
-                    }
+                    OperationNavView(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .subtract), label: "Subtract")
                     
-                    NavigationLink(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .multiply)) {
-                        
-                        Text("Multiply")
-                            .myTextStyle()
-                    }
+                    OperationNavView(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .multiply), label: "Multiply")
                     
-                    NavigationLink(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .transpose)) {
-                        
-                        Text("Transpose")
-                            .myTextStyle()
-                    }
+                    OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .transpose), label: "Transpose")
                     
-                    NavigationLink(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .determinant)) {
-                        
-                        Text("Determinant")
-                            .myTextStyle()
-                    }
+                    OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .determinant), label: "Determinant")
                     
-                    NavigationLink(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .inverse)) {
-                        
-                        Text("Inverse")
-                            .myTextStyle()
-                    }
-                    
-                    NavigationLink(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .rank)) {
-                        
-                        Text("Rank")
-                            .myTextStyle()
-                    }
-                    
-                    NavigationLink(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .power)) {
-                        
-                        Text("Power")
-                            .myTextStyle()
-                    }
+                    OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .inverse), label: "Inverse")
+
+                    OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .rank), label: "Rank")
+
+                    OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .power), label: "Power")
+
                     
                     Button {
                         
                     } label: {
                         Text("Trace")
-                    }
-                    .buttonStyle(ExampleButton6())
-                    
-                    Button {
-                        
-                    } label: {
-                        Text("LU Decomposition")
-                    }
-                    .buttonStyle(ExampleButton6())
-                    
-                    Button {
-                        
-                    } label: {
-                        Text("QR Decomposition")
                     }
                     .buttonStyle(ExampleButton6())
                     
@@ -175,19 +130,33 @@ struct customTextStyle: ViewModifier {
 }
 
 enum MatrixOperation: String {
-    case add
-    case subtract
-    case multiply
+    case add  = "Add"
+    case subtract = "Subtract"
+    case multiply = "Multiply"
     case transpose = "Transpose"
     case determinant = "Determinant"
-    case inverse
-    case power
-    case rank
+    case inverse = "Inverse"
+    case power = "Power"
+    case rank = "Rank"
+    case sle = "SLE"
 }
 
 extension View {
     func myTextStyle() -> some View {
         modifier(customTextStyle())
+    }
+}
+
+struct OperationNavView<Destination: View>: View {
+    
+    let destination: Destination
+    let label: String
+    
+    var body: some View {
+        NavigationLink(destination: destination) {
+            Text(label)
+                .myTextStyle()
+        }
     }
 }
 
