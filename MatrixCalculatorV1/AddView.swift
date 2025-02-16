@@ -55,7 +55,7 @@ struct AddView: View {
                 .foregroundStyle(.white)
                 
                 .frame(width: screenWidth, height: topBottomSegment)
-                .background(.black.opacity(0.65))
+                .background(Color("ButtonBackgroundStyle").opacity(0.65))
                 .clipShape(.rect(cornerRadius: 15))
             }
             

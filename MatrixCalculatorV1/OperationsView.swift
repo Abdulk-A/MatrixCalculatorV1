@@ -98,7 +98,7 @@ struct CustomTextStyle: ViewModifier {
             .frame(maxWidth: .infinity)
             .background(
                 RoundedRectangle(cornerRadius: 10)
-                    .foregroundStyle(.black.opacity(textOpacity))
+                    .foregroundStyle(Color("ButtonBackgroundStyle").opacity(textOpacity))
             )
             .font(.title.bold())
             .foregroundStyle(.white.opacity(0.8))

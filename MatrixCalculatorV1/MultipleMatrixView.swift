@@ -77,7 +77,7 @@ struct MultipleMatrixView: View {
                                         .multilineTextAlignment(.center)
                                         .frame(width: boxWidth, height: boxHeight)
                                         .foregroundStyle(.white)
-                                        .background(row == tempRow && col == tempCol ? tempColor : .black.opacity(0.70))
+                                        .background(row == tempRow && col == tempCol ? tempColor : Color("ButtonBackgroundStyle").opacity(0.70))
                                         .clipShape(.rect(cornerRadius: 5))
                                         .onTapGesture {
                                             withAnimation {

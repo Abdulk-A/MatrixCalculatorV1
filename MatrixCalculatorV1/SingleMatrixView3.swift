@@ -69,7 +69,7 @@ struct SingleMatrixView3: View {
                                         .multilineTextAlignment(.center)
                                         .frame(width: boxWidth, height: boxHeight)
                                         .foregroundStyle(.white)
-                                        .background(row == tempRow && col == tempCol ? .red.opacity(0.8) : .black.opacity(0.70))
+                                        .background(row == tempRow && col == tempCol ? .red.opacity(0.8) : Color("ButtonBackgroundStyle").opacity(0.70))
                                         .clipShape(.rect(cornerRadius: 5))
                                         .onTapGesture {
                                             withAnimation {

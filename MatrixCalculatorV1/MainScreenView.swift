@@ -60,12 +60,10 @@ struct MainScreenView: View {
                 .padding(.vertical)
                 .background(
                     RoundedRectangle(cornerRadius: 15)
-                        .foregroundStyle(.gray.opacity(0.5))
+                        .foregroundStyle(Color("MenuBackgroundColor"))
                         .shadow(radius: 10)
                 )
                 .padding()
-                
-
                     
             }
             .ignoresSafeArea(.all)
@@ -89,7 +87,7 @@ struct ExampleButton6: ButtonStyle {
             .frame(maxWidth: .infinity)
             .background(
                 RoundedRectangle(cornerRadius: 10)
-                    .foregroundStyle(.black.opacity(buttonOpacity))
+                    .foregroundStyle(Color("ButtonBackgroundStyle").opacity(buttonOpacity))
             )
             .font(.title.bold())
             
