@@ -7,10 +7,6 @@
 
 import SwiftUI
 
-struct Car {
-    var speed: Double
-}
-
 struct SingleMatrixView3: View {
     
     var boxWidth: Double {
@@ -53,12 +49,8 @@ struct SingleMatrixView3: View {
     
     var body: some View {
         ZStack {
-            Image("grid3")
-                .resizable()
-                .scaledToFill()
-                .frame(width: sW, height: sH)
-                .ignoresSafeArea()
-                .opacity(0.08)
+            
+            GridImageBackgroundView(name: "grid3", sW: sW, sH: sH)
             
             VStack(spacing: 0) {
                 
@@ -76,9 +68,7 @@ struct SingleMatrixView3: View {
                                         .keyboardType(.numberPad)
                                         .multilineTextAlignment(.center)
                                         .frame(width: boxWidth, height: boxHeight)
-                                        
                                         .foregroundStyle(.white)
-//                                        .background(.black.opacity(0.65))
                                         .background(row == tempRow && col == tempCol ? .red.opacity(0.8) : .black.opacity(0.70))
                                         .clipShape(.rect(cornerRadius: 5))
                                         .onTapGesture {

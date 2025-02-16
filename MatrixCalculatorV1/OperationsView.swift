@@ -24,12 +24,7 @@ struct OperationsView: View {
     var body: some View {
         ZStack {
             
-            Image("grid3")
-                .resizable()
-                .scaledToFill()
-                .frame(width: screenWidth, height: screenHeight)
-                .ignoresSafeArea()
-                .opacity(0.2)
+            GridImageBackgroundView(name: "grid3", sW: screenWidth, sH: screenHeight)
             
             
             ScrollView {
@@ -66,26 +61,13 @@ struct OperationsView: View {
 
                     
                     Button {
-                        
-                    } label: {
-                        Text("Trace")
-                    }
-                    .buttonStyle(ExampleButton6())
-                    
-                    Button {
-                        
-                    } label: {
-                        Text("SLE")
-                    }
-                    .buttonStyle(ExampleButton6())
-                    
-                    Button {
                         dismiss()
                     } label: {
                         Text("Back")
                             .foregroundStyle(.orange)
                     }
                     .buttonStyle(ExampleButton6())
+                    
                 }
                 .frame(maxWidth: 500)
                 .padding()
@@ -106,10 +88,9 @@ struct OperationsView: View {
     }
 }
 
-struct customTextStyle: ViewModifier {
+struct CustomTextStyle: ViewModifier {
     
     var textOpacity = 0.4
-    
     
     func body(content: Content) -> some View {
         content
@@ -129,6 +110,7 @@ struct customTextStyle: ViewModifier {
     }
 }
 
+
 enum MatrixOperation: String {
     case add  = "Add"
     case subtract = "Subtract"
@@ -143,7 +125,7 @@ enum MatrixOperation: String {
 
 extension View {
     func myTextStyle() -> some View {
-        modifier(customTextStyle())
+        modifier(CustomTextStyle())
     }
 }
 
@@ -157,6 +139,22 @@ struct OperationNavView<Destination: View>: View {
             Text(label)
                 .myTextStyle()
         }
+    }
+}
+
+struct GridImageBackgroundView: View {
+    
+    let name: String
+    let sW: Double
+    let sH: Double
+    
+    var body: some View {
+        Image(name)
+            .resizable()
+            .scaledToFill()
+            .frame(width: sW, height: sH)
+            .ignoresSafeArea()
+            .opacity(0.2)
     }
 }
 

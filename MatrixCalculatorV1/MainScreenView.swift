@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MainScreenView5: View {
+struct MainScreenView: View {
     
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
@@ -15,12 +15,8 @@ struct MainScreenView5: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Image("grid2")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: screenWidth, height: screenHeight)
-                    .ignoresSafeArea()
-                    .opacity(0.2)
+                
+                GridImageBackgroundView(name: "grid2", sW: screenWidth, sH: screenHeight)
                                 
                 VStack {
                     Text("Menu")
@@ -78,7 +74,7 @@ struct MainScreenView5: View {
 }
 
 #Preview {
-    MainScreenView5()
+    MainScreenView()
 }
 
 struct ExampleButton6: ButtonStyle {

@@ -11,13 +11,7 @@ import SwiftUI
 struct MatrixCalculatorV1App: App {
     var body: some Scene {
         WindowGroup {
-//            ContentView()
-//            SingleMatrixView()
-//            SingleMatrixView3()
-//            TextRecognitionPracticeView()
-//            LiveTextRecognitionView()
-//            OperationsView()
-            MainScreenView5()
+            MainScreenView()
         }
     }
 }

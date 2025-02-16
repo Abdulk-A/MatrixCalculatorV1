@@ -15,11 +15,10 @@
 		B89CEC182D49E65500A16C79 /* MultipleMatrixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89CEC172D49E65500A16C79 /* MultipleMatrixView.swift */; };
 		B89CEC1A2D4A0A2200A16C79 /* AddSubtractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89CEC192D4A0A2200A16C79 /* AddSubtractView.swift */; };
 		B8E00C3B2D18FA0300BD0C0E /* MatrixCalculatorV1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C3A2D18FA0300BD0C0E /* MatrixCalculatorV1App.swift */; };
-		B8E00C3D2D18FA0300BD0C0E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C3C2D18FA0300BD0C0E /* ContentView.swift */; };
 		B8E00C3F2D18FA0B00BD0C0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8E00C3E2D18FA0B00BD0C0E /* Assets.xcassets */; };
 		B8E00C422D18FA0B00BD0C0E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8E00C412D18FA0B00BD0C0E /* Preview Assets.xcassets */; };
 		B8E00C4A2D18FAA500BD0C0E /* MatrixOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C492D18FAA400BD0C0E /* MatrixOperations.swift */; };
-		B8E00C5C2D1D359D00BD0C0E /* MainScreenView5.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C5B2D1D359D00BD0C0E /* MainScreenView5.swift */; };
+		B8E00C5C2D1D359D00BD0C0E /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C5B2D1D359D00BD0C0E /* MainScreenView.swift */; };
 		B8E00C622D1E297500BD0C0E /* OperationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C612D1E297400BD0C0E /* OperationsView.swift */; };
 		B8F6844A2D462AEB007DCD6F /* ArrayPractice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F684492D462AEB007DCD6F /* ArrayPractice.swift */; };
 /* End PBXBuildFile section */
@@ -35,11 +34,10 @@
 		B89CEC192D4A0A2200A16C79 /* AddSubtractView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSubtractView.swift; sourceTree = "<group>"; };
 		B8E00C372D18FA0300BD0C0E /* MatrixCalculatorV1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MatrixCalculatorV1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8E00C3A2D18FA0300BD0C0E /* MatrixCalculatorV1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixCalculatorV1App.swift; sourceTree = "<group>"; };
-		B8E00C3C2D18FA0300BD0C0E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B8E00C3E2D18FA0B00BD0C0E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B8E00C412D18FA0B00BD0C0E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B8E00C492D18FAA400BD0C0E /* MatrixOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixOperations.swift; sourceTree = "<group>"; };
-		B8E00C5B2D1D359D00BD0C0E /* MainScreenView5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView5.swift; sourceTree = "<group>"; };
+		B8E00C5B2D1D359D00BD0C0E /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
 		B8E00C612D1E297400BD0C0E /* OperationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationsView.swift; sourceTree = "<group>"; };
 		B8F684492D462AEB007DCD6F /* ArrayPractice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayPractice.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -55,6 +53,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B82E0C0B2D61A28A009E1445 /* Study */ = {
+			isa = PBXGroup;
+			children = (
+				B8F684492D462AEB007DCD6F /* ArrayPractice.swift */,
+				B887D0512D48AC8A00053122 /* TextRecognitionPracticeView.swift */,
+			);
+			path = Study;
+			sourceTree = "<group>";
+		};
 		B8E00C2E2D18FA0300BD0C0E = {
 			isa = PBXGroup;
 			children = (
@@ -75,15 +82,13 @@
 		B8E00C392D18FA0300BD0C0E /* MatrixCalculatorV1 */ = {
 			isa = PBXGroup;
 			children = (
+				B82E0C0B2D61A28A009E1445 /* Study */,
 				B887D0572D48C48100053122 /* Info.plist */,
 				B8E00C3A2D18FA0300BD0C0E /* MatrixCalculatorV1App.swift */,
-				B8E00C3C2D18FA0300BD0C0E /* ContentView.swift */,
-				B8E00C5B2D1D359D00BD0C0E /* MainScreenView5.swift */,
+				B8E00C5B2D1D359D00BD0C0E /* MainScreenView.swift */,
 				B8E00C612D1E297400BD0C0E /* OperationsView.swift */,
 				B85FB3942D350E1F0098F6E2 /* SingleMatrixView3.swift */,
 				B89CEC172D49E65500A16C79 /* MultipleMatrixView.swift */,
-				B887D0512D48AC8A00053122 /* TextRecognitionPracticeView.swift */,
-				B8F684492D462AEB007DCD6F /* ArrayPractice.swift */,
 				B80131ED2D38F5C700D893F1 /* ResultView.swift */,
 				B89CEC152D49DF2E00A16C79 /* AddView.swift */,
 				B89CEC192D4A0A2200A16C79 /* AddSubtractView.swift */,
@@ -174,11 +179,10 @@
 			files = (
 				B8456F982D57F8FA003E4100 /* TransposeView.swift in Sources */,
 				B89CEC162D49DF2E00A16C79 /* AddView.swift in Sources */,
-				B8E00C5C2D1D359D00BD0C0E /* MainScreenView5.swift in Sources */,
+				B8E00C5C2D1D359D00BD0C0E /* MainScreenView.swift in Sources */,
 				B80131EE2D38F5C700D893F1 /* ResultView.swift in Sources */,
 				B89CEC182D49E65500A16C79 /* MultipleMatrixView.swift in Sources */,
 				B887D0522D48AC8A00053122 /* TextRecognitionPracticeView.swift in Sources */,
-				B8E00C3D2D18FA0300BD0C0E /* ContentView.swift in Sources */,
 				B89CEC1A2D4A0A2200A16C79 /* AddSubtractView.swift in Sources */,
 				B8E00C3B2D18FA0300BD0C0E /* MatrixCalculatorV1App.swift in Sources */,
 				B8E00C622D1E297500BD0C0E /* OperationsView.swift in Sources */,

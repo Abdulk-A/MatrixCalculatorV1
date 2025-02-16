@@ -47,12 +47,8 @@ struct AddSubtractView: View {
 
     var body: some View {
         ZStack {
-            Image("grid3")
-                .resizable()
-                .scaledToFill()
-                .frame(width: sW, height: sH)
-                .ignoresSafeArea()
-                .opacity(0.08)
+            
+            GridImageBackgroundView(name: "grid3", sW: sW, sH: sH)
             
             VStack {
                 

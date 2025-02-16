@@ -60,12 +60,8 @@ struct MultipleMatrixView: View {
     
     var body: some View {
         ZStack {
-            Image("grid3")
-                .resizable()
-                .scaledToFill()
-                .frame(width: screenWidth, height: screenHeight)
-                .ignoresSafeArea()
-                .opacity(0.08)
+            
+            GridImageBackgroundView(name: "grid3", sW: screenWidth, sH: screenHeight)
             
             VStack(spacing: 0) {
                 
