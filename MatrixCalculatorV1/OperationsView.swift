@@ -73,7 +73,7 @@ struct OperationsView: View {
                 .padding()
                 .background(
                     RoundedRectangle(cornerRadius: 15)
-                        .foregroundStyle(.gray.opacity(0.5))
+                        .foregroundStyle(Color("MenuBackgroundColor"))
                         .shadow(radius: 10)
                 )
                 .padding()
