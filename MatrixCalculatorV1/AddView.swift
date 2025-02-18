@@ -12,10 +12,10 @@ struct AddView: View {
     let screenWidth: Double
     let screenHeight: Double
     
-    @State private var matrixA: [[Double]] = [[0]]
-    @State private var matrixB: [[Double]] = [[0]]
+    @State private var matrixA = Matrix([[0]])
+    @State private var matrixB = Matrix([[0]])
     
-    @State private var result: [[Double]] = [[0]]
+    @State private var result = Matrix([[0]])
     
     var topBottomSegment: Double {
         screenHeight / 6.0
@@ -38,14 +38,14 @@ struct AddView: View {
                     HStack {
                         Text("Matrix A")
                         Spacer()
-                        Text("\(matrixA.count) X \(matrixA[0].count)")
+                        Text("\(matrixA.rows) X \(matrixA.cols)")
                         Image(systemName: "square.and.pencil")
                     }
                     .padding(.horizontal)
                     HStack {
                         Text("Matrix B")
                         Spacer()
-                        Text("\(matrixB.count) X \(matrixB[0].count)")
+                        Text("\(matrixB.rows) X \(matrixB.cols)")
                         Image(systemName: "square.and.pencil")
                     }
                     .padding(.horizontal)

@@ -9,17 +9,18 @@ import SwiftUI
 
 struct AddSubtractView: View {
     
-    
+    //values coming from another view//
     
     let sW: Double
     let sH: Double
     let operationType: MatrixOperation
     
+    //*******************************//
     
-    @State private var matrixA: [[Double]] = [[0]]
-    @State private var matrixB: [[Double]] = [[0]]
+    @State private var matrixA = Matrix([[0]])
+    @State private var matrixB = Matrix([[0]])
     
-    @State private var result: [[Double]] = [[0]]
+    @State private var result = Matrix([[0]])
     
     @State private var numRows: Double = 1
     @State private var numCols: Double = 1
@@ -28,23 +29,6 @@ struct AddSubtractView: View {
     @State private var numColsB: Double = 1
     
     
-    
-    
-    var topBottomSegment: Double {
-        sH / 6.0
-    }
-    
-    var operationFunction: ((inout [[Double]], inout [[Double]], inout [[Double]]) -> Void) {
-        switch operationType {
-        case .add:
-            return add
-        case .subtract:
-            return subtract
-        default:
-            return multiply
-        }
-    }
-
     var body: some View {
         ZStack {
             
@@ -63,12 +47,10 @@ struct AddSubtractView: View {
                         Text("Matrix A")
                             .bold()
                         Spacer()
-                        
-
-                        
+ 
                         NavigationLink(destination: MultipleMatrixView(screenWidth: sW, screenHeight: sH, numRows: $numRows, numCols: $numCols, numRowsB: $numRowsB, numColsB: $numColsB, matrix1: $matrixA, matrix2: $matrixB, result: $result, isMatrixA: true, tempColor: .red.opacity(0.8), operationType: operationType, onCalculate: operationFunction)){
                             HStack {
-                                Text("\(matrixA.count) X \(matrixA[0].count)")
+                                Text("\(matrixA.rows) X \(matrixA.cols)")
                                 Image(systemName: "square.and.pencil")
                                     .bold()
                             }
@@ -85,7 +67,7 @@ struct AddSubtractView: View {
                         
                         NavigationLink(destination: MultipleMatrixView(screenWidth: sW, screenHeight: sH, numRows: $numRowsB, numCols: $numColsB, numRowsB: $numRows, numColsB: $numCols, matrix1: $matrixB, matrix2: $matrixA, result: $result, isMatrixA: false, tempColor: .blue.opacity(0.85), operationType: operationType, onCalculate: operationFunction)) {
                             HStack {
-                                Text("\(matrixB.count) X \(matrixB[0].count)")
+                                Text("\(matrixB.rows) X \(matrixB.cols)")
                                 Image(systemName: "square.and.pencil")
                                     .bold()
                             }
@@ -102,44 +84,25 @@ struct AddSubtractView: View {
                 .background(Color("ButtonBackgroundStyle").opacity(0.65))
                 .clipShape(.rect(cornerRadius: 15))
             }
-            
-            
-
         }
         .ignoresSafeArea()
     }
-
-    func add(matrix1: inout [[Double]], matrix2: inout [[Double]], matrix3: inout [[Double]]) {
-                
-        for i in 0..<matrix1.count {
-            for j in 0..<matrix1[0].count {
-                matrix3[i][j] = matrix1[i][j] + matrix2[i][j]
-            }
+    
+    var topBottomSegment: Double {
+        sH / 6.0
+    }
+    
+    var operationFunction: ((inout Matrix, inout Matrix, inout Matrix) -> Void) {
+        switch operationType {
+        case .add:
+            return Matrix.add
+        case .subtract:
+            return Matrix.subtract
+        default:
+            return Matrix.multiply
         }
     }
     
-    func subtract(matrix1: inout [[Double]], matrix2: inout [[Double]], matrix3: inout [[Double]]) {
-                
-        for i in 0..<matrix1.count {
-            for j in 0..<matrix1[0].count {
-                matrix3[i][j] = matrix1[i][j] - matrix2[i][j]
-            }
-        }
-    }
-    
-    func multiply(matrix1: inout [[Double]], matrix2: inout [[Double]], matrix3: inout [[Double]]) {
-        
-        for i in 0..<matrix1.count {
-            for j in 0..<matrix2[0].count {
-                matrix3[i][j] = 0
-                for k in 0..<matrix1[0].count {
-                    matrix3[i][j] += (matrix1[i][k] * matrix2[k][j])
-                }
-            }
-        }
-    }
-    
-
 }
 
 #Preview {

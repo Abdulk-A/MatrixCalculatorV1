@@ -98,7 +98,7 @@ struct TransposeView: View {
                 .sheet(isPresented: $isShowPopupInverse, content: {
                     if let invArr {
                         
-                        let invMat = arrToMatrix(arr: invArr)
+                        let invMat = Matrix(arrToMatrix(arr: invArr))
                         
                         ResultView(result: invMat, screenWidth: sW, screenHeight: sH / 1.3, operationType: .inverse)
                     } else {

@@ -9,13 +9,13 @@ import SwiftUI
 
 struct ResultView: View {
     
-    var result: [[Double]]
+    var result: Matrix
     
     var numRows: Int {
-        result.count
+        result.rows
     }
     var numCols: Int {
-        result[0].count
+        result.cols
     }
     
     let screenWidth: Double
@@ -34,7 +34,7 @@ struct ResultView: View {
     }
     
     var flatMatrix: [Double] {
-        result.flatMap{ $0 }
+        result.values.flatMap{ $0 }
     }
     
     @State private var showList = false
@@ -120,7 +120,7 @@ struct ResultView: View {
                         HStack(spacing: 10) {
                             ForEach(0..<numCols, id: \.self) { col in
                                 
-                                Text("\(result[row][col].formatted())")
+                                Text("\(result.values[row][col].formatted())")
                                     .keyboardType(.numberPad)
                                     .multilineTextAlignment(.center)
                                     .frame(width: boxWidth, height: boxHeight)
@@ -143,7 +143,7 @@ struct ResultView: View {
 }
 
 #Preview {
-    ResultView(result: [[0]], screenWidth: UIScreen.main.bounds.width, screenHeight: UIScreen.main.bounds.height, operationType: .add)
+    ResultView(result: Matrix([[0]]), screenWidth: UIScreen.main.bounds.width, screenHeight: UIScreen.main.bounds.height, operationType: .add)
 }
 
 
