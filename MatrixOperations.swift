@@ -372,25 +372,17 @@ struct Matrix {
         self.values = values
     }
 
-//    mutating func transpose() {
-//        
-//        
-//        values = (0..<cols).map { col in
-//            (0..<rows).map { row in values[row][col] }
-//        }
-//    }
-    
-        mutating func transpose() {
-            var tempMat = Array(repeating: Array(repeating: 0.0, count: rows), count: cols)
-    
-            for i in 0..<rows {
-                for j in 0..<cols {
-                    tempMat[j][i] = values[i][j]
-                }
-            }
+    mutating func transpose() {
+        var tempMat = Array(repeating: Array(repeating: 0.0, count: rows), count: cols)
 
-            values = tempMat
+        for i in 0..<rows {
+            for j in 0..<cols {
+                tempMat[j][i] = values[i][j]
+            }
         }
+
+        values = tempMat
+    }
     
     subscript(row: Int, col: Int) -> Double {
         get {

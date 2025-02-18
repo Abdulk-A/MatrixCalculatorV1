@@ -44,7 +44,7 @@ struct TransposeView: View {
     
     var body: some View {
         ZStack {
-            SingleMatrixView3(sW: sW, sH: sH, matrix: $matrix, numRows: $numRows, numCols: $numCols, operationType: operationType)
+            SingleMatrixView3(matrix: $matrix, numCols: $numCols, numRows: $numRows, operationType: operationType, sH: sH, sW: sW)
                 .navigationBarBackButtonHidden(true)
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
@@ -96,9 +96,6 @@ struct TransposeView: View {
                     }
                 }
                 .sheet(isPresented: $isShowPopupInverse, content: {
-                    
-                    
-                    
                     if let invArr {
                         
                         let invMat = arrToMatrix(arr: invArr)

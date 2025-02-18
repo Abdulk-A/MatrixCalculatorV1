@@ -32,7 +32,7 @@ struct MainScreenView: View {
                         }
                     VStack {
                         
-                        NavigationLink(destination: OperationsView()) {
+                        NavigationLink(destination: OperationsView(screenWidth: screenWidth, screenHeight: screenHeight)) {
                             
                             Text("Calculator")
                                 .myTextStyle()

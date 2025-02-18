@@ -9,14 +9,15 @@ import SwiftUI
 
 struct OperationsView: View {
     
-    let screenWidth = UIScreen.main.bounds.width
-    let screenHeight = UIScreen.main.bounds.height
+    //values coming from another view//
+    
+    let screenWidth: Double
+    let screenHeight: Double
+    
+    //*******************************//
     
     @Environment(\.dismiss) var dismiss
-    
-    var lenFromTop: Double {
-        return screenHeight / 14.0
-    }
+
     
     var body: some View {
         ZStack {
@@ -82,6 +83,10 @@ struct OperationsView: View {
         }
         .ignoresSafeArea()
         .navigationBarBackButtonHidden(true)
+    }
+    
+    var lenFromTop: Double {
+        return screenHeight / 14.0
     }
 }
 
@@ -156,5 +161,5 @@ struct GridImageBackgroundView: View {
 }
 
 #Preview {
-    OperationsView()
+    OperationsView(screenWidth: UIScreen.main.bounds.width, screenHeight: UIScreen.main.bounds.height)
 }

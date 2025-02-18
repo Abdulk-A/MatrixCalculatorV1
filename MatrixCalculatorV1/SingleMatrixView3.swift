@@ -9,43 +9,21 @@ import SwiftUI
 
 struct SingleMatrixView3: View {
     
-    var boxWidth: Double {
-        let denom: Double = numCols > 7 ? Double(numCols) : 7
-        return sW / (denom * 1.6)
-    }
-    
-    var boxHeight: Double {
-        let denom: Double = numRows > 7 ? Double(numRows) : 7
-        return sH / (denom * 3)
-    }
-    
-    let sW: Double
-    let sH: Double
-    
-    var topBottomSegment: Double {
-        sH / 6.0
-    }
-    
-    var midSegment: Double {
-        sH - (topBottomSegment * 2)
-    }
-    
-    @State private var tempRow = 0
-    @State private var tempCol = 0
-    
-
-    @State private var isKeyboardShowing: Bool = false
-    
-    
-    @State private var num = 0
-    
-    
+    //values coming from another view//
     
     @Binding var matrix: Matrix
-    @Binding var numRows: Double
     @Binding var numCols: Double
+    @Binding var numRows: Double
     
     let operationType: MatrixOperation
+    let sH: Double
+    let sW: Double
+    
+    //*******************************//
+    
+    @State private var isKeyboardShowing: Bool = false
+    @State private var tempCol = 0
+    @State private var tempRow = 0
     
     var body: some View {
         ZStack {
@@ -55,48 +33,10 @@ struct SingleMatrixView3: View {
             VStack(spacing: 0) {
                 
                 Spacer()
+                
+                MatrixEditView(matrix: $matrix, isKeyboardShowing: $isKeyboardShowing, tempCol: $tempCol, tempRow: $tempRow, boxColor: .red.opacity(0.8), numCols: numCols, numRows: numRows, sW: sW, sH: sH)
                       
-                VStack {
 
-                    
-                    VStack(spacing: 10){
-                        ForEach(0..<matrix.rows, id: \.self) { row in
-                            HStack(spacing: 10) {
-                                ForEach(0..<matrix.cols, id: \.self) { col in
-                                    
-                                    TextField("", value: $matrix.values[row][col], formatter: NumberFormatter())
-                                        .keyboardType(.numberPad)
-                                        .multilineTextAlignment(.center)
-                                        .frame(width: boxWidth, height: boxHeight)
-                                        .foregroundStyle(.white)
-                                        .background(row == tempRow && col == tempCol ? .red.opacity(0.8) : Color("ButtonBackgroundStyle").opacity(0.70))
-                                        .clipShape(.rect(cornerRadius: 5))
-                                        .onTapGesture {
-                                            withAnimation {
-                                                tempRow = row
-                                                tempCol = col
-                                            }
-                                        }
-                                }
-                                
-                            }
-                            
-                        }
-                    }
-                    .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification), perform: { _ in
-                        withAnimation {
-                            isKeyboardShowing = true
-                        }
-                    })
-                    .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification), perform: { _ in
-                        withAnimation {
-                            isKeyboardShowing = false
-                        }
-                    })
-                }
-                .frame(width: sW, height: midSegment)
-                
-                
                 if !isKeyboardShowing {
                     VStack {
                         HStack {
@@ -142,6 +82,10 @@ struct SingleMatrixView3: View {
         Int(numCols)
     }
     
+    var topBottomSegment: Double {
+        sH / 6.0
+    }
+    
     func checkTemp() {
         
         if tempRow >= matrix.rows {
@@ -161,6 +105,83 @@ struct SingleMatrixView3: View {
 
 }
 
+struct MatrixEditView: View {
+    
+    //values coming from another view//
+    
+    @Binding var matrix: Matrix
+    @Binding var isKeyboardShowing: Bool
+    @Binding var tempCol: Int
+    @Binding var tempRow: Int
+    
+    let boxColor: Color
+    let numCols: Double
+    let numRows: Double
+    
+    let sW: Double
+    let sH: Double
+    
+    //*******************************//
+        
+    var body: some View {
+        VStack {
+            VStack(spacing: 10){
+                ForEach(0..<matrix.rows, id: \.self) { row in
+                    HStack(spacing: 10) {
+                        ForEach(0..<matrix.cols, id: \.self) { col in
+                            
+                            TextField("", value: $matrix.values[row][col], formatter: NumberFormatter())
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.center)
+                                .frame(width: boxWidth, height: boxHeight)
+                                .foregroundStyle(.white)
+                                .background(row == tempRow && col == tempCol ? boxColor : Color("ButtonBackgroundStyle").opacity(0.70))
+                                .clipShape(.rect(cornerRadius: 5))
+                                .onTapGesture {
+                                    withAnimation {
+                                        tempRow = row
+                                        tempCol = col
+                                    }
+                                }
+                        }
+                        
+                    }
+                    
+                }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification), perform: { _ in
+                withAnimation {
+                    isKeyboardShowing = true
+                }
+            })
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification), perform: { _ in
+                withAnimation {
+                    isKeyboardShowing = false
+                }
+            })
+        }
+        .frame(width: sW, height: midSegment)
+    }
+    
+    var boxHeight: Double {
+        let denom: Double = numRows > 7 ? Double(numRows) : 7
+        return sH / (denom * 3)
+    }
+    
+    var boxWidth: Double {
+        let denom: Double = numCols > 7 ? Double(numCols) : 7
+        return sW / (denom * 1.6)
+    }
+        
+    var midSegment: Double {
+        sH - (topBottomSegment * 2)
+    }
+    
+    var topBottomSegment: Double {
+        sH / 6.0
+    }
+}
+
 #Preview {
-    SingleMatrixView3(sW: UIScreen.main.bounds.width, sH: UIScreen.main.bounds.height, matrix: .constant(Matrix([[0.0]])), numRows: .constant(1), numCols: .constant(1), operationType: .transpose)
+    SingleMatrixView3(matrix: .constant(Matrix([[0.0]])), numCols: .constant(1), numRows: .constant(1), operationType: .transpose, sH: UIScreen.main.bounds.height, sW: UIScreen.main.bounds.width)
 }
