@@ -12,9 +12,6 @@ struct OperationsView: View {
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
     
-    @State private var MatrixA: [[Double]] = [[0]]
-    @State private var MatrixB: [[Double]] = [[0]]
-    
     @Environment(\.dismiss) var dismiss
     
     var lenFromTop: Double {

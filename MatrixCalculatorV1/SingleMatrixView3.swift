@@ -41,7 +41,7 @@ struct SingleMatrixView3: View {
     
     
     
-    @Binding var matrix: [[Double]]
+    @Binding var matrix: Matrix
     @Binding var numRows: Double
     @Binding var numCols: Double
     
@@ -60,11 +60,11 @@ struct SingleMatrixView3: View {
 
                     
                     VStack(spacing: 10){
-                        ForEach(0..<matrix.count, id: \.self) { row in
+                        ForEach(0..<matrix.rows, id: \.self) { row in
                             HStack(spacing: 10) {
-                                ForEach(0..<matrix[row].count, id: \.self) { col in
+                                ForEach(0..<matrix.cols, id: \.self) { col in
                                     
-                                    TextField("", value: $matrix[row][col], formatter: NumberFormatter())
+                                    TextField("", value: $matrix[row, col], formatter: NumberFormatter())
                                         .keyboardType(.numberPad)
                                         .multilineTextAlignment(.center)
                                         .frame(width: boxWidth, height: boxHeight)
@@ -140,51 +140,53 @@ struct SingleMatrixView3: View {
     
     func resizeMatrix() {
         if operationType == .transpose || operationType == .rank {
-            addRow()
-            addColumn()
+            matrix.addRow(nRows: rows)
+            matrix.addColumn(nCols: cols)
         } else if operationType == .determinant || operationType == .inverse || operationType == .power {
             numCols = numRows
-            addRow()
-            addColumn()
-        }
-    }
-    
-    func addRow() {
-        if rows > matrix.count {
-            for _ in matrix.count..<rows {
-                matrix.append(Array(repeating: 0, count: cols))
-            }
-        } else if rows < matrix.count {
-
-            matrix.removeLast(matrix.count - rows)
-
-            
-            if tempRow >= matrix.count {
-                withAnimation {
-                    tempRow = matrix.count - 1
-                }
-            }
-        }
-    }
-    
-    func addColumn() {
-        for i in 0..<matrix.count {
-            if cols > matrix[i].count {
-                matrix[i].append(contentsOf: Array(repeating: 0, count: cols - matrix[i].count))
-            } else if cols < matrix[i].count {
-                matrix[i].removeLast(matrix[i].count - cols)
-                
-                if tempCol >= matrix[0].count {
-                    withAnimation {
-                        tempCol = matrix[0].count - 1
-                    }
-                }
-                
-            }
+            matrix.addRow(nRows: rows)
+            matrix.addColumn(nCols: cols)
         }
     }
 }
 
 #Preview {
-    SingleMatrixView3(sW: UIScreen.main.bounds.width, sH: UIScreen.main.bounds.height, matrix: .constant([[0.0]]), numRows: .constant(1), numCols: .constant(1), operationType: .transpose)
+    SingleMatrixView3(sW: UIScreen.main.bounds.width, sH: UIScreen.main.bounds.height, matrix: .constant(Matrix([[0.0]])), numRows: .constant(1), numCols: .constant(1), operationType: .transpose)
 }
+
+
+
+//    func addRow() {
+//        if rows > matrix.count {
+//            for _ in matrix.count..<rows {
+//                matrix.append(Array(repeating: 0, count: cols))
+//            }
+//        } else if rows < matrix.count {
+//
+//            matrix.removeLast(matrix.count - rows)
+//
+//
+//            if tempRow >= matrix.count {
+//                withAnimation {
+//                    tempRow = matrix.count - 1
+//                }
+//            }
+//        }
+//    }
+//
+//    func addColumn() {
+//        for i in 0..<matrix.count {
+//            if cols > matrix[i].count {
+//                matrix[i].append(contentsOf: Array(repeating: 0, count: cols - matrix[i].count))
+//            } else if cols < matrix[i].count {
+//                matrix[i].removeLast(matrix[i].count - cols)
+//
+//                if tempCol >= matrix[0].count {
+//                    withAnimation {
+//                        tempCol = matrix[0].count - 1
+//                    }
+//                }
+//
+//            }
+//        }
+//    }
