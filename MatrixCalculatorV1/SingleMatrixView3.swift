@@ -64,7 +64,7 @@ struct SingleMatrixView3: View {
                             HStack(spacing: 10) {
                                 ForEach(0..<matrix.cols, id: \.self) { col in
                                     
-                                    TextField("", value: $matrix[row, col], formatter: NumberFormatter())
+                                    TextField("", value: $matrix.values[row][col], formatter: NumberFormatter())
                                         .keyboardType(.numberPad)
                                         .multilineTextAlignment(.center)
                                         .frame(width: boxWidth, height: boxHeight)
@@ -103,7 +103,9 @@ struct SingleMatrixView3: View {
                             Text("R")
                             Slider(value: $numRows, in: 1...10, step: 1)
                                 .onChange(of: numRows) {
-                                    resizeMatrix()
+                                    checkOp()
+                                    matrix.addRow(nRows: rows)
+                                    checkTemp()
                                 }
                             Text("\(Int(numRows))")
                         }
@@ -111,7 +113,9 @@ struct SingleMatrixView3: View {
                             Text("C")
                             Slider(value: $numCols, in: 1...10, step: 1)
                                 .onChange(of: numCols) {
-                                    resizeMatrix()
+                                    checkOp()
+                                    matrix.addColumn(nCols: cols)
+                                    checkTemp()
                                 }
                             Text("\(Int(numCols))")
                         }
@@ -138,16 +142,23 @@ struct SingleMatrixView3: View {
         Int(numCols)
     }
     
-    func resizeMatrix() {
-        if operationType == .transpose || operationType == .rank {
-            matrix.addRow(nRows: rows)
-            matrix.addColumn(nCols: cols)
-        } else if operationType == .determinant || operationType == .inverse || operationType == .power {
-            numCols = numRows
-            matrix.addRow(nRows: rows)
-            matrix.addColumn(nCols: cols)
+    func checkTemp() {
+        
+        if tempRow >= matrix.rows {
+            tempRow = matrix.rows - 1
+        }
+        if tempCol >= matrix.cols {
+            tempCol = matrix.cols - 1
         }
     }
+    
+    func checkOp() {
+        if operationType == .determinant || operationType == .inverse || operationType == .power {
+            numCols = numRows
+        }
+    }
+    
+
 }
 
 #Preview {

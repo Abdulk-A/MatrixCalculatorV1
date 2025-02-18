@@ -10,13 +10,7 @@ import SwiftUI
 
 struct TransposeView: View {
     
-    
-    
-    
-//    @State private var matrix: [[Double]] = [[0]]
-    
     @State private var matrix = Matrix([[0]])
-    
     
     let sW: Double
     let sH: Double
@@ -65,7 +59,12 @@ struct TransposeView: View {
                         Button(topButtonTitle) {
                             if operationType == .transpose  {
                                 matrix.transpose()
-                            } 
+
+                                let temp = numRows
+                                numRows = numCols
+                                numCols = temp
+
+                            }
 //                            else if operationType == .determinant || operationType == .rank{
 //                                withAnimation {
 //                                    isShowPopup.toggle()

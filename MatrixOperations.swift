@@ -363,6 +363,7 @@ import SwiftUI
 
 struct Matrix {
     var values: [[Double]]
+    
     var rows: Int { values.count }
     var cols: Int { values[0].count }
 
@@ -370,11 +371,25 @@ struct Matrix {
         self.values = values
     }
 
-    mutating func transpose() {
-        values = (0..<cols).map { col in
-            (0..<rows).map { row in values[row][col] }
+//    mutating func transpose() {
+//        
+//        
+//        values = (0..<cols).map { col in
+//            (0..<rows).map { row in values[row][col] }
+//        }
+//    }
+    
+        mutating func transpose() {
+            var tempMat = Array(repeating: Array(repeating: 0.0, count: rows), count: cols)
+    
+            for i in 0..<rows {
+                for j in 0..<cols {
+                    tempMat[j][i] = values[i][j]
+                }
+            }
+
+            values = tempMat
         }
-    }
     
     subscript(row: Int, col: Int) -> Double {
         get {
@@ -387,26 +402,51 @@ struct Matrix {
         }
     }
     
+    subscript(row: Int) -> [Double] {
+        get {
+            precondition(row < rows, "row not within dimensions")
+            return values[row]
+        }
+        set(newValue) {
+            precondition(row < rows , "row not within dimensions")
+            values[row] = newValue
+        }
+    }
+    
     mutating func addRow(nRows: Int) {
-        if nRows > self.rows {
-            for _ in self.rows..<nRows {
-                self.values.append(Array(repeating: 0, count: self.cols))
+        if nRows > values.count {
+            for _ in values.count..<nRows {
+                values.append(Array(repeating: 0, count: values[0].count))
             }
-        } else if nRows < self.rows {
-            self.values.removeLast(self.rows - nRows)
+        } else if nRows < values.count {
+            values.removeLast(values.count - nRows)
         }
     }
 
     mutating func addColumn(nCols: Int) {
-        if nCols > self.cols {
-            for i in 0..<self.rows {
-                self.values[i].append(contentsOf: Array(repeating: 0, count: nCols - self.cols))
-            }
-        } else if nCols < self.cols {
-            for i in 0..<self.rows {
-                self.values[i].removeLast(self.cols - nCols)
+        for i in 0..<values.count {
+            if nCols > values[i].count {
+                values[i].append(contentsOf: Array(repeating: 0, count: nCols - values[i].count))
+            } else if nCols < values[i].count {
+                values[i].removeLast(values[i].count - nCols)
             }
         }
     }
 }
 
+//    func addColumn() {
+//        for i in 0..<matrix.count {
+//            if cols > matrix[i].count {
+//                matrix[i].append(contentsOf: Array(repeating: 0, count: cols - matrix[i].count))
+//            } else if cols < matrix[i].count {
+//                matrix[i].removeLast(matrix[i].count - cols)
+//
+//                if tempCol >= matrix[0].count {
+//                    withAnimation {
+//                        tempCol = matrix[0].count - 1
+//                    }
+//                }
+//
+//            }
+//        }
+//    }
