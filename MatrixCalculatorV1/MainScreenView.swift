@@ -38,12 +38,11 @@ struct MainScreenView: View {
                                 .myTextStyle()
                         }
                         
-                        Button {
+                        NavigationLink(destination: PracticeSetupView(screenWidth: screenWidth, screenHeight: screenHeight)) {
                             
-                        } label: {
                             Text("Practice")
+                                .myTextStyle()
                         }
-                        .buttonStyle(ExampleButton6())
                         
                         
                         Button {
@@ -78,6 +77,8 @@ struct MainScreenView: View {
 struct ExampleButton6: ButtonStyle {
     
     var buttonOpacity = 0.4
+    var backgroundColor = Color("ButtonBackgroundStyle")
+    var fontColor: Color = .white
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -87,12 +88,12 @@ struct ExampleButton6: ButtonStyle {
             .frame(maxWidth: .infinity)
             .background(
                 RoundedRectangle(cornerRadius: 10)
-                    .foregroundStyle(Color("ButtonBackgroundStyle").opacity(buttonOpacity))
+                    .foregroundStyle(backgroundColor.opacity(buttonOpacity))
             )
             .font(.title.bold())
             
 
-            .foregroundStyle(.white.opacity(0.8))
+            .foregroundStyle(fontColor.opacity(0.8))
             .padding(.bottom, 6)
             .shadow(radius: 5)
             .scaleEffect(configuration.isPressed ? 1.1 : 1)

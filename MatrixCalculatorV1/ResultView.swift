@@ -9,34 +9,16 @@ import SwiftUI
 
 struct ResultView: View {
     
-    var result: Matrix
+    //values coming from another view//
     
-    var numRows: Int {
-        result.rows
-    }
-    var numCols: Int {
-        result.cols
-    }
-    
+    let result: Matrix
     let screenWidth: Double
     let screenHeight: Double
     let operationType: MatrixOperation
     
+    //*******************************//
     
-    var boxWidth: Double {
-        let denom: Double = numCols > 7 ? Double(numCols) : 7
-        return screenWidth / (denom * 1.6)
-    }
-    
-    var boxHeight: Double {
-        let denom: Double = numRows > 7 ? Double(numRows) : 7
-        return screenHeight / (denom * 3)
-    }
-    
-    var flatMatrix: [Double] {
-        result.values.flatMap{ $0 }
-    }
-    
+
     @State private var showList = false
     
     var body: some View {
@@ -67,8 +49,6 @@ struct ResultView: View {
                     VStack {
                         GeometryReader { proxy in
                             VStack(alignment: .leading) {
-                                
-                                // Table Header
                                 HStack(spacing: 0) {
                                     Text("Row")
                                         .frame(width: proxy.size.width * 0.25)
@@ -140,6 +120,28 @@ struct ResultView: View {
 
         }
     }
+    
+    var numRows: Int {
+        result.rows
+    }
+    var numCols: Int {
+        result.cols
+    }
+    
+    var boxWidth: Double {
+        let denom: Double = numCols > 7 ? Double(numCols) : 7
+        return screenWidth / (denom * 1.6)
+    }
+    
+    var boxHeight: Double {
+        let denom: Double = numRows > 7 ? Double(numRows) : 7
+        return screenHeight / (denom * 3)
+    }
+    
+    var flatMatrix: [Double] {
+        result.values.flatMap{ $0 }
+    }
+    
 }
 
 #Preview {

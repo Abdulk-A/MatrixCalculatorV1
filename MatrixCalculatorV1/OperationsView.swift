@@ -16,9 +16,6 @@ struct OperationsView: View {
     
     //*******************************//
     
-    @Environment(\.dismiss) var dismiss
-
-    
     var body: some View {
         ZStack {
             
@@ -58,13 +55,7 @@ struct OperationsView: View {
                     OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .power), label: "Power")
 
                     
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text("Back")
-                            .foregroundStyle(.orange)
-                    }
-                    .buttonStyle(ExampleButton6())
+                    CustomDismissButton()
                     
                 }
                 .frame(maxWidth: 500)
@@ -109,6 +100,21 @@ struct CustomTextStyle: ViewModifier {
             .shadow(radius: 6)
 
         
+    }
+}
+
+struct CustomDismissButton: View {
+    
+    @Environment(\.dismiss) var dismiss
+    
+    var body: some View {
+        Button {
+            dismiss()
+        } label: {
+            Text("Back")
+                .foregroundStyle(.orange)
+        }
+        .buttonStyle(ExampleButton6())
     }
 }
 
