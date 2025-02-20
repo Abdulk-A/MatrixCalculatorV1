@@ -66,10 +66,11 @@ struct OperationsView: View {
                         .shadow(radius: 10)
                 )
                 .padding()
-                .padding(.top, lenFromTop)
+                
             }
             .padding()
             .scrollIndicators(.hidden)
+            .padding(.top, lenFromTop)
             
         }
         .ignoresSafeArea()
@@ -83,15 +84,13 @@ struct OperationsView: View {
 
 struct CustomTextStyle: ViewModifier {
     
-    var textOpacity = 0.4
-    
     func body(content: Content) -> some View {
         content
             .padding()
             .frame(maxWidth: .infinity)
             .background(
                 RoundedRectangle(cornerRadius: 10)
-                    .foregroundStyle(Color("ButtonBackgroundStyle").opacity(textOpacity))
+                    .foregroundStyle(Color("ButtonBackgroundStyle"))
             )
             .font(.title.bold())
             .foregroundStyle(.white.opacity(0.8))
@@ -119,7 +118,7 @@ struct CustomDismissButton: View {
 }
 
 
-enum MatrixOperation: String {
+enum MatrixOperation: String, CaseIterable {
     case add  = "Add"
     case subtract = "Subtract"
     case multiply = "Multiply"
@@ -128,12 +127,16 @@ enum MatrixOperation: String {
     case inverse = "Inverse"
     case power = "Power"
     case rank = "Rank"
-    case sle = "SLE"
+//    case sle = "SLE"
 }
 
 extension View {
     func myTextStyle() -> some View {
         modifier(CustomTextStyle())
+    }
+    
+    func myBackgroundStyle(height: Double) -> some View {
+        modifier(CustomBackgroundStyle(myHeight: height))
     }
 }
 

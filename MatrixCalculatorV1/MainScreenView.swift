@@ -76,7 +76,6 @@ struct MainScreenView: View {
 
 struct ExampleButton6: ButtonStyle {
     
-    var buttonOpacity = 0.4
     var backgroundColor = Color("ButtonBackgroundStyle")
     var fontColor: Color = .white
     
@@ -88,7 +87,7 @@ struct ExampleButton6: ButtonStyle {
             .frame(maxWidth: .infinity)
             .background(
                 RoundedRectangle(cornerRadius: 10)
-                    .foregroundStyle(backgroundColor.opacity(buttonOpacity))
+                    .foregroundStyle(backgroundColor)
             )
             .font(.title.bold())
             
