@@ -20,7 +20,9 @@ struct PracticeSetupView: View {
     
     @State private var opSelection = Array(repeating: false, count: MatrixOperation.allCases.count)
     
-    @State private var timeAmount = 0
+    @State private var minutes = 1
+    @State private var seconds = 0
+    
     
     var difficulties = ["Easy", "Medium", "Hard"]
     @State private var selectedDifficulty = "Easy"
@@ -110,8 +112,45 @@ struct PracticeSetupView: View {
                                     .padding(.bottom, 8)
                                     
                                     if isTimerOn {
-                                        Text("Time per question \(timeAmount)")
-                                            .multilineTextAlignment(.center)
+                                        Text("time per question")
+                                            .padding(.bottom, 8)
+                                        
+                                        
+                                        HStack {
+                                            
+                                            VStack {
+                                                
+                                                Text("Minutes")
+                                                
+                                                Picker("Minutes", selection: $minutes) {
+                                                    ForEach(0...59, id: \.self) {
+                                                        Text("\($0)")
+                                                    }
+                                                }
+                                                .pickerStyle(.wheel)
+                                                .scrollBounceBehavior(.basedOnSize)
+                                                .frame(maxHeight: 50)
+                                                .background(.white)
+                                                .clipShape(.rect(cornerRadius: 5))
+                                            }
+                                            
+                                            
+                                            VStack {
+                                                
+                                                Text("Seconds")
+                                                
+                                                Picker("Seconds", selection: $seconds) {
+                                                    ForEach(0...59, id: \.self) {
+                                                        Text("\($0)")
+                                                    }
+                                                }
+                                                .pickerStyle(.wheel)
+                                                .scrollBounceBehavior(.basedOnSize)
+                                                .frame(maxHeight: 50)
+                                                .background(.white)
+                                                .clipShape(.rect(cornerRadius: 5))
+                                            }
+                                        }
                                     }
                                     
                                 }
