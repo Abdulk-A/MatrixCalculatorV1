@@ -18,6 +18,14 @@ struct Matrix: Equatable {
     init(_ values: [[Double]]) {
         self.values = values
     }
+    
+    mutating func randomValues(in range: Range<Double>) {
+        for i in 0..<rows {
+            for j in 0..<cols {
+                values[i][j] = Double.random(in: range)
+            }
+        }
+    }
 
     mutating func transpose() {
         var tempMat = Array(repeating: Array(repeating: 0.0, count: rows), count: cols)

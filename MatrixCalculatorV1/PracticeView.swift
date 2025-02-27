@@ -16,6 +16,11 @@ struct PracticeView: View {
     let time_Amount: Int?
     let user_operations: [MatrixOperation]
 
+    @State private var time_per_question = 0
+    
+    @State var values = [99,88,77,66,55]
+    
+    
     
     var body: some View {
         ZStack {
@@ -26,86 +31,70 @@ struct PracticeView: View {
                 
                 
                 if let time_Amount {
-                    CountDownTimerView(timeAmount: time_Amount)
+                    CountDownTimerView(timeRemaining: $time_per_question)
                         .padding(.top, 50)
                 }
                 
-                
-                ScrollView(.horizontal) {
-
+                ForEach(values.indices, id: \.self) { i in
+                    
+                    if i == values.count - 1 {
+                        Text("\(values[i])")
+                            .frame(maxWidth: sW * 0.8, maxHeight: sH * 0.8)
+                            .background(.blue)
+                            .onTapGesture {
+                                values.removeLast()
+                            }
+                    }
                 }
+                .padding(.bottom, sW / 6)
+                .onChange(of: values) {
+                    
+                }
+                
             }
             
             
         }
         .ignoresSafeArea()
+        .onAppear {
+            if let time_Amount {
+                time_per_question = time_Amount
+            }
+        }
     }
 }
 
 #Preview {
-    PracticeView(difficulty: "Medium", sH: UIScreen.main.bounds.width, sW: UIScreen.main.bounds.height, time_Amount: 10, user_operations: [.add])
+    PracticeView(difficulty: "Medium", sH: UIScreen.main.bounds.height, sW: UIScreen.main.bounds.width, time_Amount: 70, user_operations: [.add])
 }
 
 struct CountDownTimerView: View {
     
-    let timeAmount: Int
-    @State private var timeRemaining: Int = 0
+    @Binding var timeRemaining: Int
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
         HStack {
-            Text("\(minutes) | \(seconds)")
+            Text("\(minutes < 10 ? "0" : "")\(minutes) | \(seconds < 10 ? "0" : "")\(seconds) ")
                 .onReceive(timer) { time in
                     if timeRemaining > 0 {
                         timeRemaining -= 1
                     }
                 }
-        }
-        .onAppear{
-            timeRemaining = timeAmount
+                .padding()
+                .background(.orange)
+                .clipShape(.rect(cornerRadius: 10))
+                .padding()
         }
     }
     
     var minutes: Int {
-        timeAmount / 60
+        timeRemaining / 60
     }
     
     var seconds: Int {
-        timeAmount % 60
+        timeRemaining % 60
     }
 
 }
 
-//
-//going to have another view for the countdown timer
-///*
-// 
-//
-//
-// Matrix 1
-//let matrix1: [[Int]] = [
-//    [1, 2, 3],
-//    [4, 5, 6],
-//    [7, 8, 9]
-//]
-//
-// Matrix 2
-//let matrix2: [[Int]] = [
-//    [9, 8, 7],
-//    [6, 5, 4],
-//    [3, 2, 1]
-//]
-//
-// Matrix 3
-//let matrix3: [[Int]] = [
-//    [2, 4, 6],
-//    [1, 3, 5],
-//    [7, 5, 8]
-//]
-//
-// Matrix 4
-//let matrix4: [[Int]] = [
-//    [5, 1, 3],
-//    [2, 6, 4],
-//    [9, 7, 8]
-//]
