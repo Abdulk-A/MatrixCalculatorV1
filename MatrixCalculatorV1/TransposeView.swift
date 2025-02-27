@@ -44,7 +44,7 @@ struct TransposeView: View {
     
     var body: some View {
         ZStack {
-            SingleMatrixView3(matrix: $matrix, numCols: $numCols, numRows: $numRows, operationType: operationType, sH: sH, sW: sW)
+            SingleMatrixView(matrix: $matrix, numCols: $numCols, numRows: $numRows, operationType: operationType, sH: sH, sW: sW)
                 .navigationBarBackButtonHidden(true)
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {

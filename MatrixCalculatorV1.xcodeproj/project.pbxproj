@@ -11,7 +11,7 @@
 		B83BF1472D66F06B0078FE78 /* PracticeSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83BF1462D66F06B0078FE78 /* PracticeSetupView.swift */; };
 		B8456F982D57F8FA003E4100 /* TransposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8456F972D57F8FA003E4100 /* TransposeView.swift */; };
 		B84CFD552D6AEB2D00FC9910 /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84CFD542D6AEB2D00FC9910 /* PracticeView.swift */; };
-		B85FB3952D350E1F0098F6E2 /* SingleMatrixView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85FB3942D350E1F0098F6E2 /* SingleMatrixView3.swift */; };
+		B85FB3952D350E1F0098F6E2 /* SingleMatrixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85FB3942D350E1F0098F6E2 /* SingleMatrixView.swift */; };
 		B887D0522D48AC8A00053122 /* TextRecognitionPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B887D0512D48AC8A00053122 /* TextRecognitionPracticeView.swift */; };
 		B89CEC162D49DF2E00A16C79 /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89CEC152D49DF2E00A16C79 /* AddView.swift */; };
 		B89CEC182D49E65500A16C79 /* MultipleMatrixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89CEC172D49E65500A16C79 /* MultipleMatrixView.swift */; };
@@ -30,7 +30,7 @@
 		B83BF1462D66F06B0078FE78 /* PracticeSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSetupView.swift; sourceTree = "<group>"; };
 		B8456F972D57F8FA003E4100 /* TransposeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransposeView.swift; sourceTree = "<group>"; };
 		B84CFD542D6AEB2D00FC9910 /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
-		B85FB3942D350E1F0098F6E2 /* SingleMatrixView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleMatrixView3.swift; sourceTree = "<group>"; };
+		B85FB3942D350E1F0098F6E2 /* SingleMatrixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleMatrixView.swift; sourceTree = "<group>"; };
 		B887D0512D48AC8A00053122 /* TextRecognitionPracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognitionPracticeView.swift; sourceTree = "<group>"; };
 		B887D0572D48C48100053122 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B89CEC152D49DF2E00A16C79 /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
@@ -93,7 +93,7 @@
 				B887D0572D48C48100053122 /* Info.plist */,
 				B8E00C3A2D18FA0300BD0C0E /* MatrixCalculatorV1App.swift */,
 				B8E00C612D1E297400BD0C0E /* OperationsView.swift */,
-				B85FB3942D350E1F0098F6E2 /* SingleMatrixView3.swift */,
+				B85FB3942D350E1F0098F6E2 /* SingleMatrixView.swift */,
 				B89CEC172D49E65500A16C79 /* MultipleMatrixView.swift */,
 				B80131ED2D38F5C700D893F1 /* ResultView.swift */,
 				B89CEC152D49DF2E00A16C79 /* AddView.swift */,
@@ -196,7 +196,7 @@
 				B8F6844A2D462AEB007DCD6F /* ArrayPractice.swift in Sources */,
 				B84CFD552D6AEB2D00FC9910 /* PracticeView.swift in Sources */,
 				B8E00C4A2D18FAA500BD0C0E /* MatrixOperations.swift in Sources */,
-				B85FB3952D350E1F0098F6E2 /* SingleMatrixView3.swift in Sources */,
+				B85FB3952D350E1F0098F6E2 /* SingleMatrixView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

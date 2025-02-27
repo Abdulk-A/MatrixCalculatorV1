@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SingleMatrixView3: View {
+struct SingleMatrixView: View {
     
     //values coming from another view//
     
@@ -183,5 +183,5 @@ struct MatrixEditView: View {
 }
 
 #Preview {
-    SingleMatrixView3(matrix: .constant(Matrix([[0.0]])), numCols: .constant(1), numRows: .constant(1), operationType: .transpose, sH: UIScreen.main.bounds.height, sW: UIScreen.main.bounds.width)
+    SingleMatrixView(matrix: .constant(Matrix([[0.0]])), numCols: .constant(1), numRows: .constant(1), operationType: .transpose, sH: UIScreen.main.bounds.height, sW: UIScreen.main.bounds.width)
 }

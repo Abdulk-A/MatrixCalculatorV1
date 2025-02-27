@@ -22,10 +22,8 @@ struct OperationsView: View {
                 
                 GridImageBackgroundView(name: "grid3", sW: screenWidth, sH: screenHeight)
                 
-                
-                ScrollView {
-                    VStack {
-                        
+                VStack {
+                    ScrollView {
                         Text("Calculator")
                             .frame(maxWidth: .infinity)
                             .font(.largeTitle)
@@ -39,48 +37,33 @@ struct OperationsView: View {
                             }
                             .padding(.bottom, 20)
                         
-                        OperationNavView(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .add), label: "Add")
-                        
-                        OperationNavView(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .subtract), label: "Subtract")
-                        
-                        OperationNavView(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .multiply), label: "Multiply")
-                        
-                        OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .transpose), label: "Transpose")
-                        
-                        OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .determinant), label: "Determinant")
-                        
-                        OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .inverse), label: "Inverse")
-
-                        OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .rank), label: "Rank")
-
-                        OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .power), label: "Power")
-
-                        
-                        CustomDismissButton()
-                        
+                        ForEach(MatrixOperation.allCases.indices, id: \.self) { i in
+                            
+                            let myOp = MatrixOperation.allCases[i]
+                            
+                            if myOp == .add || myOp == .subtract || myOp == .multiply {
+                                OperationNavView(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: myOp), label: myOp.rawValue)
+                            } else {
+                                OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: myOp), label: myOp.rawValue)
+                            }
+                        }
                     }
-                    .frame(maxWidth: 500)
-                    .padding()
-                    .background(
-                        RoundedRectangle(cornerRadius: 15)
-                            .foregroundStyle(Color("MenuBackgroundColor"))
-                            .shadow(radius: 10)
-                    )
-                    .padding()
-                    
                 }
+                .frame(maxWidth: 500, maxHeight: screenHeight * 0.55)
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 15)
+                        .foregroundStyle(Color("MenuBackgroundColor"))
+                        .shadow(radius: 10)
+                )
                 .padding()
                 .scrollIndicators(.hidden)
-                .padding(.top, lenFromTop)
                 
+
             }
             .ignoresSafeArea()
-            .navigationBarBackButtonHidden(true)
+            
         }
-    }
-    
-    var lenFromTop: Double {
-        return screenHeight / 14.0
     }
 }
 

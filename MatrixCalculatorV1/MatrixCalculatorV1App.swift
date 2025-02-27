@@ -11,7 +11,6 @@ import SwiftUI
 struct MatrixCalculatorV1App: App {
     var body: some Scene {
         WindowGroup {
-//            MainScreenView()
             OperationsView()
         }
     }
