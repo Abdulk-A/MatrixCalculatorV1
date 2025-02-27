@@ -38,25 +38,21 @@ struct PracticeView: View {
                 ForEach(values.indices, id: \.self) { i in
                     
                     if i == values.count - 1 {
-                        Text("\(values[i])")
-                            .frame(maxWidth: sW * 0.8, maxHeight: sH * 0.8)
-                            .background(.blue)
-                            .onTapGesture {
-                                values.removeLast()
-                            }
+                        Text("Hello")
+                            
                     }
                 }
                 .padding(.bottom, sW / 6)
-                .onChange(of: values) {
-                    
-                }
-                
+            
             }
             
             
         }
         .ignoresSafeArea()
         .onAppear {
+            
+            
+            
             if let time_Amount {
                 time_per_question = time_Amount
             }

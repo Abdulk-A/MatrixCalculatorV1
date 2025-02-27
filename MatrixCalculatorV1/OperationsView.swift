@@ -11,70 +11,72 @@ struct OperationsView: View {
     
     //values coming from another view//
     
-    let screenWidth: Double
-    let screenHeight: Double
+    let screenWidth = UIScreen.main.bounds.width
+    let screenHeight = UIScreen.main.bounds.height
     
     //*******************************//
     
     var body: some View {
-        ZStack {
-            
-            GridImageBackgroundView(name: "grid3", sW: screenWidth, sH: screenHeight)
-            
-            
-            ScrollView {
-                VStack {
-                    
-                    Text("Calculator")
-                        .frame(maxWidth: .infinity)
-                        .font(.largeTitle)
-                        .foregroundStyle(.white)
-                        .blur(radius: 8)
-                        .overlay{
-                            Text("Calculator")
-                                .font(.largeTitle)
-                                .foregroundStyle(.white)
-                                .bold()
-                        }
-                        .padding(.bottom, 20)
-                    
-                    OperationNavView(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .add), label: "Add")
-                    
-                    OperationNavView(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .subtract), label: "Subtract")
-                    
-                    OperationNavView(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .multiply), label: "Multiply")
-                    
-                    OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .transpose), label: "Transpose")
-                    
-                    OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .determinant), label: "Determinant")
-                    
-                    OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .inverse), label: "Inverse")
+        NavigationStack {
+            ZStack {
+                
+                GridImageBackgroundView(name: "grid3", sW: screenWidth, sH: screenHeight)
+                
+                
+                ScrollView {
+                    VStack {
+                        
+                        Text("Calculator")
+                            .frame(maxWidth: .infinity)
+                            .font(.largeTitle)
+                            .foregroundStyle(.white)
+                            .blur(radius: 8)
+                            .overlay{
+                                Text("Calculator")
+                                    .font(.largeTitle)
+                                    .foregroundStyle(.white)
+                                    .bold()
+                            }
+                            .padding(.bottom, 20)
+                        
+                        OperationNavView(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .add), label: "Add")
+                        
+                        OperationNavView(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .subtract), label: "Subtract")
+                        
+                        OperationNavView(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: .multiply), label: "Multiply")
+                        
+                        OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .transpose), label: "Transpose")
+                        
+                        OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .determinant), label: "Determinant")
+                        
+                        OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .inverse), label: "Inverse")
 
-                    OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .rank), label: "Rank")
+                        OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .rank), label: "Rank")
 
-                    OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .power), label: "Power")
+                        OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: .power), label: "Power")
 
-                    
-                    CustomDismissButton()
+                        
+                        CustomDismissButton()
+                        
+                    }
+                    .frame(maxWidth: 500)
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 15)
+                            .foregroundStyle(Color("MenuBackgroundColor"))
+                            .shadow(radius: 10)
+                    )
+                    .padding()
                     
                 }
-                .frame(maxWidth: 500)
                 .padding()
-                .background(
-                    RoundedRectangle(cornerRadius: 15)
-                        .foregroundStyle(Color("MenuBackgroundColor"))
-                        .shadow(radius: 10)
-                )
-                .padding()
+                .scrollIndicators(.hidden)
+                .padding(.top, lenFromTop)
                 
             }
-            .padding()
-            .scrollIndicators(.hidden)
-            .padding(.top, lenFromTop)
-            
+            .ignoresSafeArea()
+            .navigationBarBackButtonHidden(true)
         }
-        .ignoresSafeArea()
-        .navigationBarBackButtonHidden(true)
     }
     
     var lenFromTop: Double {
@@ -170,5 +172,34 @@ struct GridImageBackgroundView: View {
 }
 
 #Preview {
-    OperationsView(screenWidth: UIScreen.main.bounds.width, screenHeight: UIScreen.main.bounds.height)
+    OperationsView()
+}
+
+
+struct ExampleButton6: ButtonStyle {
+    
+    var backgroundColor = Color("ButtonBackgroundStyle")
+    var fontColor: Color = .white
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            
+            .padding()
+        
+            .frame(maxWidth: .infinity)
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .foregroundStyle(backgroundColor)
+            )
+            .font(.title.bold())
+            
+
+            .foregroundStyle(fontColor.opacity(0.8))
+            .padding(.bottom, 6)
+            .shadow(radius: 5)
+            .scaleEffect(configuration.isPressed ? 1.1 : 1)
+            .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
+            .shadow(radius: 6)
+            
+    }
 }
