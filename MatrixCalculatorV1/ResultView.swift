@@ -106,7 +106,7 @@ struct ResultView: View {
                                     .frame(width: boxWidth, height: boxHeight)
                                     
                                     .foregroundStyle(.white)
-                                    .background(Color("ButtonBackgroundStyle").opacity(0.65))
+                                    .background(Color("ButtonBackgroundStyle"))
                                     .clipShape(.rect(cornerRadius: 5))
                             }
                             

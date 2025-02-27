@@ -122,6 +122,13 @@ struct MatrixEditView: View {
     let sH: Double
     
     //*******************************//
+    
+    struct boxFocused: Hashable {
+        let row: Int
+        let col: Int
+    }
+    
+    @FocusState private var focusedField: boxFocused?
         
     var body: some View {
         VStack {
@@ -129,20 +136,21 @@ struct MatrixEditView: View {
                 ForEach(0..<matrix.rows, id: \.self) { row in
                     HStack(spacing: 10) {
                         ForEach(0..<matrix.cols, id: \.self) { col in
-                            
                             TextField("", value: $matrix.values[row][col], formatter: NumberFormatter())
-                                .keyboardType(.numberPad)
+                                .keyboardType(.decimalPad)
                                 .multilineTextAlignment(.center)
                                 .frame(width: boxWidth, height: boxHeight)
                                 .foregroundStyle(.white)
-                                .background(row == tempRow && col == tempCol ? boxColor : Color("ButtonBackgroundStyle").opacity(0.70))
+                                .background(row == tempRow && col == tempCol ? boxColor : Color("ButtonBackgroundStyle"))
                                 .clipShape(.rect(cornerRadius: 5))
                                 .onTapGesture {
                                     withAnimation {
                                         tempRow = row
                                         tempCol = col
+                                        focusedField = boxFocused(row: row, col: col)
                                     }
                                 }
+                                .focused($focusedField, equals: boxFocused(row: row, col: col))
                         }
                         
                     }

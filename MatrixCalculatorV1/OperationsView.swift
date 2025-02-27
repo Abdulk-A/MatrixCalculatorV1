@@ -37,14 +37,11 @@ struct OperationsView: View {
                             }
                             .padding(.bottom, 20)
                         
-                        ForEach(MatrixOperation.allCases.indices, id: \.self) { i in
-                            
-                            let myOp = MatrixOperation.allCases[i]
-                            
-                            if myOp == .add || myOp == .subtract || myOp == .multiply {
-                                OperationNavView(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: myOp), label: myOp.rawValue)
+                        ForEach(MatrixOperation.allCases, id: \.self) { op in
+                            if op == .add || op == .subtract || op == .multiply {
+                                OperationNavView(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: op), label: op.rawValue)
                             } else {
-                                OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: myOp), label: myOp.rawValue)
+                                OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: op), label: op.rawValue)
                             }
                         }
                     }
