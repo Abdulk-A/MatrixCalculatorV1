@@ -30,6 +30,8 @@ struct MultipleMatrixView: View {
     let operationType: MatrixOperation
     let onCalculate: (inout Matrix, inout Matrix, inout Matrix) -> Void
     
+    @State private var showPrincipleButton = true
+    
     //*******************************//
     
     
@@ -47,7 +49,7 @@ struct MultipleMatrixView: View {
                 
                 Spacer()
                 
-                MatrixEditView(matrix: $matrix1, isKeyboardShowing: $isKeyboardShowing, tempCol: $tempCol, tempRow: $tempRow, boxColor: tempColor, numCols: numCols, numRows: numRows, sW: screenWidth, sH: screenHeight)
+                MatrixEditView(matrix: $matrix1, isKeyboardShowing: $isKeyboardShowing, tempCol: $tempCol, tempRow: $tempRow, boxColor: tempColor, numCols: numCols, numRows: numRows, sW: screenWidth, sH: screenHeight, showPrincipleButton: $showPrincipleButton)
                 
                 
                 if !isKeyboardShowing {

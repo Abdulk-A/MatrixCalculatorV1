@@ -19,11 +19,15 @@ struct SingleMatrixView: View {
     let sH: Double
     let sW: Double
     
+    @Binding var showPrincipleButton: Bool
+    
     //*******************************//
     
     @State private var isKeyboardShowing: Bool = false
     @State private var tempCol = 0
     @State private var tempRow = 0
+    
+    @State private var isListForm = false
     
     var body: some View {
         ZStack {
@@ -34,7 +38,37 @@ struct SingleMatrixView: View {
                 
                 Spacer()
                 
-                MatrixEditView(matrix: $matrix, isKeyboardShowing: $isKeyboardShowing, tempCol: $tempCol, tempRow: $tempRow, boxColor: .red.opacity(0.8), numCols: numCols, numRows: numRows, sW: sW, sH: sH)
+                if !isListForm {
+                    MatrixEditView(matrix: $matrix, isKeyboardShowing: $isKeyboardShowing, tempCol: $tempCol, tempRow: $tempRow, boxColor: .red.opacity(0.8), numCols: numCols, numRows: numRows, sW: sW, sH: sH, showPrincipleButton: $showPrincipleButton)
+                } else {
+                    VStack {
+                        ScrollView {
+                            ForEach(0..<matrix.rows, id: \.self) { row in
+                                ForEach(0..<matrix.cols, id: \.self) { col in
+                                    HStack {
+                                        
+                                        Text("\(row + 1) \(col + 1) ")
+                                        
+                                        TextField("", value: $matrix.values[row][col], formatter: NumberFormatter())
+                                            .keyboardType(.decimalPad)
+                                            .myTextStyle()
+                                    }
+                                    .background()
+                                }
+                            }
+                        }
+                    }
+                    .frame(maxWidth: 500, maxHeight: sH * 0.55)
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 15)
+                            .foregroundStyle(Color("MenuBackgroundColor"))
+                            .shadow(radius: 10)
+                    )
+                    .padding()
+                    .scrollIndicators(.hidden)
+                }
+
                       
 
                 if !isKeyboardShowing {
@@ -72,6 +106,21 @@ struct SingleMatrixView: View {
         }
         .ignoresSafeArea()
         .gesture(TapGesture().onEnded{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)})
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(isListForm ? "Matrix" : "List") {
+                    withAnimation {
+                        isListForm.toggle()
+                    }
+                }
+                .padding(.trailing)
+                .frame(minWidth: 75, maxWidth: 75)
+                .foregroundStyle(.white)
+                .background(Color("ButtonBackgroundStyle"))
+                .clipShape(.rect(cornerRadius: 10))
+
+            }
+        }
     }
     
     var rows: Int {
@@ -121,6 +170,8 @@ struct MatrixEditView: View {
     let sW: Double
     let sH: Double
     
+    @Binding var showPrincipleButton: Bool
+    
     //*******************************//
     
     struct boxFocused: Hashable {
@@ -136,7 +187,7 @@ struct MatrixEditView: View {
                 ForEach(0..<matrix.rows, id: \.self) { row in
                     HStack(spacing: 10) {
                         ForEach(0..<matrix.cols, id: \.self) { col in
-                            TextField("", value: $matrix.values[row][col], formatter: NumberFormatter())
+                            TextField("", value: $matrix.values[row][col], formatter: NumberFormatter.decimal)
                                 .keyboardType(.decimalPad)
                                 .multilineTextAlignment(.center)
                                 .frame(width: boxWidth, height: boxHeight)
@@ -160,13 +211,28 @@ struct MatrixEditView: View {
             .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification), perform: { _ in
                 withAnimation {
                     isKeyboardShowing = true
+                    showPrincipleButton = false
                 }
             })
             .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification), perform: { _ in
                 withAnimation {
                     isKeyboardShowing = false
+                    showPrincipleButton = true
                 }
             })
+            .toolbar {
+                if !showPrincipleButton {
+                    ToolbarItem(placement: .principal) {
+                        
+                        TextField("", value: $matrix.values[tempRow][tempCol], formatter: NumberFormatter.decimal)
+                            .padding([.vertical, .leading], 8)
+                            .frame(maxWidth: 100)
+                            .foregroundStyle(.white)
+                            .background(boxColor)
+                            .clipShape(.rect(cornerRadius: 10))
+                    }
+                }
+            }
         }
         .frame(width: sW, height: midSegment)
     }
@@ -191,5 +257,15 @@ struct MatrixEditView: View {
 }
 
 #Preview {
-    SingleMatrixView(matrix: .constant(Matrix([[0.0]])), numCols: .constant(1), numRows: .constant(1), operationType: .transpose, sH: UIScreen.main.bounds.height, sW: UIScreen.main.bounds.width)
+    SingleMatrixView(matrix: .constant(Matrix([[0.0]])), numCols: .constant(1), numRows: .constant(1), operationType: .transpose, sH: UIScreen.main.bounds.height, sW: UIScreen.main.bounds.width, showPrincipleButton: .constant(false))
+}
+
+
+extension NumberFormatter {
+    static var decimal: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 8
+        return formatter
+    }
 }

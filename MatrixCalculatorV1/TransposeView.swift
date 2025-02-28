@@ -28,6 +28,8 @@ struct TransposeView: View {
     
     @Environment(\.dismiss) var dismiss
     
+    @State private var showPrincipleButton = true
+    
     var rows: Int {
         Int(numRows)
     }
@@ -44,7 +46,7 @@ struct TransposeView: View {
     
     var body: some View {
         ZStack {
-            SingleMatrixView(matrix: $matrix, numCols: $numCols, numRows: $numRows, operationType: operationType, sH: sH, sW: sW)
+            SingleMatrixView(matrix: $matrix, numCols: $numCols, numRows: $numRows, operationType: operationType, sH: sH, sW: sW, showPrincipleButton: $showPrincipleButton)
                 .navigationBarBackButtonHidden(true)
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
@@ -56,35 +58,37 @@ struct TransposeView: View {
                     }
                     
                     ToolbarItem(placement: .principal) {
-                        Button(topButtonTitle) {
-                            if operationType == .transpose  {
-                                matrix.transpose()
+                        if showPrincipleButton {
+                            Button(topButtonTitle) {
+                                if operationType == .transpose  {
+                                    matrix.transpose()
 
-                                let temp = numRows
-                                numRows = numCols
-                                numCols = temp
+                                    let temp = numRows
+                                    numRows = numCols
+                                    numCols = temp
 
+                                }
+                                else if operationType == .determinant || operationType == .rank{
+                                    withAnimation {
+                                        isShowPopup.toggle()
+                                    }
+                                }
+                                else if operationType == .inverse {
+                                    Task {
+                                        await invArr = matrix.invert()
+                                        isShowPopupInverse.toggle()
+                                    }
+                                }
+                                else if operationType == .power {
+                                    withAnimation {
+                                        matrix.power(n: power)
+                                    }
+                                }
                             }
-                            else if operationType == .determinant || operationType == .rank{
-                                withAnimation {
-                                    isShowPopup.toggle()
-                                }
-                            } 
-                            else if operationType == .inverse {
-                                Task {
-                                    await invArr = matrix.invert()
-                                    isShowPopupInverse.toggle()
-                                }
-                            } 
-                            else if operationType == .power {
-                                withAnimation {
-                                    matrix.power(n: power)
-                                }
-                            }
+                            .foregroundStyle(.white)
+                            .background(.black.opacity(0.65))
+                            .clipShape(.rect(cornerRadius: 10))
                         }
-                        .foregroundStyle(.white)
-                        .background(.black.opacity(0.65))
-                        .clipShape(.rect(cornerRadius: 10))
                     }
                     
                     if operationType == .power {
