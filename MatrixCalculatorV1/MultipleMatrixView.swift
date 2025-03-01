@@ -39,6 +39,8 @@ struct MultipleMatrixView: View {
     @State private var tempCol = 0
     @State private var isKeyboardShowing: Bool = false
     
+    @State private var isListForm = false
+    
     
     var body: some View {
         ZStack {
@@ -49,8 +51,11 @@ struct MultipleMatrixView: View {
                 
                 Spacer()
                 
-                MatrixEditView(matrix: $matrix1, isKeyboardShowing: $isKeyboardShowing, tempCol: $tempCol, tempRow: $tempRow, boxColor: tempColor, numCols: numCols, numRows: numRows, sW: screenWidth, sH: screenHeight, showPrincipleButton: $showPrincipleButton)
-                
+                if !isListForm {
+                    MatrixEditView(matrix: $matrix1, isKeyboardShowing: $isKeyboardShowing, tempCol: $tempCol, tempRow: $tempRow, boxColor: tempColor, numCols: numCols, numRows: numRows, sW: screenWidth, sH: screenHeight, showPrincipleButton: $showPrincipleButton)
+                } else {
+                    ListEditView(matrix: $matrix1, sH: screenHeight, isKeyboardShowing: $isKeyboardShowing, showPrincipleButton: $showPrincipleButton)
+                }
                 
                 if !isKeyboardShowing {
                     VStack {
@@ -116,6 +121,22 @@ struct MultipleMatrixView: View {
                 onCalculate(&matrix1, &matrix2, &result)
             } else {
                 onCalculate(&matrix2, &matrix1, &result)
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(isListForm ? "Matrix" : "List") {
+                    withAnimation {
+                        isListForm.toggle()
+                    }
+                }
+                .frame(width: 75) // Set the width explicitly
+                .padding(.trailing, 8)
+                .background(Color("ButtonBackgroundStyle"))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .foregroundStyle(.white)
+
+                
             }
         }
     }

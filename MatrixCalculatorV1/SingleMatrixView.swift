@@ -41,36 +41,10 @@ struct SingleMatrixView: View {
                 if !isListForm {
                     MatrixEditView(matrix: $matrix, isKeyboardShowing: $isKeyboardShowing, tempCol: $tempCol, tempRow: $tempRow, boxColor: .red.opacity(0.8), numCols: numCols, numRows: numRows, sW: sW, sH: sH, showPrincipleButton: $showPrincipleButton)
                 } else {
-                    VStack {
-                        ScrollView {
-                            ForEach(0..<matrix.rows, id: \.self) { row in
-                                ForEach(0..<matrix.cols, id: \.self) { col in
-                                    HStack {
-                                        
-                                        Text("\(row + 1) \(col + 1) ")
-                                        
-                                        TextField("", value: $matrix.values[row][col], formatter: NumberFormatter())
-                                            .keyboardType(.decimalPad)
-                                            .myTextStyle()
-                                    }
-                                    .background()
-                                }
-                            }
-                        }
-                    }
-                    .frame(maxWidth: 500, maxHeight: sH * 0.55)
-                    .padding()
-                    .background(
-                        RoundedRectangle(cornerRadius: 15)
-                            .foregroundStyle(Color("MenuBackgroundColor"))
-                            .shadow(radius: 10)
-                    )
-                    .padding()
-                    .scrollIndicators(.hidden)
+                    ListEditView(matrix: $matrix, sH: sH, isKeyboardShowing: $isKeyboardShowing, showPrincipleButton: $showPrincipleButton)
                 }
 
                       
-
                 if !isKeyboardShowing {
                     VStack {
                         HStack {
@@ -113,12 +87,13 @@ struct SingleMatrixView: View {
                         isListForm.toggle()
                     }
                 }
-                .padding(.trailing)
-                .frame(minWidth: 75, maxWidth: 75)
-                .foregroundStyle(.white)
+                .frame(width: 75) // Set the width explicitly
+                .padding(.trailing, 8)
                 .background(Color("ButtonBackgroundStyle"))
-                .clipShape(.rect(cornerRadius: 10))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .foregroundStyle(.white)
 
+                
             }
         }
     }
@@ -208,18 +183,7 @@ struct MatrixEditView: View {
                     
                 }
             }
-            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification), perform: { _ in
-                withAnimation {
-                    isKeyboardShowing = true
-                    showPrincipleButton = false
-                }
-            })
-            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification), perform: { _ in
-                withAnimation {
-                    isKeyboardShowing = false
-                    showPrincipleButton = true
-                }
-            })
+            .myKeyboardModifier($isKeyboardShowing, $showPrincipleButton)
             .toolbar {
                 if !showPrincipleButton {
                     ToolbarItem(placement: .principal) {
@@ -267,5 +231,94 @@ extension NumberFormatter {
         formatter.numberStyle = .decimal
         formatter.maximumFractionDigits = 8
         return formatter
+    }
+}
+
+struct ListEditView: View {
+    
+    @Binding var matrix: Matrix
+    let sH: Double
+    
+    @Binding var isKeyboardShowing: Bool
+    @Binding var showPrincipleButton: Bool
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Text("Row")
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: 40)
+                Text("Col")
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: 40)
+                    
+                Text("Values")
+                    .multilineTextAlignment(.leading)
+                Spacer()
+            }
+            .font(.title3.bold())
+            
+            ScrollView {
+                ForEach(0..<matrix.rows, id: \.self) { row in
+                    ForEach(0..<matrix.cols, id: \.self) { col in
+                        HStack {
+                            
+                            Text("\(row + 1) ")
+                                .foregroundStyle(.red)
+                                .multilineTextAlignment(.leading)
+                                .frame(maxWidth: 40)
+                            Text("\(col + 1)")
+                                .foregroundStyle(.blue)
+                                .multilineTextAlignment(.leading)
+                                .frame(maxWidth: 40)
+                            
+                            TextField("", value: $matrix.values[row][col], formatter: NumberFormatter.decimal)
+                                .keyboardType(.decimalPad)
+                                .myTextStyle()
+                                .myKeyboardModifier($isKeyboardShowing, $showPrincipleButton)
+                        }
+                        .font(.title3.bold())
+                        
+                    }
+                }
+            }
+        }
+        .frame(maxWidth: 500, maxHeight: sH * 0.55)
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 15)
+                .foregroundStyle(Color("MenuBackgroundColor"))
+                .shadow(radius: 10)
+        )
+        .padding()
+        .scrollIndicators(.hidden)
+    }
+}
+
+struct KeyboardModifier: ViewModifier {
+    
+    @Binding var isKeyboardShowing: Bool
+    @Binding var showPrincipleButton: Bool
+    
+    func body(content: Content) -> some View {
+        content
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification), perform: { _ in
+                withAnimation {
+                    isKeyboardShowing = true
+                    showPrincipleButton = false
+                }
+            })
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification), perform: { _ in
+                withAnimation {
+                    isKeyboardShowing = false
+                    showPrincipleButton = true
+                }
+            })
+    }
+}
+
+extension View {
+    func myKeyboardModifier(_ isKeyboardShowing: Binding<Bool>, _ showPrincipleButton: Binding<Bool>) -> some View {
+        modifier(KeyboardModifier(isKeyboardShowing: isKeyboardShowing, showPrincipleButton: showPrincipleButton))
     }
 }
