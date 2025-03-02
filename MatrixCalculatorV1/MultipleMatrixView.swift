@@ -54,7 +54,7 @@ struct MultipleMatrixView: View {
                 if !isListForm {
                     MatrixEditView(matrix: $matrix1, isKeyboardShowing: $isKeyboardShowing, tempCol: $tempCol, tempRow: $tempRow, boxColor: tempColor, numCols: numCols, numRows: numRows, sW: screenWidth, sH: screenHeight, showPrincipleButton: $showPrincipleButton)
                 } else {
-                    ListEditView(matrix: $matrix1, sH: screenHeight, isKeyboardShowing: $isKeyboardShowing, showPrincipleButton: $showPrincipleButton)
+                    ListEditView(matrix: $matrix1, tempCol: $tempCol, tempRow: $tempRow, sH: screenHeight, boxColor: tempColor, isKeyboardShowing: $isKeyboardShowing, showPrincipleButton: $showPrincipleButton)
                 }
                 
                 if !isKeyboardShowing {
@@ -130,11 +130,12 @@ struct MultipleMatrixView: View {
                         isListForm.toggle()
                     }
                 }
-                .frame(width: 75) // Set the width explicitly
-                .padding(.trailing, 8)
+                .frame(width: 75)
+                .padding([.trailing, .vertical], 8)
                 .background(Color("ButtonBackgroundStyle"))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .foregroundStyle(.white)
+
 
                 
             }

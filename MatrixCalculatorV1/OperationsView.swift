@@ -66,13 +66,15 @@ struct OperationsView: View {
 
 struct CustomTextStyle: ViewModifier {
     
+    let backgroundColor: Color
+    
     func body(content: Content) -> some View {
         content
             .padding()
             .frame(maxWidth: .infinity)
             .background(
                 RoundedRectangle(cornerRadius: 10)
-                    .foregroundStyle(Color("ButtonBackgroundStyle"))
+                    .foregroundStyle(backgroundColor)
             )
             .font(.title.bold())
             .foregroundStyle(.white.opacity(0.8))
@@ -113,8 +115,8 @@ enum MatrixOperation: String, CaseIterable {
 }
 
 extension View {
-    func myTextStyle() -> some View {
-        modifier(CustomTextStyle())
+    func myTextStyle(_ backgroundColor: Color) -> some View {
+        modifier(CustomTextStyle(backgroundColor: backgroundColor))
     }
     
     func myBackgroundStyle(height: Double) -> some View {
@@ -130,7 +132,7 @@ struct OperationNavView<Destination: View>: View {
     var body: some View {
         NavigationLink(destination: destination) {
             Text(label)
-                .myTextStyle()
+                .myTextStyle(Color("ButtonBackgroundStyle"))
         }
     }
 }

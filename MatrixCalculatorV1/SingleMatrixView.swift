@@ -41,7 +41,7 @@ struct SingleMatrixView: View {
                 if !isListForm {
                     MatrixEditView(matrix: $matrix, isKeyboardShowing: $isKeyboardShowing, tempCol: $tempCol, tempRow: $tempRow, boxColor: .red.opacity(0.8), numCols: numCols, numRows: numRows, sW: sW, sH: sH, showPrincipleButton: $showPrincipleButton)
                 } else {
-                    ListEditView(matrix: $matrix, sH: sH, isKeyboardShowing: $isKeyboardShowing, showPrincipleButton: $showPrincipleButton)
+                    ListEditView(matrix: $matrix, tempCol: $tempCol, tempRow: $tempRow, sH: sH, boxColor: .red.opacity(0.8), isKeyboardShowing: $isKeyboardShowing, showPrincipleButton: $showPrincipleButton)
                 }
 
                       
@@ -87,8 +87,8 @@ struct SingleMatrixView: View {
                         isListForm.toggle()
                     }
                 }
-                .frame(width: 75) // Set the width explicitly
-                .padding(.trailing, 8)
+                .frame(width: 75)
+                .padding([.trailing, .vertical], 8)
                 .background(Color("ButtonBackgroundStyle"))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .foregroundStyle(.white)
@@ -129,6 +129,11 @@ struct SingleMatrixView: View {
 
 }
 
+struct boxFocused: Hashable {
+    let row: Int
+    let col: Int
+}
+
 struct MatrixEditView: View {
     
     //values coming from another view//
@@ -148,12 +153,7 @@ struct MatrixEditView: View {
     @Binding var showPrincipleButton: Bool
     
     //*******************************//
-    
-    struct boxFocused: Hashable {
-        let row: Int
-        let col: Int
-    }
-    
+        
     @FocusState private var focusedField: boxFocused?
         
     var body: some View {
@@ -237,10 +237,16 @@ extension NumberFormatter {
 struct ListEditView: View {
     
     @Binding var matrix: Matrix
+    @Binding var tempCol: Int
+    @Binding var tempRow: Int
     let sH: Double
+    let boxColor: Color
+    
     
     @Binding var isKeyboardShowing: Bool
     @Binding var showPrincipleButton: Bool
+    
+    @FocusState private var focusedField: boxFocused?
     
     var body: some View {
         VStack {
@@ -274,10 +280,20 @@ struct ListEditView: View {
                             
                             TextField("", value: $matrix.values[row][col], formatter: NumberFormatter.decimal)
                                 .keyboardType(.decimalPad)
-                                .myTextStyle()
+                                .myTextStyle(row == tempRow && col == tempCol ? boxColor : Color("ButtonBackgroundStyle"))
                                 .myKeyboardModifier($isKeyboardShowing, $showPrincipleButton)
+                                .onTapGesture {
+                                    withAnimation {
+                                        tempRow = row
+                                        tempCol = col
+                                        focusedField = boxFocused(row: row, col: col)
+                                    }
+                                }
+                                .focused($focusedField, equals: boxFocused(row: row, col: col))
+
                         }
                         .font(.title3.bold())
+                        
                         
                     }
                 }
@@ -292,6 +308,19 @@ struct ListEditView: View {
         )
         .padding()
         .scrollIndicators(.hidden)
+        .toolbar {
+            if !showPrincipleButton {
+                ToolbarItem(placement: .principal) {
+                    
+                    Text("\(matrix.values[tempRow][tempCol])")
+                        .padding(8)
+                        .frame(maxWidth: 100)
+                        .foregroundStyle(.white)
+                        .background(boxColor)
+                        .clipShape(.rect(cornerRadius: 10))
+                }
+            }
+        }
     }
 }
 
