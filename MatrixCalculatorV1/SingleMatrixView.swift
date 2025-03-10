@@ -189,6 +189,7 @@ struct MatrixEditView: View {
                     ToolbarItem(placement: .principal) {
                         
                         TextField("", value: $matrix.values[tempRow][tempCol], formatter: NumberFormatter.decimal)
+                            .keyboardType(.decimalPad)
                             .padding([.vertical, .leading], 8)
                             .frame(maxWidth: 100)
                             .foregroundStyle(.white)
@@ -230,6 +231,11 @@ extension NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.maximumFractionDigits = 8
+        formatter.minimumFractionDigits = 0
+        formatter.minimumIntegerDigits = 1
+        formatter.maximumIntegerDigits = 8
+        formatter.allowsFloats = true
+        formatter.negativePrefix = "-"  // Allow negative numbers
         return formatter
     }
 }
@@ -263,6 +269,7 @@ struct ListEditView: View {
                 Spacer()
             }
             .font(.title3.bold())
+            .padding(.top, 10)
             
             ScrollView {
                 ForEach(0..<matrix.rows, id: \.self) { row in
@@ -299,7 +306,7 @@ struct ListEditView: View {
                 }
             }
         }
-        .frame(maxWidth: 500, maxHeight: sH * 0.55)
+        .frame(maxWidth: 500, maxHeight: isKeyboardShowing ? sH * 0.33 : sH * 0.55)
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 15)
@@ -308,6 +315,7 @@ struct ListEditView: View {
         )
         .padding()
         .scrollIndicators(.hidden)
+        .ignoresSafeArea(.keyboard, edges: .bottom)
         .toolbar {
             if !showPrincipleButton {
                 ToolbarItem(placement: .principal) {
