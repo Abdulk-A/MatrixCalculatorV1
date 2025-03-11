@@ -266,6 +266,15 @@ struct Matrix: Equatable {
         }
     }
     
+    static func FillZeros(for matrix: inout Matrix) {
+                
+        for i in 0..<matrix.rows {
+            for j in 0..<matrix.cols {
+                matrix[i][j] = 0
+            }
+        }
+    }
+    
     static func subtract(matrix1: inout Matrix, matrix2: inout Matrix, matrix3: inout Matrix) {
                 
         for i in 0..<matrix1.rows {

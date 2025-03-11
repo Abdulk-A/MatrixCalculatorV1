@@ -9,10 +9,16 @@ import SwiftUI
 
 struct PracticeDropDownView: View {
     
+    let sW: Double
+    let sH: Double
+    
+    @Binding var matrix: Matrix
+    
     @State private var showOtherFeatures = false
     @State private var f1 = false
     @State private var f2 = false
     @State private var f3 = false
+    @State private var f4 = false
     
     var body: some View {
 
@@ -20,7 +26,7 @@ struct PracticeDropDownView: View {
         VStack {
             HStack(spacing: 5) {
                 
-                Button("Something") {
+                Button("List") {
                     
                 }
                 .SomeModifer(for: 100)
@@ -35,6 +41,7 @@ struct PracticeDropDownView: View {
                         DelayButtonAnimation(0.05) {f1.toggle()}
                         DelayButtonAnimation(0.10) {f2.toggle()}
                         DelayButtonAnimation(0.15) {f3.toggle()}
+                        DelayButtonAnimation(0.20) {f4.toggle()}
                     }
                     .frame(width: 25)
             }
@@ -43,9 +50,11 @@ struct PracticeDropDownView: View {
             if showOtherFeatures {
                 VStack {
                     if f1 {
-                        Button("one") {}
-                            .SomeModifer(for: 130)
-                            .transition(.move(edge: .top))
+                        Button("Copy") {
+                            
+                        }
+                        .SomeModifer(for: 130)
+                        .transition(.move(edge: .top))
                     }
                     
                     if !f2 {
@@ -53,9 +62,11 @@ struct PracticeDropDownView: View {
                     }
                     
                     if f2 {
-                        Button("two") {}
-                            .SomeModifer(for: 130)
-                            .transition(.move(edge: .top))
+                        Button("Paste") {
+                            
+                        }
+                        .SomeModifer(for: 130)
+                        .transition(.move(edge: .top))
                     }
                     
                     if !f3 {
@@ -63,17 +74,31 @@ struct PracticeDropDownView: View {
                     }
 
                     if f3 {
-                        Button("three") {}
-                            .SomeModifer(for: 130)
-                            .transition(.move(edge: .top))
+                        Button("Transpose") {
+                            matrix.transpose()
+                        }
+                        .SomeModifer(for: 130)
+                        .transition(.move(edge: .top))
+                    }
+                    
+                    if !f4 {
+                        Spacer()
+                    }
+                    
+                    if f4 {
+                        Button("Zero") {
+                            Matrix.FillZeros(for: &matrix)
+                        }
+                        .SomeModifer(for: 130)
+                        .transition(.move(edge: .top))
                     }
                 }
                 .padding(.top, 10)
-                .frame(height: 130)
+                .frame(height: 175)
             } else {
                 Rectangle()
                     .opacity(0)
-                    .frame(height: 130)
+                    .frame(height: 175)
             }
               
         }
@@ -85,12 +110,12 @@ struct PracticeDropDownView: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + time) {
             action()
         }
-        
+    
     }
 }
 
 #Preview {
-    PracticeDropDownView()
+    PracticeDropDownView(sW: UIScreen.main.bounds.width, sH: UIScreen.main.bounds.height, matrix: .constant(Matrix([[0]])))
 }
 
 struct SomeViewModifier: ViewModifier {
@@ -104,6 +129,7 @@ struct SomeViewModifier: ViewModifier {
             .background(Color("ButtonBackgroundStyle"))
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .foregroundStyle(.white)
+            
     }
 }
 
