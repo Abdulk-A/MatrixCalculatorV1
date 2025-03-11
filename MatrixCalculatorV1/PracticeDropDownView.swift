@@ -32,21 +32,9 @@ struct PracticeDropDownView: View {
                             showOtherFeatures.toggle()
                         }
                         
-                        if !showOtherFeatures {
-                            f1 = false
-                            f2 = false
-                            f3 = false
-                        } else {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                f1 = true
-                            }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                f2 = true
-                            }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                f3 = true
-                            }
-                        }
+                        DelayButtonAnimation(0.05) {f1.toggle()}
+                        DelayButtonAnimation(0.10) {f2.toggle()}
+                        DelayButtonAnimation(0.15) {f3.toggle()}
                     }
                     .frame(width: 25)
             }
@@ -59,10 +47,19 @@ struct PracticeDropDownView: View {
                             .SomeModifer(for: 130)
                             .transition(.move(edge: .top))
                     }
+                    
+                    if !f2 {
+                        Spacer()
+                    }
+                    
                     if f2 {
                         Button("two") {}
                             .SomeModifer(for: 130)
                             .transition(.move(edge: .top))
+                    }
+                    
+                    if !f3 {
+                        Spacer()
                     }
 
                     if f3 {
@@ -81,6 +78,14 @@ struct PracticeDropDownView: View {
               
         }
         .frame(maxHeight: 300)
+    }
+    
+    func DelayButtonAnimation(_ time: Double, _ action: @escaping () -> Void) {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + time) {
+            action()
+        }
+        
     }
 }
 
