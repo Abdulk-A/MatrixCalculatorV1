@@ -144,6 +144,68 @@ struct ResultView: View {
     
 }
 
+struct ListResultView: View {
+    
+    let matrix: Matrix
+
+    let sH: Double
+        
+    var body: some View {
+        VStack {
+            HStack {
+                Text("Row")
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: 40)
+                Text("Col")
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: 40)
+                    
+                Text("Values")
+                    .multilineTextAlignment(.leading)
+                Spacer()
+            }
+            .font(.title3.bold())
+            .padding(.top, 10)
+            
+            ScrollView {
+                ForEach(0..<matrix.rows, id: \.self) { row in
+                    ForEach(0..<matrix.cols, id: \.self) { col in
+                        HStack {
+                            
+                            Text("\(row + 1) ")
+                                .foregroundStyle(.red)
+                                .multilineTextAlignment(.leading)
+                                .frame(maxWidth: 40)
+                            Text("\(col + 1)")
+                                .foregroundStyle(.blue)
+                                .multilineTextAlignment(.leading)
+                                .frame(maxWidth: 40)
+                            
+                            Text("\(matrix.values[row][col].formatted())")
+                                .myTextStyle(Color("ButtonBackgroundStyle"))
+
+                        }
+                        .font(.title3.bold())
+                        
+                        
+                    }
+                }
+            }
+        }
+        .frame(maxWidth: 500, maxHeight: sH * 0.55)
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 15)
+                .foregroundStyle(Color("MenuBackgroundColor"))
+                .shadow(radius: 10)
+        )
+        .padding()
+        .scrollIndicators(.hidden)
+        .ignoresSafeArea(.keyboard, edges: .bottom)
+    }
+}
+
+
 #Preview {
     ResultView(result: Matrix([[0]]), screenWidth: UIScreen.main.bounds.width, screenHeight: UIScreen.main.bounds.height, operationType: .add)
 }

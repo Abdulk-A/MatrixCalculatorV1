@@ -135,9 +135,6 @@ struct MultipleMatrixView: View {
                 .background(Color("ButtonBackgroundStyle"))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .foregroundStyle(.white)
-
-
-                
             }
         }
     }

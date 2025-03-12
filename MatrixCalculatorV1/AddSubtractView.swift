@@ -28,6 +28,8 @@ struct AddSubtractView: View {
     @State private var numRowsB: Double = 1
     @State private var numColsB: Double = 1
     
+    @Environment(\.dismiss) var dismiss
+    @State private var showList = false
     
     var body: some View {
         ZStack {
@@ -37,10 +39,14 @@ struct AddSubtractView: View {
             VStack {
                 
                 Spacer()
-                    .frame(height: sH / 10)
+                    .frame(height: showList ? sH / 6 : sH / 10)
                 
-                ResultView(result: result, screenWidth: sW, screenHeight: sH, operationType: operationType)
-                
+                if !showList {
+                    ResultView(result: result, screenWidth: sW, screenHeight: sH, operationType: operationType)
+                } else {
+                    ListResultView(matrix: matrixA, sH: sH)
+                    Spacer()
+                }
                 
                 
                 VStack {
@@ -87,6 +93,34 @@ struct AddSubtractView: View {
             }
         }
         .ignoresSafeArea()
+        .navigationTitle("Result")
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    HStack(spacing: 3) {
+                        Image(systemName: "chevron.left")
+                        Text("Menu")
+                    }
+                }
+            }
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(showList ? "Matrix" : "List") {
+                    withAnimation {
+                        showList.toggle()
+                    }
+                }
+                .frame(width: 75)
+                .padding([.trailing, .vertical], 8)
+                .background(Color("ButtonBackgroundStyle"))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .foregroundStyle(.white)
+            }
+
+        }
     }
     
     var topBottomSegment: Double {
