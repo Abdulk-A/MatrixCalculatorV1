@@ -67,6 +67,11 @@ struct SingleMatrixView: View {
                                 }
                             Text("\(Int(numCols))")
                         }
+                        
+                        if !isListForm {
+                            FeaturesMenuView2(sW: sW, sH: sH, matrix: $matrix, myOperation: operationType, numRows: $numRows, numCols: $numCols)
+                                .padding(.bottom, sH / 12)
+                        }
                     }
                     .padding()
                     .frame(width: sW, height: topBottomSegment)

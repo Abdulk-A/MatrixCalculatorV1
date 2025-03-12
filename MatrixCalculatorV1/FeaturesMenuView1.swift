@@ -24,7 +24,7 @@ struct FeaturesMenuView1: View {
     @Binding var numRowsB: Double
     @Binding var numColsB: Double
 
-    @State private var showOtherFeatures = false
+    
     
     
     var body: some View {

@@ -24,6 +24,7 @@
 		B8E00C4A2D18FAA500BD0C0E /* MatrixOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C492D18FAA400BD0C0E /* MatrixOperations.swift */; };
 		B8E00C5C2D1D359D00BD0C0E /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C5B2D1D359D00BD0C0E /* MainScreenView.swift */; };
 		B8E00C622D1E297500BD0C0E /* OperationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E00C612D1E297400BD0C0E /* OperationsView.swift */; };
+		B8F1D9BA2D82372900B66733 /* FeaturesMenuView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F1D9B92D82372800B66733 /* FeaturesMenuView2.swift */; };
 		B8F6844A2D462AEB007DCD6F /* ArrayPractice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F684492D462AEB007DCD6F /* ArrayPractice.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		B8E00C492D18FAA400BD0C0E /* MatrixOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixOperations.swift; sourceTree = "<group>"; };
 		B8E00C5B2D1D359D00BD0C0E /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
 		B8E00C612D1E297400BD0C0E /* OperationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationsView.swift; sourceTree = "<group>"; };
+		B8F1D9B92D82372800B66733 /* FeaturesMenuView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturesMenuView2.swift; sourceTree = "<group>"; };
 		B8F684492D462AEB007DCD6F /* ArrayPractice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayPractice.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,6 +100,7 @@
 				B8E00C3A2D18FA0300BD0C0E /* MatrixCalculatorV1App.swift */,
 				B897DC832D7E9AE700D5DA9A /* PracticeDropDownView.swift */,
 				B853AC9A2D8128FF00D55226 /* FeaturesMenuView1.swift */,
+				B8F1D9B92D82372800B66733 /* FeaturesMenuView2.swift */,
 				B8E00C612D1E297400BD0C0E /* OperationsView.swift */,
 				B85FB3942D350E1F0098F6E2 /* SingleMatrixView.swift */,
 				B89CEC172D49E65500A16C79 /* MultipleMatrixView.swift */,
@@ -200,6 +203,7 @@
 				B887D0522D48AC8A00053122 /* TextRecognitionPracticeView.swift in Sources */,
 				B89CEC1A2D4A0A2200A16C79 /* AddSubtractView.swift in Sources */,
 				B8E00C3B2D18FA0300BD0C0E /* MatrixCalculatorV1App.swift in Sources */,
+				B8F1D9BA2D82372900B66733 /* FeaturesMenuView2.swift in Sources */,
 				B8E00C622D1E297500BD0C0E /* OperationsView.swift in Sources */,
 				B8F6844A2D462AEB007DCD6F /* ArrayPractice.swift in Sources */,
 				B84CFD552D6AEB2D00FC9910 /* PracticeView.swift in Sources */,
