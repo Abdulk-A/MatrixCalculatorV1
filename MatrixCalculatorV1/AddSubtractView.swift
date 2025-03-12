@@ -49,7 +49,7 @@ struct AddSubtractView: View {
                 }
                 
                 
-                VStack {
+                VStack {                    
                     HStack {
                         Text("Matrix A")
                             .bold()
@@ -93,7 +93,6 @@ struct AddSubtractView: View {
             }
         }
         .ignoresSafeArea()
-        .navigationTitle("Result")
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {

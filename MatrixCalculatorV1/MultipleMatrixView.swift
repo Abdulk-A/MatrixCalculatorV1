@@ -104,6 +104,12 @@ struct MultipleMatrixView: View {
                                 }
                             Text("\(Int(numCols))")
                         }
+                        
+
+                        if !isListForm {
+                            FeaturesMenuView1(sW: .infinity, sH: screenHeight, matrix1: $matrix1, matrix2: $matrix2, result: $result, myOperation: operationType, numRows: $numRows, numCols: $numCols, numRowsB: $numRowsB, numColsB: $numColsB)
+                                .padding(.bottom, screenHeight / 12)
+                        }
                     }
                     .padding()
                     .frame(width: screenWidth, height: topBottomSegment)
