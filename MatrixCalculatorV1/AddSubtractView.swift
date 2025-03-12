@@ -37,10 +37,11 @@ struct AddSubtractView: View {
             VStack {
                 
                 Spacer()
+                    .frame(height: sH / 10)
                 
                 ResultView(result: result, screenWidth: sW, screenHeight: sH, operationType: operationType)
                 
-                Spacer()
+                
                 
                 VStack {
                     HStack {
