@@ -58,7 +58,7 @@ struct TransposeView: View {
                     }
                     
                     ToolbarItem(placement: .principal) {
-                        if showPrincipleButton {
+                        if showPrincipleButton && operationType != .power {
                             Button(topButtonTitle) {
                                 if operationType == .transpose  {
                                     matrix.transpose()
@@ -79,25 +79,52 @@ struct TransposeView: View {
                                         isShowPopupInverse.toggle()
                                     }
                                 }
-                                else if operationType == .power {
-                                    withAnimation {
-                                        matrix.power(n: power)
-                                    }
-                                }
                             }
                             .foregroundStyle(.white)
                             .background(.black.opacity(0.65))
                             .clipShape(.rect(cornerRadius: 10))
+                        } else {
+                            HStack(spacing: 0) {
+                                
+                                Text("-")
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        if power > 2 {
+                                            power -= 1
+                                        }
+                                    }
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                    .padding(.horizontal)
+                                    .background(.red)
+                                    .font(.title2)
+                                
+                                Button("\(power)") {
+                                    withAnimation {
+                                        matrix.power(n: power)
+                                    }
+                                }
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                
+                                Text("+")
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        if power < 100 {
+                                            power += 1
+                                        }
+                                    }
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                    .padding(.horizontal)
+                                    .background(.blue)
+                                    .font(.title2)
+
+                            }
+                            .frame(maxWidth: 135)
+                            .foregroundStyle(.white)
+                            .background(Color("ButtonBackgroundStyle"))
+                            .clipShape(.rect(cornerRadius: 10))
                         }
                     }
                     
-                    if operationType == .power {
-                        ToolbarItem(placement: .topBarTrailing) {
-                            HStack {
-                                Stepper("", value: $power, in: 1...100)
-                            }
-                        }
-                    }
                 }
                 .sheet(isPresented: $isShowPopupInverse, content: {
                     if let invArr {
@@ -131,7 +158,7 @@ struct TransposeView: View {
                 let tempMat = matrix.rowEchelonForm()
                 DeterminantResult(res: Double(Matrix.countNonZeroRows(tempMat, nRows: rows, nCols: cols)), showPopUp: $isShowPopup, sW: sW / 1.5, sH: sH / 3.5, title: "Rank")
             }
-            
+                        
         }
     }
     
@@ -194,5 +221,5 @@ struct DeterminantResult: View {
 }
 
 #Preview {
-    TransposeView(sW: UIScreen.main.bounds.width, sH: UIScreen.main.bounds.height, operationType: .transpose)
+    TransposeView(sW: UIScreen.main.bounds.width, sH: UIScreen.main.bounds.height, operationType: .power)
 }
