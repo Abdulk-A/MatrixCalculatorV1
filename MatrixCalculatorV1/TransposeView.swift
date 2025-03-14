@@ -81,9 +81,9 @@ struct TransposeView: View {
                                 }
                             }
                             .foregroundStyle(.white)
-                            .background(.black.opacity(0.65))
+                            .background(Color("ButtonBackgroundStyle"))
                             .clipShape(.rect(cornerRadius: 10))
-                        } else {
+                        } else if showPrincipleButton && operationType == .power {
                             HStack(spacing: 0) {
                                 
                                 Text("-")

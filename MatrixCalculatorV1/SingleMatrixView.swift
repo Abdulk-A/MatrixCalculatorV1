@@ -40,6 +40,7 @@ struct SingleMatrixView: View {
                 
                 if !isListForm {
                     MatrixEditView(matrix: $matrix, isKeyboardShowing: $isKeyboardShowing, tempCol: $tempCol, tempRow: $tempRow, boxColor: .red.opacity(0.8), numCols: numCols, numRows: numRows, sW: sW, sH: sH, showPrincipleButton: $showPrincipleButton)
+                        .padding(.bottom, isKeyboardShowing ? 0 : sH / 25)
                 } else {
                     ListEditView(matrix: $matrix, tempCol: $tempCol, tempRow: $tempRow, sH: sH, boxColor: .red.opacity(0.8), isKeyboardShowing: $isKeyboardShowing, showPrincipleButton: $showPrincipleButton)
                 }
