@@ -277,37 +277,44 @@ struct ListEditView: View {
             .font(.title3.bold())
             .padding(.top, 10)
             
-            ScrollView {
-                ForEach(0..<matrix.rows, id: \.self) { row in
-                    ForEach(0..<matrix.cols, id: \.self) { col in
-                        HStack {
-                            
-                            Text("\(row + 1) ")
-                                .foregroundStyle(.red)
-                                .multilineTextAlignment(.leading)
-                                .frame(maxWidth: 40)
-                            Text("\(col + 1)")
-                                .foregroundStyle(.blue)
-                                .multilineTextAlignment(.leading)
-                                .frame(maxWidth: 40)
-                            
-                            TextField("", value: $matrix.values[row][col], formatter: NumberFormatter.decimal)
-                                .keyboardType(.decimalPad)
-                                .myTextStyle(row == tempRow && col == tempCol ? boxColor : Color("ButtonBackgroundStyle"))
-                                .myKeyboardModifier($isKeyboardShowing, $showPrincipleButton)
-                                .onTapGesture {
-                                    withAnimation {
-                                        tempRow = row
-                                        tempCol = col
-                                        focusedField = boxFocused(row: row, col: col)
+            ScrollViewReader { proxy in
+                ScrollView {
+                    ForEach(0..<matrix.rows, id: \.self) { row in
+                        ForEach(0..<matrix.cols, id: \.self) { col in
+                            HStack {
+                                
+                                Text("\(row + 1) ")
+                                    .foregroundStyle(.red)
+                                    .multilineTextAlignment(.leading)
+                                    .frame(maxWidth: 40)
+                                Text("\(col + 1)")
+                                    .foregroundStyle(.blue)
+                                    .multilineTextAlignment(.leading)
+                                    .frame(maxWidth: 40)
+                                
+                                TextField("", value: $matrix.values[row][col], formatter: NumberFormatter.decimal)
+                                    .keyboardType(.decimalPad)
+                                    .myTextStyle(row == tempRow && col == tempCol ? boxColor : Color("ButtonBackgroundStyle"))
+                                    .myKeyboardModifier($isKeyboardShowing, $showPrincipleButton)
+                                    .onTapGesture {
+                                        withAnimation {
+                                            tempRow = row
+                                            tempCol = col
+                                            focusedField = boxFocused(row: row, col: col)
+                                        }
                                     }
-                                }
-                                .focused($focusedField, equals: boxFocused(row: row, col: col))
+                                    .focused($focusedField, equals: boxFocused(row: row, col: col))
+                                    .id("\(row),\(col)") // Ensure unique ID
 
+                            }
+                            .font(.title3.bold())
+                            
                         }
-                        .font(.title3.bold())
-                        
-                        
+                    }
+                }
+                .onAppear {
+                    withAnimation(.bouncy) {
+                        proxy.scrollTo("\(tempRow),\(tempCol)", anchor: .center)
                     }
                 }
             }
