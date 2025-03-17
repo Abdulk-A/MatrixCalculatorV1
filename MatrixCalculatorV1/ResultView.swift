@@ -182,7 +182,9 @@ struct ListResultView: View {
                                 .frame(maxWidth: 40)
                             
                             Text("\(matrix.values[row][col].formatted())")
+                                .frame(maxWidth: .infinity, alignment: .leading) // Ensures text aligns properly
                                 .myTextStyle(Color("ButtonBackgroundStyle"))
+                                
 
                         }
                         .font(.title3.bold())

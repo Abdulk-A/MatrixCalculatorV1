@@ -233,17 +233,14 @@ struct MatrixEditView: View {
 
 
 extension NumberFormatter {
-    static var decimal: NumberFormatter {
+    static var decimal: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = 8
         formatter.minimumFractionDigits = 0
-        formatter.minimumIntegerDigits = 1
-        formatter.maximumIntegerDigits = 8
-        formatter.allowsFloats = true
-        formatter.negativePrefix = "-"  // Allow negative numbers
+        formatter.maximumFractionDigits = 10
+        formatter.usesGroupingSeparator = false
         return formatter
-    }
+    }()
 }
 
 struct ListEditView: View {
@@ -304,7 +301,7 @@ struct ListEditView: View {
                                         }
                                     }
                                     .focused($focusedField, equals: boxFocused(row: row, col: col))
-                                    .id("\(row),\(col)") // Ensure unique ID
+                                    .id("\(row),\(col)")
 
                             }
                             .font(.title3.bold())
