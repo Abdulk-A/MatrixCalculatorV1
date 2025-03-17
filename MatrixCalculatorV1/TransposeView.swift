@@ -53,7 +53,10 @@ struct TransposeView: View {
                         Button {
                             dismiss()
                         } label: {
-                            Image(systemName: "chevron.left")
+                            HStack(spacing: 3) {
+                                Image(systemName: "chevron.left")
+                                Text("Menu")
+                            }
                         }
                     }
                     
