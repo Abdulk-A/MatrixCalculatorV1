@@ -295,4 +295,37 @@ struct Matrix: Equatable {
             }
         }
     }
+    
+    static func matrixToArray(_ matrix: Matrix) -> [Double] {
+        var arr: [Double] = []
+        
+        for i in 0..<matrix.rows {
+            for j in 0..<matrix.cols {
+                arr.append(matrix[i][j])
+            }
+        }
+        
+        arr.append(Double(matrix.rows))
+        arr.append(Double(matrix.cols))
+        
+        return arr
+    }
+    
+    //the array received should have row, col as it's last values
+    static func arrayToMatrix(_ arr: [Double]) -> Matrix {
+        
+                
+        let n = arr.count, rows = Int(arr[n-2]), cols = Int(arr[n-1])
+        var vals: [[Double]] = Array(repeating: Array(repeating: 0, count: cols), count: rows)
+        
+        for i in 0..<rows {
+            for j in 0..<cols {
+                vals[i][j] = arr[i * cols + j]
+            }
+        }
+
+        
+        return Matrix(vals)
+    }
+    
 }
