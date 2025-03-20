@@ -108,7 +108,7 @@ struct MultipleMatrixView: View {
                         
 
                         if !isListForm {
-                            FeaturesMenuView1(sW: .infinity, sH: screenHeight, matrix1: $matrix1, matrix2: $matrix2, result: $result, myOperation: operationType, numRows: $numRows, numCols: $numCols, numRowsB: $numRowsB, numColsB: $numColsB)
+                            FeaturesMenuView1(sW: .infinity, sH: screenHeight, matrix1: $matrix1, matrix2: $matrix2, result: $result, myOperation: operationType, numRows: $numRows, numCols: $numCols, numRowsB: $numRowsB, numColsB: $numColsB, isMatrixA: isMatrixA)
                                 .padding(.bottom, screenHeight / 12)
                         }
                     }
