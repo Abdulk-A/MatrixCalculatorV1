@@ -257,6 +257,8 @@ struct ListEditView: View {
     
     @FocusState private var focusedField: boxFocused?
     
+
+    
     var body: some View {
         VStack {
             HStack {
@@ -302,6 +304,30 @@ struct ListEditView: View {
                                     }
                                     .focused($focusedField, equals: boxFocused(row: row, col: col))
                                     .id("\(row),\(col)")
+                                    .toolbar {
+                                        ToolbarItemGroup(placement: .keyboard) {
+                                            HStack {
+                                                HStack {
+                                                    Text("-")
+                                                        .onTapGesture {
+                                                            if val > 0 {
+                                                                matrix[tempRow][tempCol] *= -1
+                                                            }
+                                                        }
+                                                        .background(val < 0 ? .green : .clear)
+                                                    
+                                                    Text("+")
+                                                        .onTapGesture {
+                                                            if val < 0 {
+                                                                matrix[tempRow][tempCol] *= -1
+                                                            }
+                                                        }
+                                                        .background(val >= 0 ? .green : .clear )
+                                                }
+                                            }
+                                            .background(.secondary)
+                                        }
+                                    }
 
                             }
                             .font(.title3.bold())
@@ -339,6 +365,10 @@ struct ListEditView: View {
                 }
             }
         }
+    }
+    
+    var val: Double {
+        matrix[tempRow][tempCol]
     }
 }
 
