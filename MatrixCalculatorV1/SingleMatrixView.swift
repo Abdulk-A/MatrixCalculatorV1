@@ -240,7 +240,7 @@ struct MatrixEditView: View {
                                     }
                                     .padding(.vertical, 5)
                                     .frame(maxWidth: textWidth)
-                                    .background(val < 0 ? .green : .secondary)
+                                    .background(.secondary)
                                     
                                 
                                 Image(systemName: "chevron.right")
@@ -250,7 +250,7 @@ struct MatrixEditView: View {
                                     }
                                     .padding(.vertical, 5)
                                     .frame(maxWidth: textWidth)
-                                    .background(val >= 0 ? .green : .secondary)
+                                    .background(.orange)
                             }
                             .clipShape(.rect(cornerRadius: 10))
                             .frame(maxWidth: textWidth * 2)
@@ -265,7 +265,7 @@ struct MatrixEditView: View {
                                     }
                                     .padding(.vertical, 9)
                                     .frame(maxWidth: textWidth)
-                                    .background(val < 0 ? .green : .secondary)
+                                    .background(.secondary)
                                     
                                 
                                 Image(systemName: "chevron.up")
@@ -275,7 +275,7 @@ struct MatrixEditView: View {
                                     }
                                     .padding(.vertical, 9)
                                     .frame(maxWidth: textWidth)
-                                    .background(val >= 0 ? .green : .secondary)
+                                    .background(.red)
                                     
                             }
                             .clipShape(.rect(cornerRadius: 10))
@@ -446,7 +446,7 @@ struct ListEditView: View {
                                     }
                                     .padding(.vertical, 5)
                                     .frame(maxWidth: textWidth)
-                                    .background(val < 0 ? .green : .secondary)
+                                    .background(.secondary)
                                     
                                 
                                 Image(systemName: "chevron.right")
@@ -456,7 +456,7 @@ struct ListEditView: View {
                                     }
                                     .padding(.vertical, 5)
                                     .frame(maxWidth: textWidth)
-                                    .background(val >= 0 ? .green : .secondary)
+                                    .background(.orange)
                             }
                             .clipShape(.rect(cornerRadius: 10))
                             .frame(maxWidth: textWidth * 2)
@@ -471,7 +471,7 @@ struct ListEditView: View {
                                     }
                                     .padding(.vertical, 9)
                                     .frame(maxWidth: textWidth)
-                                    .background(val < 0 ? .green : .secondary)
+                                    .background(.secondary)
                                     
                                 
                                 Image(systemName: "chevron.up")
@@ -481,7 +481,7 @@ struct ListEditView: View {
                                     }
                                     .padding(.vertical, 9)
                                     .frame(maxWidth: textWidth)
-                                    .background(val >= 0 ? .green : .secondary)
+                                    .background(.red)
                                     
                             }
                             .clipShape(.rect(cornerRadius: 10))
