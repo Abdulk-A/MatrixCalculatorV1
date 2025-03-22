@@ -42,7 +42,7 @@ struct SingleMatrixView: View {
                     MatrixEditView(matrix: $matrix, isKeyboardShowing: $isKeyboardShowing, tempCol: $tempCol, tempRow: $tempRow, boxColor: .red.opacity(0.8), numCols: numCols, numRows: numRows, sW: sW, sH: sH, showPrincipleButton: $showPrincipleButton)
                         .padding(.bottom, isKeyboardShowing ? 0 : sH / 25)
                 } else {
-                    ListEditView(matrix: $matrix, tempCol: $tempCol, tempRow: $tempRow, sH: sH, boxColor: .red.opacity(0.8), isKeyboardShowing: $isKeyboardShowing, showPrincipleButton: $showPrincipleButton)
+                    ListEditView(matrix: $matrix, tempCol: $tempCol, tempRow: $tempRow, sH: sH, boxColor: .red.opacity(0.8), isKeyboardShowing: $isKeyboardShowing, showPrincipleButton: $showPrincipleButton, sw: sW)
                 }
 
                       
@@ -202,8 +202,90 @@ struct MatrixEditView: View {
                             .background(boxColor)
                             .clipShape(.rect(cornerRadius: 10))
                     }
+                    
+                    ToolbarItemGroup(placement: .keyboard) {
+                        HStack {
+                            HStack(spacing: 0) {
+                                Text("-")
+                                    .onTapGesture {
+                                        if val > 0 {
+                                            matrix[tempRow][tempCol] *= -1
+                                        }
+                                    }
+                                    .padding(.vertical, 5)
+                                    .frame(maxWidth: textWidth)
+                                    .background(val < 0 ? .green : .secondary)
+                                    
+                                
+                                Text("+")
+                                    .onTapGesture {
+                                        if val < 0 {
+                                            matrix[tempRow][tempCol] *= -1
+                                        }
+                                    }
+                                    .padding(.vertical, 5)
+                                    .frame(maxWidth: textWidth)
+                                    .background(val >= 0 ? .green : .secondary)
+                            }
+                            .clipShape(.rect(cornerRadius: 10))
+                            .frame(maxWidth: textWidth * 2)
+                            
+                            Spacer()
+                            
+                            HStack(spacing: 0) {
+                                Image(systemName: "chevron.left")
+                                    .onTapGesture {
+                                        if tempCol > 0 {tempCol -= 1 }
+                                        focusedField = boxFocused(row: tempRow, col: tempCol)
+                                    }
+                                    .padding(.vertical, 5)
+                                    .frame(maxWidth: textWidth)
+                                    .background(val < 0 ? .green : .secondary)
+                                    
+                                
+                                Image(systemName: "chevron.right")
+                                    .onTapGesture {
+                                        if tempCol < matrix.cols - 1 {tempCol += 1}
+                                        focusedField = boxFocused(row: tempRow, col: tempCol)
+                                    }
+                                    .padding(.vertical, 5)
+                                    .frame(maxWidth: textWidth)
+                                    .background(val >= 0 ? .green : .secondary)
+                            }
+                            .clipShape(.rect(cornerRadius: 10))
+                            .frame(maxWidth: textWidth * 2)
+                            
+                            Spacer()
+                            
+                            HStack(spacing: 0) {
+                                Image(systemName: "chevron.down")
+                                    .onTapGesture {
+                                        if tempRow < matrix.rows - 1 {tempRow += 1}
+                                        focusedField = boxFocused(row: tempRow, col: tempCol)
+                                    }
+                                    .padding(.vertical, 9)
+                                    .frame(maxWidth: textWidth)
+                                    .background(val < 0 ? .green : .secondary)
+                                    
+                                
+                                Image(systemName: "chevron.up")
+                                    .onTapGesture {
+                                        if tempRow > 0 {tempRow -= 1 }
+                                        focusedField = boxFocused(row: tempRow, col: tempCol)
+                                    }
+                                    .padding(.vertical, 9)
+                                    .frame(maxWidth: textWidth)
+                                    .background(val >= 0 ? .green : .secondary)
+                                    
+                            }
+                            .clipShape(.rect(cornerRadius: 10))
+                            .frame(maxWidth: textWidth * 2)
+                        
+                        }
+                    }
                 }
             }
+
         }
         .frame(width: sW, height: midSegment)
     }
@@ -224,6 +306,14 @@ struct MatrixEditView: View {
     
     var topBottomSegment: Double {
         sH / 6.0
+    }
+    
+    var val: Double {
+        matrix[tempRow][tempCol]
+    }
+    
+    var textWidth: Double {
+        sW / 7.2
     }
 }
 
@@ -256,6 +346,8 @@ struct ListEditView: View {
     @Binding var showPrincipleButton: Bool
     
     @FocusState private var focusedField: boxFocused?
+    
+    let sw: Double
     
 
     
@@ -304,30 +396,6 @@ struct ListEditView: View {
                                     }
                                     .focused($focusedField, equals: boxFocused(row: row, col: col))
                                     .id("\(row),\(col)")
-                                    .toolbar {
-                                        ToolbarItemGroup(placement: .keyboard) {
-                                            HStack {
-                                                HStack {
-                                                    Text("-")
-                                                        .onTapGesture {
-                                                            if val > 0 {
-                                                                matrix[tempRow][tempCol] *= -1
-                                                            }
-                                                        }
-                                                        .background(val < 0 ? .green : .clear)
-                                                    
-                                                    Text("+")
-                                                        .onTapGesture {
-                                                            if val < 0 {
-                                                                matrix[tempRow][tempCol] *= -1
-                                                            }
-                                                        }
-                                                        .background(val >= 0 ? .green : .clear )
-                                                }
-                                            }
-                                            .background(.secondary)
-                                        }
-                                    }
 
                             }
                             .font(.title3.bold())
@@ -338,6 +406,88 @@ struct ListEditView: View {
                 .onAppear {
                     withAnimation(.bouncy) {
                         proxy.scrollTo("\(tempRow),\(tempCol)", anchor: .center)
+                    }
+                }
+                .toolbar {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        HStack {
+                            HStack(spacing: 0) {
+                                Text("-")
+                                    .onTapGesture {
+                                        if val > 0 {
+                                            matrix[tempRow][tempCol] *= -1
+                                        }
+                                    }
+                                    .padding(.vertical, 5)
+                                    .frame(maxWidth: textWidth)
+                                    .background(val < 0 ? .green : .secondary)
+                                    
+                                
+                                Text("+")
+                                    .onTapGesture {
+                                        if val < 0 {
+                                            matrix[tempRow][tempCol] *= -1
+                                        }
+                                    }
+                                    .padding(.vertical, 5)
+                                    .frame(maxWidth: textWidth)
+                                    .background(val >= 0 ? .green : .secondary)
+                            }
+                            .clipShape(.rect(cornerRadius: 10))
+                            .frame(maxWidth: textWidth * 2)
+                            
+                            Spacer()
+                            
+                            HStack(spacing: 0) {
+                                Image(systemName: "chevron.left")
+                                    .onTapGesture {
+                                        if tempCol > 0 {tempCol -= 1 }
+                                        focusedField = boxFocused(row: tempRow, col: tempCol)
+                                    }
+                                    .padding(.vertical, 5)
+                                    .frame(maxWidth: textWidth)
+                                    .background(val < 0 ? .green : .secondary)
+                                    
+                                
+                                Image(systemName: "chevron.right")
+                                    .onTapGesture {
+                                        if tempCol < matrix.cols - 1 {tempCol += 1}
+                                        focusedField = boxFocused(row: tempRow, col: tempCol)
+                                    }
+                                    .padding(.vertical, 5)
+                                    .frame(maxWidth: textWidth)
+                                    .background(val >= 0 ? .green : .secondary)
+                            }
+                            .clipShape(.rect(cornerRadius: 10))
+                            .frame(maxWidth: textWidth * 2)
+                            
+                            Spacer()
+                            
+                            HStack(spacing: 0) {
+                                Image(systemName: "chevron.down")
+                                    .onTapGesture {
+                                        if tempRow < matrix.rows - 1 {tempRow += 1}
+                                        focusedField = boxFocused(row: tempRow, col: tempCol)
+                                    }
+                                    .padding(.vertical, 9)
+                                    .frame(maxWidth: textWidth)
+                                    .background(val < 0 ? .green : .secondary)
+                                    
+                                
+                                Image(systemName: "chevron.up")
+                                    .onTapGesture {
+                                        if tempRow > 0 {tempRow -= 1 }
+                                        focusedField = boxFocused(row: tempRow, col: tempCol)
+                                    }
+                                    .padding(.vertical, 9)
+                                    .frame(maxWidth: textWidth)
+                                    .background(val >= 0 ? .green : .secondary)
+                                    
+                            }
+                            .clipShape(.rect(cornerRadius: 10))
+                            .frame(maxWidth: textWidth * 2)
+                        
+                        }
                     }
                 }
             }
@@ -369,6 +519,10 @@ struct ListEditView: View {
     
     var val: Double {
         matrix[tempRow][tempCol]
+    }
+    
+    var textWidth: Double {
+        sw / 8.0
     }
 }
 

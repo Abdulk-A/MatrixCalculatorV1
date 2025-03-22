@@ -55,7 +55,7 @@ struct MultipleMatrixView: View {
                     MatrixEditView(matrix: $matrix1, isKeyboardShowing: $isKeyboardShowing, tempCol: $tempCol, tempRow: $tempRow, boxColor: tempColor, numCols: numCols, numRows: numRows, sW: screenWidth, sH: screenHeight, showPrincipleButton: $showPrincipleButton)
                         .padding(.bottom, isKeyboardShowing ? 0 : screenHeight / 25)
                 } else {
-                    ListEditView(matrix: $matrix1, tempCol: $tempCol, tempRow: $tempRow, sH: screenHeight, boxColor: tempColor, isKeyboardShowing: $isKeyboardShowing, showPrincipleButton: $showPrincipleButton)
+                    ListEditView(matrix: $matrix1, tempCol: $tempCol, tempRow: $tempRow, sH: screenHeight, boxColor: tempColor, isKeyboardShowing: $isKeyboardShowing, showPrincipleButton: $showPrincipleButton, sw: screenWidth)
                 }
                 
                 if !isKeyboardShowing {
