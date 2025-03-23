@@ -333,6 +333,7 @@ extension NumberFormatter {
     }()
 }
 
+
 struct ListEditView: View {
     
     @Binding var matrix: Matrix
@@ -506,9 +507,9 @@ struct ListEditView: View {
             if !showPrincipleButton {
                 ToolbarItem(placement: .principal) {
                     
-                    Text("\(matrix.values[tempRow][tempCol])")
+                    Text("\(matrix.values[tempRow][tempCol].formatted(.number))")
                         .padding(8)
-                        .frame(maxWidth: 100)
+                        .frame(maxWidth: 100, alignment: .leading)
                         .foregroundStyle(.white)
                         .background(boxColor)
                         .clipShape(.rect(cornerRadius: 10))
