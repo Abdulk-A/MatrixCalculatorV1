@@ -75,6 +75,13 @@
 			path = Study;
 			sourceTree = "<group>";
 		};
+		B8CE73EA2D8FCBBB00736A03 /* ExtensionsAndViewMods */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ExtensionsAndViewMods;
+			sourceTree = "<group>";
+		};
 		B8E00C2E2D18FA0300BD0C0E = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +102,7 @@
 		B8E00C392D18FA0300BD0C0E /* MatrixCalculatorV1 */ = {
 			isa = PBXGroup;
 			children = (
+				B8CE73EA2D8FCBBB00736A03 /* ExtensionsAndViewMods */,
 				B82E0C0B2D61A28A009E1445 /* Study */,
 				B887D0572D48C48100053122 /* Info.plist */,
 				B8E00C3A2D18FA0300BD0C0E /* MatrixCalculatorV1App.swift */,

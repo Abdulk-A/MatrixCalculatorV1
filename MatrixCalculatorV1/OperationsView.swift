@@ -24,27 +24,21 @@ struct OperationsView: View {
                 
                 VStack {
                     ScrollView {
-                        Text("Calculator")
-                            .frame(maxWidth: .infinity)
-                            .font(.largeTitle)
-                            .foregroundStyle(.white)
-                            .blur(radius: 8)
-                            .overlay{
-                                Text("Calculator")
-                                    .font(.largeTitle)
-                                    .foregroundStyle(.white)
-                                    .bold()
-                            }
-                            .padding(.bottom, 20)
+
                         
                         ForEach(MatrixOperation.allCases, id: \.self) { op in
                             if op == .add || op == .subtract || op == .multiply {
                                 OperationNavView(destination: AddSubtractView(sW: screenWidth, sH: screenHeight, operationType: op), label: op.rawValue)
+                                    .padding(.bottom, -3)
                             } else {
                                 OperationNavView(destination: TransposeView(sW: screenWidth, sH: screenHeight, operationType: op), label: op.rawValue)
+                                    .padding(.bottom, -3)
                             }
                         }
+                        
+                        
                     }
+                    
                 }
                 .frame(maxWidth: 500, maxHeight: screenHeight * 0.55)
                 .padding()
