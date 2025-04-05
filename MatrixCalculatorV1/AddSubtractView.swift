@@ -34,7 +34,7 @@ struct AddSubtractView: View {
     var body: some View {
         ZStack {
             
-            GridImageBackgroundView(name: "grid3", sW: sW, sH: sH)
+            GridImageBackgroundView(name: "grid_background_new", sW: sW, sH: sH)
             
             VStack {
                 
@@ -53,6 +53,8 @@ struct AddSubtractView: View {
                     HStack {
                         Text("Matrix A")
                             .bold()
+                            .foregroundStyle(.red.opacity(0.75))
+                            .shadow(radius: 2)
                         Spacer()
  
                         NavigationLink(destination: MultipleMatrixView(screenWidth: sW, screenHeight: sH, numRows: $numRows, numCols: $numCols, numRowsB: $numRowsB, numColsB: $numColsB, matrix1: $matrixA, matrix2: $matrixB, result: $result, isMatrixA: true, tempColor: .red.opacity(0.8), operationType: operationType, onCalculate: operationFunction)){
@@ -65,11 +67,14 @@ struct AddSubtractView: View {
                         }
                         .buttonStyle(PlainButtonStyle())
                     }
+                    .padding(.top, bottomMenuPadding / 2)
                     .padding(.horizontal)
                     
                     HStack {
                         Text("Matrix B")
                             .bold()
+                            .foregroundStyle(.blue.opacity(0.75))
+                            .shadow(radius: 2)
                         Spacer()
                         
                         NavigationLink(destination: MultipleMatrixView(screenWidth: sW, screenHeight: sH, numRows: $numRowsB, numCols: $numColsB, numRowsB: $numRows, numColsB: $numCols, matrix1: $matrixB, matrix2: $matrixA, result: $result, isMatrixA: false, tempColor: .blue.opacity(0.85), operationType: operationType, onCalculate: operationFunction)) {
@@ -83,14 +88,18 @@ struct AddSubtractView: View {
                         .buttonStyle(PlainButtonStyle())
                     }
                     .padding(.horizontal)
+                    .padding(.bottom, bottomMenuPadding * 1.4)
                 }
                 .font(.title)
                 .foregroundStyle(.white)
-                
-                .frame(width: sW, height: topBottomSegment)
-                .background(Color("ButtonBackgroundStyle").opacity(0.65))
+    
+                .frame(maxWidth: sW, maxHeight: 180)
+               
                 .clipShape(.rect(cornerRadius: 15))
+                
             }
+            
+            
         }
         .ignoresSafeArea()
         .navigationBarBackButtonHidden(true)
@@ -120,6 +129,10 @@ struct AddSubtractView: View {
             }
 
         }
+    }
+    
+    var bottomMenuPadding: Double {
+        sH / 12.0
     }
     
     var topBottomSegment: Double {

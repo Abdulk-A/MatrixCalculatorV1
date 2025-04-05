@@ -20,7 +20,7 @@ struct OperationsView: View {
         NavigationStack {
             ZStack {
                 
-                GridImageBackgroundView(name: "grid3", sW: screenWidth, sH: screenHeight)
+                GridImageBackgroundView(name: "grid_background_new", sW: screenWidth, sH: screenHeight)
                 
                 VStack {
                     ScrollView {
@@ -143,7 +143,7 @@ struct GridImageBackgroundView: View {
             .scaledToFill()
             .frame(width: sW, height: sH)
             .ignoresSafeArea()
-            .opacity(0.2)
+            .opacity(0.075)
     }
 }
 
