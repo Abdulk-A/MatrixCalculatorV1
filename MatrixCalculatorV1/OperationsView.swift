@@ -44,7 +44,9 @@ struct OperationsView: View {
                 .padding()
                 .background(
                     RoundedRectangle(cornerRadius: 15)
-                        .foregroundStyle(Color("MenuBackgroundColor"))
+                        .foregroundStyle(Color(red: 0.071, green: 0.071, blue: 0.071, opacity: 0.6))
+//                        .foregroundStyle(.black)
+                    
                         .shadow(radius: 10)
                 )
                 .padding()
@@ -71,7 +73,7 @@ struct CustomTextStyle: ViewModifier {
                     .foregroundStyle(backgroundColor)
             )
             .font(.title.bold())
-            .foregroundStyle(.white.opacity(0.8))
+            .foregroundStyle(.white)
             .padding(.bottom, 6)
             .shadow(radius: 5)
             .shadow(radius: 6)
@@ -110,7 +112,8 @@ enum MatrixOperation: String, CaseIterable {
 
 extension View {
     func myTextStyle(_ backgroundColor: Color) -> some View {
-        modifier(CustomTextStyle(backgroundColor: backgroundColor))
+        modifier(CustomTextStyle(backgroundColor: .white))
+            .opacity(0.15)
     }
     
     func myBackgroundStyle(height: Double) -> some View {
@@ -127,6 +130,7 @@ struct OperationNavView<Destination: View>: View {
         NavigationLink(destination: destination) {
             Text(label)
                 .myTextStyle(Color("ButtonBackgroundStyle"))
+                
         }
     }
 }
@@ -138,12 +142,24 @@ struct GridImageBackgroundView: View {
     let sH: Double
     
     var body: some View {
-        Image(name)
-            .resizable()
-            .scaledToFill()
-            .frame(width: sW, height: sH)
-            .ignoresSafeArea()
-            .opacity(0.075)
+        
+        ZStack {
+            
+//            Color(red: 0.298, green: 0.686, blue: 0.314, opacity: 0.3) // #4caf50
+//            LinearGradient(colors: [.purple, .yellow, .orange, .red], startPoint: .top, endPoint: .bottom)
+//                .opacity(0.3)
+            
+            LinearGradient(colors: [.gray, .black, .gray, .black], startPoint: .top, endPoint: .bottom)
+                .opacity(0.3)
+            
+            
+            Image(name)
+                .resizable()
+                .scaledToFill()
+                .frame(width: sW, height: sH)
+                .ignoresSafeArea()
+                .opacity(0.075)
+        }
     }
 }
 
